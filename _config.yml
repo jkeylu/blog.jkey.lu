@@ -38,6 +38,7 @@ disqus_shortname: jkeylu
 
 # Extensions
 plugins:
+  hexo-generator-feed
 theme: light
 exclude_generator:
 
