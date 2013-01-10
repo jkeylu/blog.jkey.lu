@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title><![CDATA[jKey' Blog]]></title>
+  <link href="http://blog.jkey.lu/atom.xml" rel="self"/>
+  <link href="http://blog.jkey.lu"/>
+  <updated>2013-01-10T03:14:24.346Z</updated>
+  <id>http://blog.jkey.lu/</id>
+  <author>
+    <name><![CDATA[jKey Lu]]></name>
+    <email><![CDATA[i@jkey.lu]]></email>
+  </author>
+  <generator uri="http://zespia.tw/hexo">Hexo</generator>
+  <entry>
+    <title type="html"><![CDATA[Hello World]]></title>
+    <link href="http://blog.jkey.lu/2013/01/09/hello-world/"/>
+    <id>http://blog.jkey.lu/2013/01/09/hello-world/</id>
+    <published>2013-01-08T16:18:21.000Z</published>
+    <updated>2013-01-08T16:18:21.000Z</updated>
+    <content type="html"><![CDATA[<p>Welcome to <a href="http://zespia.tw/hexo">Hexo</a>! This is your very first post. Check <a href="http://zespia.tw/hexo/docs">documentation</a> to learn how to use.</p>
+]]></content>
+  </entry>
+</feed>
