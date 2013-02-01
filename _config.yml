@@ -1,31 +1,56 @@
-# Basic
+# Site
 title: jKey' Blog
 subtitle:
 description:
-url: http://blog.jkey.lu
 author: jKey Lu
 email: i@jkey.lu
 language: zh-CN
 
-# Permalink
+# URL
+url: http://blog.jkey.lu
 root: /
 permalink: :year/:month/:day/:title/
 tag_dir: tags
 archive_dir: archives
 category_dir: posts
-new_post_name: :title.md
 
-# Archives
+# Writing
+new_post_name: :year-:month-:day-:title.md
+default_layout: post
+auto_spacing: false # Add spaces between asian characters and western characters
+titlecase: false # Transform title into titlecase
+max_open_file: 100
+highlight:
+  enable: true
+  backtick_code_block: true
+  line_number: true
+  tab_replace:
+
+# Category & Tag
+default_category: uncategorized
+category_map:
+tag_map:
+
+# Archive
+## 2: Enable pagination
+## 1: Disable pagination
+## 0: Fully Disable
 archive: 2
 category: 2
 tag: 2
 
 # Server
+## Hexo uses Connect as a server
+## You can customize the logger format as defined in
+## http://www.senchalabs.org/connect/logger.html
 port: 4000
 logger: false
 logger_format:
 
 # Date / Time format
+## Hexo uses Moment.js to parse and display date
+## You can customize the date format as defined in
+## http://momentjs.com/docs/#/displaying/format/
 date_format: MMM D, YYYY
 time_format: H:mm:ss
 
@@ -40,20 +65,15 @@ disqus_shortname:
 duoshuo_shortname: blogjkeylu
 
 # Extensions
+## Plugins: https://github.com/tommy351/hexo/wiki/Plugins
+## Themes: https://github.com/tommy351/hexo/wiki/Themes
 plugins:
   hexo-generator-feed
 theme: light
 exclude_generator:
 
-# Enhancement
-auto_spacing: false
-titlecase: false
-highlight:
-  enable: true
-  backtick_code_block: true
-  line_number: true
-
 # Deployment
+## Docs: http://zespia.tw/hexo/docs/deploy.html
 deploy:
   type: github
   repository: git@github.com:jkeylu/blog.jkey.lu.git
