@@ -3,13 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>归档 | jKey' Blog</title>
+  <title>python 中 *args 和 **kwargs | jKey' Blog</title>
   <meta name="author" content="jKey Lu">
+  
+  <meta name="description" content="python 中的 args 和 *kwargs 真是个神奇的东西，看了书研究了一下 python 的参数匹配模型，顺便记录下来，感觉自己记性总是不怎么好。
+1. 位置：从做至右进行匹配
+这种应该是最常见的一种了，看下面代码，一看便知了。
+1234def foo(a, b, c):    print">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="python 中 *args 和 **kwargs"/>
   <meta property="og:site_name" content="jKey' Blog"/>
 
   <link href="/favicon.png" rel="icon">
@@ -40,12 +45,7 @@
   <div id="content" class="inner">
     <div id="main-col" class="alignleft"><div id="wrapper">
 
-
-<h2 class="archive-title">归档</h2>
-
-
-  
-    <article class="post">
+<article class="post">
   
   <div class="post-content">
     <header>
@@ -55,7 +55,7 @@
       
       
   
-    <h1 class="title"><a href="/2013/02/24/python-args-and-kwargs/">python 中 *args 和 **kwargs</a></h1>
+    <h1 class="title">python 中 *args 和 **kwargs</h1>
   
 
     </header>
@@ -91,6 +91,34 @@
       
         
         
+  
+  <div class="tags">
+    <a href="/tags/python/">python</a>
+  </div>
+
+        
+
+  <div class="jiathis_style_24x24">
+    <a class="jiathis_button_qzone"></a>
+    <a class="jiathis_button_tsina"></a>
+    <a class="jiathis_button_tqq"></a>
+    <a class="jiathis_button_renren"></a>
+    <a class="jiathis_button_kaixin001"></a>
+    <a class="jiathis_button_xiaoyou"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+    <a class="jiathis_counter_style"></a>
+  </div>
+  <script type="text/javascript" >
+    var jiathis_config={
+      data_track_clickback:true,
+      siteNum:8,
+      sm:"googleplus,douban9dian,twitter,fb,huaban,xianguo,fanfou,evernote",
+      summary:"",
+      hideMore:false
+    }
+  </script>
+  <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+
       
       <div class="clearfix"></div>
     </footer>
@@ -98,172 +126,12 @@
 </article>
 
 
-  
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2013-02-15T13:55:35.000Z"><a href="/2013/02/15/install-pptp-on-ubuntu/">Feb 15, 2013</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2013/02/15/install-pptp-on-ubuntu/">Ubuntu 上安装 pptp</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>好吧，这其这篇是很久很久以前用 Wordpress 时写的，但是，过去了很久，又快忘了。所以，再写一遍。</p>
-<p>先说一下我安装 pptp 的环境是 buyvm 上 128m 的 vps，安装了 ubuntu 系统。</p>
-<ol>
-<li><p>首先到 /dev/ 和 /dev/net/ 下确认是否有 ppp 和 tun 两个设备</p>
-<pre><code><div class="line"> <span class="regexp">/dev/</span>ppp</div><div class="line"> <span class="regexp">/dev/net/</span>tun</div></code></pre>
-</li>
-<li><p>安装 pptpd</p>
-<pre><code><div class="line"> apt-<span class="keyword">get</span> install pptpd</div></code></pre>
-</li>
-<li><p>编辑 /etc/pptpd.conf 文件</p>
-<pre><code><div class="line"> <span class="title">vim</span> /etc/pptpd.conf</div></code></pre>
-<p> 去掉一下几句前面的 # 号</p>
-<pre><code><div class="line"> <span class="title">option</span> /etc/ppp/pptpd-options</div><div class="line"> localip <span class="number">192.168.0.1</span></div><div class="line"> remoteip <span class="number">192.168.0.234</span>-<span class="number">238</span>,<span class="number">192.168.0.245</span></div></code></pre>
-</li>
-<li><p>编辑 /etc/ppp/pptpd-options 文件，设置 DNS</p>
-<pre><code><div class="line"> <span class="title">vim</span> /etc/ppp/pptpd-options</div></code></pre>
-<p> 找到 ms-dns 去掉 # 号，并修改 DNS 地址</p>
-<pre><code><div class="line"> ms-dns 8.8.8.8</div><div class="line"> ms-dns 8.8.4.4</div></code></pre>
-</li>
-<li><p>编辑 /etc/ppp/chap-secrets ，加入用户</p>
-<pre><code><div class="line"> 用户名 pptpd 密码 *</div></code></pre>
-<p> 解释一下：分别用你自己想要的用户名和密码去替换‘用户名’ 和 ‘密码’，你当然可以添加 n 个，每行一个。</p>
-<p> 以上设置完后基本上可以在 windows 上新建 vpn 连接后可以连接了，只是以上的设置只能访问服务器资源，而不能访问这台服务器以外的资源。所以，我们在进行配置。</p>
-</li>
-<li><p>编辑 /etc/sysctl.conf 文件，找到以下行，去掉 # 号注释符号</p>
-<pre><code><div class="line"> net<span class="variable">.ipv4</span><span class="variable">.ip_forward</span>=<span class="number">1</span></div></code></pre>
-<p> 然后在运行以下命令使配置生效</p>
-<pre><code><div class="line"> <span class="title">sysctl</span> -p</div></code></pre>
-</li>
-<li><p>安装 iptables</p>
-<pre><code><div class="line"> apt-<span class="keyword">get</span> install iptables</div></code></pre>
-</li>
-<li><p>向 nat 表中添加一条规则：</p>
-<pre><code><div class="line"> <span class="comment">iptables</span> <span class="literal">-</span><span class="comment">t</span> <span class="comment">nat</span> <span class="literal">-</span><span class="comment">A</span> <span class="comment">POSTROUTING</span> <span class="literal">-</span><span class="comment">s</span> <span class="comment">192</span>.<span class="comment">168</span>.<span class="comment">0</span>.<span class="comment">0/24</span> <span class="literal">-</span><span class="comment">o</span> <span class="comment">venet0</span> <span class="literal">-</span><span class="comment">j</span> <span class="comment">MASQUERADE</span></div><div class="line"> <span class="comment">//venet0是物理网卡，用</span> <span class="comment">ifconfig</span> <span class="comment">查看</div></code></pre>
-<p> 如果执行这条命令后提示</p>
-<pre><code><div class="line"> iptables: No chain/target/match <span class="keyword">by</span> <span class="keyword">that</span> <span class="property">name</span>.</div></code></pre>
-<p> 那么改为以下命令重新执行：</p>
-<pre><code><div class="line"> <span class="comment">iptables</span> <span class="literal">-</span><span class="comment">t</span> <span class="comment">nat</span> <span class="literal">-</span><span class="comment">A</span> <span class="comment">POSTROUTING</span> <span class="literal">-</span><span class="comment">s</span> <span class="comment">192</span>.<span class="comment">168</span>.<span class="comment">0</span>.<span class="comment">0/24</span> <span class="literal">-</span><span class="comment">o</span> <span class="comment">venet0</span> <span class="literal">-</span><span class="comment">j</span> <span class="comment">SNAT</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">to</span>-<span class="comment">source</span> <span class="comment">xxx</span>.<span class="comment">xxx</span>.<span class="comment">xxx</span>.<span class="comment">xxx</div></code></pre>
-<p> 最后的 xxx.xxx.xxx.xxx 是你 vps 的 ip 地址。</p>
-</li>
-<li><p>虽然现在设置好了 iptables 但是下次重启时会被清除，所以我们需要把它保存下来</p>
-<pre><code><div class="line"> iptables-save &gt; <span class="regexp">/etc/iptables</span>-rules</div></code></pre>
-<p> 然后修改 /etc/network/interfaces 文件，找到 venet0 的结点，添加 pre-up 那一行：</p>
-<pre><code><div class="line"> auto venet0</div><div class="line"> iface venet0 inet static</div><div class="line"> pre-up iptables-restore <span class="tag">&lt; /<span class="attribute">etc</span>/<span class="attribute">iptables-rules</span></div></code></pre>
-<p> 这样重启后会自动加载之前设置好的 iptables 规则。</p>
-<p> 但是有可能每次重启后 interfaces 都会被重写还原,那么上面方法就失效了。</p>
-<p> 而我用的方法是在 /etc/rc.local 文件中添加一行 <code>iptables-restore /etc/iptables-rules</code></p>
-<p> 当然你也可以在每次重启后手动执行 <code>iptables-restore /etc/iptables-rules</code></p>
-<p> 好了这样就设置好了。</p>
-</li>
-</ol>
-<p>参考文章：</p>
-<ol>
-<li><p><a href="http://wiki.wowubuntu.com/linux/openvz-archlinux-pptp-vpn">OpenVZ VPS 上架设 PPTP VPN</a></p>
-</li>
-<li><p><a href="http://qiaodahai.com/personal/article/2010/debian-ubuntu-setup-pptp-vpn.htm">Debian/Ubuntu快速搭建PPTP VPN</a></p>
-</li>
-<li><p><a href="http://pityonline.info/?p=1054">Install and Configure OpenVPN</a></p>
-</li>
-</ol>
-
-      
-    </div>
-    <footer>
-      
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
+<section id="comment">
+  <h1 class="title">留言</h1>
+  <div class="ds-thread">
+    <noscript>Please enable JavaScript to view the comments powered by DuoShuo.</noscript>
   </div>
-</article>
-
-
-  
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2013-02-02T11:58:10.000Z"><a href="/2013/02/02/began-to-lose-control/">Feb 2, 2013</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2013/02/02/began-to-lose-control/">感觉最近不能掌控自己了</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>最近感觉自己很累，每天想僵尸一样的生活。确切的说现在的生活就像把自己的大脑放进一具僵尸的身体里，虽然能够清楚的看清周围，但是身体已经完全不受大脑控制了。每天做着意义不大的机械运动，渐渐的身体疲惫了，身体对大脑说“我累了，我要停下来休息一下”，大脑说“刹车已经坏很久了，你现在做的运动完全靠的是惯性，我已经失去了控制”。</p>
-<p>去年买了两本书《拖延心理学》和《拆掉思维的墙》，两本书都没有看完，现在烂在那里。两本都只看了一般，初看感觉这本书就是完全在写我的。看了一半没有看完恰恰有印证了这一点，从书中的案例中我看到了自己，知道自己为什么导致了不受自己掌控的原因，但是就是无法改变自己。</p>
-<p>就像《拖延心理学》中讲的那样，拖延者每每在经历一次拖延的折磨后，都会毅然决然的下定决心从此不再踏入那个拖延怪圈一步。你发誓，下一次你一定早一点开始，控制好自己……</p>
-<p>而我接下来做的也就是毅然决然的下定决心……</p>
-<p>去年买了很多书都还没看完，自己的几个 idea 还没实现，空气是免费的。</p>
-
-      
-    </div>
-    <footer>
-      
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-  
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2013-01-08T16:18:21.000Z"><a href="/2013/01/09/hello-world/">Jan 9, 2013</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2013/01/09/hello-world/">Hello World</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>Welcome to <a href="http://zespia.tw/hexo">Hexo</a>! This is your very first post. Check <a href="http://zespia.tw/hexo/docs">documentation</a> to learn how to use.</p>
-
-      
-    </div>
-    <footer>
-      
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-  
-
-  <nav id="pagination">
-  
-  
-  <div class="clearfix"></div>
-</nav>
+</section>
 </div></div>
     <aside id="sidebar" class="alignright">
 <div class="search">
