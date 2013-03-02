@@ -1,5 +1,5 @@
 # Site
-title: jKey' Blog
+title: jKey Blog
 subtitle:
 description:
 author: jKey Lu
@@ -68,7 +68,8 @@ duoshuo_shortname: blogjkeylu
 ## Plugins: https://github.com/tommy351/hexo/wiki/Plugins
 ## Themes: https://github.com/tommy351/hexo/wiki/Themes
 plugins:
-  hexo-generator-feed
+- hexo-generator-feed
+- hexo-generator-sitemap
 theme: light
 exclude_generator:
 
