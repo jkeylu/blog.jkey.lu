@@ -12,7 +12,7 @@ root: /
 permalink: :year/:month/:day/:title/
 tag_dir: tags
 archive_dir: archives
-category_dir: posts
+category_dir: categories
 
 # Writing
 new_post_name: :year-:month-:day-:title.md
