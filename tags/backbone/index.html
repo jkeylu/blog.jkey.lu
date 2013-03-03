@@ -1,22 +1,71 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-  <title><![CDATA[jKey Blog]]></title>
-  <link href="http://blog.jkey.lu/atom.xml" rel="self"/>
-  <link href="http://blog.jkey.lu"/>
-  <updated>2013-03-03T12:37:25.838Z</updated>
-  <id>http://blog.jkey.lu/</id>
-  <author>
-    <name><![CDATA[jKey Lu]]></name>
-    <email><![CDATA[i@jkey.lu]]></email>
-  </author>
-  <generator uri="http://zespia.tw/hexo">Hexo</generator>
-  <entry>
-    <title type="html"><![CDATA[Backbone.js 中的 model 是什么？]]></title>
-    <link href="http://blog.jkey.lu/2013/03/03/what-is-a-model-in-backbone/"/>
-    <id>http://blog.jkey.lu/2013/03/03/what-is-a-model-in-backbone/</id>
-    <published>2013-03-03T05:55:58.000Z</published>
-    <updated>2013-03-03T12:32:09.000Z</updated>
-    <content type="html"><![CDATA[<p>根据维基百科上对 <a href="http://zh.wikipedia.org/wiki/MVC">MVC</a> 的定义，我们很难搞懂 model 到底是个什么东西。Backbone.js 的作者对 model 在 backbone.js 中的定义如下。</p>
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>backbone | jKey Blog</title>
+  <meta name="author" content="jKey Lu">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="jKey Blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="jKey Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+  
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">jKey Blog</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper">
+
+
+<h2 class="archive-title tag">backbone</h2>
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2013-03-03T05:55:58.000Z"><a href="/2013/03/03/what-is-a-model-in-backbone/">Mar 3, 2013</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2013/03/03/what-is-a-model-in-backbone/">Backbone.js 中的 model 是什么？</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>根据维基百科上对 <a href="http://zh.wikipedia.org/wiki/MVC">MVC</a> 的定义，我们很难搞懂 model 到底是个什么东西。Backbone.js 的作者对 model 在 backbone.js 中的定义如下。</p>
 <blockquote>
 <p>Models are the heart of any JavaScript application, containing the interactive data as well as a large part of the logic surrounding it: conversions, validations, computed properties, and access control.</p>
 </blockquote>
@@ -94,129 +143,97 @@
 <p><a href="http://backbonetutorials.com/what-is-a-model/">What is a model?</a></p>
 <p><a href="http://backbonejs.org/#Model">Backbone.Model</a></p>
 <p>基于版本：<a href="https://github.com/thomasdavis/backbonetutorials/tree/9e4aba0af8b56538e6cdda034770c4971a43c181">9e4aba0af8</a></p>
-]]></content>
-    <category scheme="http://blog.jkey.lu/tags/backbone/" term="backbone"/>
-  </entry>
-  <entry>
-    <title type="html"><![CDATA[python 中 *args 和 **kwargs]]></title>
-    <link href="http://blog.jkey.lu/2013/02/24/python-args-and-kwargs/"/>
-    <id>http://blog.jkey.lu/2013/02/24/python-args-and-kwargs/</id>
-    <published>2013-02-24T04:56:35.000Z</published>
-    <updated>2013-02-24T11:11:57.000Z</updated>
-    <content type="html"><![CDATA[<p>python 中的 <em>args 和 *</em>kwargs 真是个神奇的东西，看了书研究了一下 python 的参数匹配模型，顺便记录下来，感觉自己记性总是不怎么好。</p>
-<h2>1. 位置：从做至右进行匹配</h2>
-<p>这种应该是最常见的一种了，看下面代码，一看便知了。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><code><div class="line-number">1</div><div class="line-number">2</div><div class="line-number">3</div><div class="line-number">4</div></code></pre></td><td class="code"><pre><code><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(a, b, c)</span>:</span></div><div class="line">    print(a, b, c)</div><br><div class="line">foo(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>) <span class="comment"># (1, 2, 3)</span></div></code></pre></td></tr></table></figure>
 
-<h2>2. 关键字参数：通过参数名进行匹配</h2>
-<p>调用的函数可以定义哪一个函数参数接受这个值，好吧，还是看代码把。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><code><div class="line-number">1</div><div class="line-number">2</div><div class="line-number">3</div><div class="line-number">4</div><div class="line-number">5</div><div class="line-number">6</div></code></pre></td><td class="code"><pre><code><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(a, b, c)</span>:</span></div><div class="line">    print(a, b, c)</div><br><div class="line"><span class="comment"># 注意这里传递参数时的顺序可以与定义的顺序不一致</span></div><div class="line">foo(b=<span class="number">1</span>, a=<span class="number">2</span>, c=<span class="number">3</span>) <span class="comment"># (2, 1, 3)</span></div><div class="line">foo(<span class="number">1</span>, c=<span class="number">2</span>, b=<span class="number">3</span>) <span class="comment"># (1, 3, 2)</span></div></code></pre></td></tr></table></figure>
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
 
-<h2>3. 默认参数：为没有传入值的参数定义参数值</h2>
-<p>顾名思义，就是在定义函数时同时定义某个参数的默认值</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><code><div class="line-number">1</div><div class="line-number">2</div><div class="line-number">3</div><div class="line-number">4</div><div class="line-number">5</div></code></pre></td><td class="code"><pre><code><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(a, b=<span class="number">1</span>, c=<span class="number">4</span>)</span>:</span></div><div class="line">    print(a, b, c)</div><br><div class="line">foo(<span class="number">1</span>) <span class="comment"># (1, 1, 4)</span></div><div class="line">foo(<span class="number">1</span>, c=<span class="number">2</span>) <span class="comment"># (1, 1, 2)</span></div></code></pre></td></tr></table></figure>
 
-<h2>4. 可变参数：收集任意多关于位置或关键字的参数</h2>
-<p>好吧，终于到了重点，写到这里感觉这篇文章根本不应该叫这个名字，哎，算了。</p>
-<p>在函数头用 * 定义的参数是用来收集调用者传进来的参数的，还是看代码吧。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><code><div class="line-number">1</div><div class="line-number">2</div><div class="line-number">3</div><div class="line-number">4</div></code></pre></td><td class="code"><pre><code><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(*args, **kwargs)</span>:</span></div><div class="line">    print(args, kwargs)</div><br><div class="line">foo(<span class="number">1</span>, <span class="number">2</span>, a=<span class="number">3</span>, b=<span class="number">4</span>) <span class="comment"># ((1, 2), {'a': 3, 'b': 4})</span></div></code></pre></td></tr></table></figure>
+  
 
-<h2>5. 可变参数解包：传递任意多的基于位置或关键字的参数</h2>
-<p>当在调用函数时用 * 时，这就意味着解包，就是把参数集合打散，然后传给函数。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><code><div class="line-number">1</div><div class="line-number">2</div><div class="line-number">3</div><div class="line-number">4</div><div class="line-number">5</div><div class="line-number">6</div><div class="line-number">7</div><div class="line-number">8</div><div class="line-number">9</div><div class="line-number">10</div></code></pre></td><td class="code"><pre><code><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(a, b, c, d)</span>:</span></div><div class="line">    print(a, b, c, d)</div><br><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">bar</span><span class="params">(*args, **kwargs)</span>:</span> <span class="comment"># 这里的 * 是收集参数的</span></div><div class="line">    print(args, kwargs)</div><div class="line">    foo(*args, **kwargs) <span class="comment"># 当在调用函数时用 * 时，则用来解包的</span></div><br><div class="line">bar(<span class="number">1</span>, <span class="number">2</span>, c=<span class="number">3</span>, d=<span class="number">4</span>)</div><div class="line"><span class="comment"># ((1, 2), {'c': 3, 'd': 4})</span></div><div class="line"><span class="comment"># (1, 2, 3, 4)</span></div></code></pre></td></tr></table></figure>
+  <nav id="pagination">
+  
+  
+  <div class="clearfix"></div>
+</nav>
+</div></div>
+    <aside id="sidebar" class="alignright">
+<div class="search">
+  <form action="http://google.com/search" method="get" accept-charset="utf-8">
+    <input type="text" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:blog.jkey.lu">
+  </form>
+</div>
 
-<p>最后看一个混合的</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><code><div class="line-number">1</div><div class="line-number">2</div><div class="line-number">3</div><div class="line-number">4</div><div class="line-number">5</div><div class="line-number">6</div><div class="line-number">7</div><div class="line-number">8</div><div class="line-number">9</div><div class="line-number">10</div><div class="line-number">11</div><div class="line-number">12</div><div class="line-number">13</div></code></pre></td><td class="code"><pre><code><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(a, b, c, d, e=<span class="number">4</span>)</span>:</span></div><div class="line">    print(a, b, c, d, e)</div><br><div class="line">p1 = [<span class="number">1</span>, <span class="number">2</span>]</div><div class="line">p2 = {<span class="string">'d'</span>: <span class="number">3</span>}</div><br><div class="line">foo(<span class="number">0</span>, *p1, d=<span class="number">3</span>) <span class="comment"># (0, 1, 2, 3, 4)</span></div><div class="line">foo(<span class="number">0</span>, *p1, **p2) <span class="comment"># (0, 1, 2, 3, 4)</span></div><br><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">bar</span><span class="params">(a, *args, **kwargs)</span>:</span></div><div class="line">    print(a, args, kwargs)</div><br><div class="line">bar(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, b=<span class="number">4</span>, c=<span class="number">5</span>) <span class="comment"># (1, (2, 3), {'c': 5, 'b': 4})</span></div></code></pre></td></tr></table></figure>]]></content>
-    <category scheme="http://blog.jkey.lu/tags/python/" term="python"/>
-  </entry>
-  <entry>
-    <title type="html"><![CDATA[Ubuntu 上安装 pptp]]></title>
-    <link href="http://blog.jkey.lu/2013/02/15/install-pptp-on-ubuntu/"/>
-    <id>http://blog.jkey.lu/2013/02/15/install-pptp-on-ubuntu/</id>
-    <published>2013-02-15T13:55:35.000Z</published>
-    <updated>2013-02-15T14:54:45.000Z</updated>
-    <content type="html"><![CDATA[<p>好吧，这其这篇是很久很久以前用 Wordpress 时写的，但是，过去了很久，又快忘了。所以，再写一遍。</p>
-<p>先说一下我安装 pptp 的环境是 buyvm 上 128m 的 vps，安装了 ubuntu 系统。</p>
-<ol>
-<li><p>首先到 /dev/ 和 /dev/net/ 下确认是否有 ppp 和 tun 两个设备</p>
-<pre><code><div class="line"> <span class="regexp">/dev/</span>ppp</div><div class="line"> <span class="regexp">/dev/net/</span>tun</div></code></pre>
-</li>
-<li><p>安装 pptpd</p>
-<pre><code><div class="line"> apt-<span class="keyword">get</span> install pptpd</div></code></pre>
-</li>
-<li><p>编辑 /etc/pptpd.conf 文件</p>
-<pre><code><div class="line"> <span class="title">vim</span> /etc/pptpd.conf</div></code></pre>
-<p> 去掉一下几句前面的 # 号</p>
-<pre><code><div class="line"> <span class="title">option</span> /etc/ppp/pptpd-options</div><div class="line"> localip <span class="number">192.168.0.1</span></div><div class="line"> remoteip <span class="number">192.168.0.234</span>-<span class="number">238</span>,<span class="number">192.168.0.245</span></div></code></pre>
-</li>
-<li><p>编辑 /etc/ppp/pptpd-options 文件，设置 DNS</p>
-<pre><code><div class="line"> <span class="title">vim</span> /etc/ppp/pptpd-options</div></code></pre>
-<p> 找到 ms-dns 去掉 # 号，并修改 DNS 地址</p>
-<pre><code><div class="line"> ms-dns 8.8.8.8</div><div class="line"> ms-dns 8.8.4.4</div></code></pre>
-</li>
-<li><p>编辑 /etc/ppp/chap-secrets ，加入用户</p>
-<pre><code><div class="line"> 用户名 pptpd 密码 *</div></code></pre>
-<p> 解释一下：分别用你自己想要的用户名和密码去替换‘用户名’ 和 ‘密码’，你当然可以添加 n 个，每行一个。</p>
-<p> 以上设置完后基本上可以在 windows 上新建 vpn 连接后可以连接了，只是以上的设置只能访问服务器资源，而不能访问这台服务器以外的资源。所以，我们在进行配置。</p>
-</li>
-<li><p>编辑 /etc/sysctl.conf 文件，找到以下行，去掉 # 号注释符号</p>
-<pre><code><div class="line"> net<span class="variable">.ipv4</span><span class="variable">.ip_forward</span>=<span class="number">1</span></div></code></pre>
-<p> 然后在运行以下命令使配置生效</p>
-<pre><code><div class="line"> <span class="title">sysctl</span> -p</div></code></pre>
-</li>
-<li><p>安装 iptables</p>
-<pre><code><div class="line"> apt-<span class="keyword">get</span> install iptables</div></code></pre>
-</li>
-<li><p>向 nat 表中添加一条规则：</p>
-<pre><code><div class="line"> <span class="comment">iptables</span> <span class="literal">-</span><span class="comment">t</span> <span class="comment">nat</span> <span class="literal">-</span><span class="comment">A</span> <span class="comment">POSTROUTING</span> <span class="literal">-</span><span class="comment">s</span> <span class="comment">192</span>.<span class="comment">168</span>.<span class="comment">0</span>.<span class="comment">0/24</span> <span class="literal">-</span><span class="comment">o</span> <span class="comment">venet0</span> <span class="literal">-</span><span class="comment">j</span> <span class="comment">MASQUERADE</span></div><div class="line"> <span class="comment">//venet0是物理网卡，用</span> <span class="comment">ifconfig</span> <span class="comment">查看</div></code></pre>
-<p> 如果执行这条命令后提示</p>
-<pre><code><div class="line"> iptables: No chain/target/match <span class="keyword">by</span> <span class="keyword">that</span> <span class="property">name</span>.</div></code></pre>
-<p> 那么改为以下命令重新执行：</p>
-<pre><code><div class="line"> <span class="comment">iptables</span> <span class="literal">-</span><span class="comment">t</span> <span class="comment">nat</span> <span class="literal">-</span><span class="comment">A</span> <span class="comment">POSTROUTING</span> <span class="literal">-</span><span class="comment">s</span> <span class="comment">192</span>.<span class="comment">168</span>.<span class="comment">0</span>.<span class="comment">0/24</span> <span class="literal">-</span><span class="comment">o</span> <span class="comment">venet0</span> <span class="literal">-</span><span class="comment">j</span> <span class="comment">SNAT</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">to</span>-<span class="comment">source</span> <span class="comment">xxx</span>.<span class="comment">xxx</span>.<span class="comment">xxx</span>.<span class="comment">xxx</div></code></pre>
-<p> 最后的 xxx.xxx.xxx.xxx 是你 vps 的 ip 地址。</p>
-</li>
-<li><p>虽然现在设置好了 iptables 但是下次重启时会被清除，所以我们需要把它保存下来</p>
-<pre><code><div class="line"> iptables-save &gt; <span class="regexp">/etc/iptables</span>-rules</div></code></pre>
-<p> 然后修改 /etc/network/interfaces 文件，找到 venet0 的结点，添加 pre-up 那一行：</p>
-<pre><code><div class="line"> auto venet0</div><div class="line"> iface venet0 inet static</div><div class="line"> pre-up iptables-restore <span class="tag">&lt; /<span class="attribute">etc</span>/<span class="attribute">iptables-rules</span></div></code></pre>
-<p> 这样重启后会自动加载之前设置好的 iptables 规则。</p>
-<p> 但是有可能每次重启后 interfaces 都会被重写还原,那么上面方法就失效了。</p>
-<p> 而我用的方法是在 /etc/rc.local 文件中添加一行 <code>iptables-restore /etc/iptables-rules</code></p>
-<p> 当然你也可以在每次重启后手动执行 <code>iptables-restore /etc/iptables-rules</code></p>
-<p> 好了这样就设置好了。</p>
-</li>
-</ol>
-<p>参考文章：</p>
-<ol>
-<li><p><a href="http://wiki.wowubuntu.com/linux/openvz-archlinux-pptp-vpn">OpenVZ VPS 上架设 PPTP VPN</a></p>
-</li>
-<li><p><a href="http://qiaodahai.com/personal/article/2010/debian-ubuntu-setup-pptp-vpn.htm">Debian/Ubuntu快速搭建PPTP VPN</a></p>
-</li>
-<li><p><a href="http://pityonline.info/?p=1054">Install and Configure OpenVPN</a></p>
-</li>
-</ol>
-]]></content>
-  </entry>
-  <entry>
-    <title type="html"><![CDATA[感觉最近不能掌控自己了]]></title>
-    <link href="http://blog.jkey.lu/2013/02/02/began-to-lose-control/"/>
-    <id>http://blog.jkey.lu/2013/02/02/began-to-lose-control/</id>
-    <published>2013-02-02T11:58:10.000Z</published>
-    <updated>2013-02-16T15:46:34.000Z</updated>
-    <content type="html"><![CDATA[<p>最近感觉自己很累，每天想僵尸一样的生活。确切的说现在的生活就像把自己的大脑放进一具僵尸的身体里，虽然能够清楚的看清周围，但是身体已经完全不受大脑控制了。每天做着意义不大的机械运动，渐渐的身体疲惫了，身体对大脑说“我累了，我要停下来休息一下”，大脑说“刹车已经坏很久了，你现在做的运动完全靠的是惯性，我已经失去了控制”。</p>
-<p>去年买了两本书《拖延心理学》和《拆掉思维的墙》，两本书都没有看完，现在烂在那里。两本都只看了一般，初看感觉这本书就是完全在写我的。看了一半没有看完恰恰有印证了这一点，从书中的案例中我看到了自己，知道自己为什么导致了不受自己掌控的原因，但是就是无法改变自己。</p>
-<p>就像《拖延心理学》中讲的那样，拖延者每每在经历一次拖延的折磨后，都会毅然决然的下定决心从此不再踏入那个拖延怪圈一步。你发誓，下一次你一定早一点开始，控制好自己……</p>
-<p>而我接下来做的也就是毅然决然的下定决心……</p>
-<p>去年买了很多书都还没看完，自己的几个 idea 还没实现，空气是免费的。</p>
-]]></content>
-  </entry>
-  <entry>
-    <title type="html"><![CDATA[Hello World]]></title>
-    <link href="http://blog.jkey.lu/2013/01/09/hello-world/"/>
-    <id>http://blog.jkey.lu/2013/01/09/hello-world/</id>
-    <published>2013-01-08T16:18:21.000Z</published>
-    <updated>2013-02-16T15:46:34.000Z</updated>
-    <content type="html"><![CDATA[<p>Welcome to <a href="http://zespia.tw/hexo">Hexo</a>! This is your very first post. Check <a href="http://zespia.tw/hexo/docs">documentation</a> to learn how to use.</p>
-]]></content>
-  </entry>
-</feed>
+
+<div class="widget tag">
+  <h3 class="title">分类</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/backbone-tutorials/">backbone-tutorials</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+
+<div class="widget tag">
+  <h3 class="title">标签</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/backbone/">backbone</a><small>1</small></li>
+  
+    <li><a href="/tags/python/">python</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2013 jKey Lu
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"blogjkeylu"};
+
+(function() {
+  var ds = document.createElement('script');
+  ds.type = 'text/javascript';ds.async = true;
+  ds.src = 'http://static.duoshuo.com/embed.js';
+  ds.charset = 'UTF-8';
+  (document.getElementsByTagName('head')[0] 
+  || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>
