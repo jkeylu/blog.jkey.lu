@@ -19,6 +19,8 @@ var Person = Backbone.Model.extend({
 
 所以 *initialize()* 会在初始化 model 为一个新的实例时被触发（models, collections 和 views 都是一样的）。当然你可以在写你的 model 时不写初始化函数，但是你会发现你会很平凡的使用它。
 
+<!-- more -->
+
 设置属性
 --------
 

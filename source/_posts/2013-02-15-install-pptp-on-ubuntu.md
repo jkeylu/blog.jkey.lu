@@ -20,6 +20,8 @@ tags:
 	apt-get install pptpd
 	```
 
+	<!-- more -->
+
 3. 编辑 /etc/pptpd.conf 文件
 
 	```
