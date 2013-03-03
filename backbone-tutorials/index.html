@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>归档：2013/1 | jKey Blog</title>
+  <title>backbone-tutorials | jKey Blog</title>
   <meta name="author" content="jKey Lu">
   
   
@@ -55,7 +55,7 @@
 <div class="clearfix"></div></header>
   <div id="content" class="inner">
     <div id="main-col" class="alignleft"><div id="wrapper">
-<h2 class="archive-title">2013/1</h2>
+<h2 class="archive-title category">backbone-tutorials</h2>
 
 
   
@@ -65,17 +65,34 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2013-01-08T16:18:21.000Z"><a href="/2013/01/09/hello-world/">Jan 9, 2013</a></time>
+        <time datetime="2013-03-03T05:55:58.000Z"><a href="/2013/03/03/what-is-a-model-in-backbone/">Mar 3, 2013</a></time>
       
       
   
-    <h1 class="title"><a href="/2013/01/09/hello-world/">Hello World</a></h1>
+    <h1 class="title"><a href="/2013/03/03/what-is-a-model-in-backbone/">Backbone.js 中的 model 是什么？</a></h1>
   
 
     </header>
     <div class="entry">
       
-        <p>Welcome to <a href="http://zespia.tw/hexo">Hexo</a>! This is your very first post. Check <a href="http://zespia.tw/hexo/docs">documentation</a> to learn how to use.</p>
+        <p>根据维基百科上对 <a href="http://zh.wikipedia.org/wiki/MVC">MVC</a> 的定义，我们很难搞懂 model 到底是个什么东西。Backbone.js 的作者对 model 在 backbone.js 中的定义如下。</p>
+<blockquote>
+<p>Models are the heart of any JavaScript application, containing the interactive data as well as a large part of the logic surrounding it: conversions, validations, computed properties, and access control.</p>
+</blockquote>
+<p>所以接下来让我们创建一个 model 来搞懂到底什么是 model。</p>
+<notextile><figure class="highlight lang-javascript"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+</pre></td><td class="code"><pre><span class="keyword">var</span> Person = Backbone.Model.extend({
+    initialize: <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+        alert(<span class="string">&#39;Welcome to this world&#39;</span>);
+    }
+});
+</pre></td></tr></table></figure></notextile>
+
+<p>所以 <em>initialize()</em> 会在初始化 model 为一个新的实例时被触发（models, collections 和 views 都是一样的）。当然你可以在写你的 model 时不写初始化函数，但是你会发现你会很平凡的使用它。</p>
 
       
     </div>
@@ -83,7 +100,7 @@
       
         
           <div class="alignleft">
-            <a href="/2013/01/09/hello-world/#more" class="more-link">Read More</a>
+            <a href="/2013/03/03/what-is-a-model-in-backbone/#more" class="more-link">Read More</a>
           </div>
         
         

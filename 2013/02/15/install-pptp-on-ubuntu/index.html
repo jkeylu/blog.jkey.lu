@@ -10,7 +10,12 @@
 先说一下我安装 pptp 的环境是 buyvm 上 128m 的 vps，安装了 ubuntu 系统。
 
 首先到 /dev/ 和 /dev/net/ 下确认是否有 ppp 和 tun 两个设备
-">
+ /dev/ppp
+ /dev/net/tun
+
+
+安装 pptpd
+ apt-get install pptpd">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -28,6 +33,18 @@
   <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
   
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-16294460-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
 </head>
 
 
@@ -48,9 +65,7 @@
 </nav>
 <div class="clearfix"></div></header>
   <div id="content" class="inner">
-    <div id="main-col" class="alignleft"><div id="wrapper">
-
-<article class="post">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
   
   <div class="post-content">
     <header>
@@ -70,46 +85,69 @@
 <p>先说一下我安装 pptp 的环境是 buyvm 上 128m 的 vps，安装了 ubuntu 系统。</p>
 <ol>
 <li><p>首先到 /dev/ 和 /dev/net/ 下确认是否有 ppp 和 tun 两个设备</p>
-<pre><code><div class="line"> <span class="regexp">/dev/</span>ppp</div><div class="line"> <span class="regexp">/dev/net/</span>tun</div></code></pre>
+<pre><code> <span class="regexp">/dev/</span>ppp
+ <span class="regexp">/dev/net/</span>tun
+</code></pre>
 </li>
 <li><p>安装 pptpd</p>
-<pre><code><div class="line"> apt-<span class="keyword">get</span> install pptpd</div></code></pre>
+<pre><code> apt-<span class="keyword">get</span> install pptpd
+</code></pre>
+ <a name="more"></a>
 </li>
 <li><p>编辑 /etc/pptpd.conf 文件</p>
-<pre><code><div class="line"> <span class="title">vim</span> /etc/pptpd.conf</div></code></pre>
+<pre><code> <span class="title">vim</span> /etc/pptpd.conf
+</code></pre>
 <p> 去掉一下几句前面的 # 号</p>
-<pre><code><div class="line"> <span class="title">option</span> /etc/ppp/pptpd-options</div><div class="line"> localip <span class="number">192.168.0.1</span></div><div class="line"> remoteip <span class="number">192.168.0.234</span>-<span class="number">238</span>,<span class="number">192.168.0.245</span></div></code></pre>
+<pre><code> <span class="title">option</span> /etc/ppp/pptpd-options
+ localip <span class="number">192.168.0.1</span>
+ remoteip <span class="number">192.168.0.234</span>-<span class="number">238</span>,<span class="number">192.168.0.245</span>
+</code></pre>
 </li>
 <li><p>编辑 /etc/ppp/pptpd-options 文件，设置 DNS</p>
-<pre><code><div class="line"> <span class="title">vim</span> /etc/ppp/pptpd-options</div></code></pre>
+<pre><code> <span class="title">vim</span> /etc/ppp/pptpd-options
+</code></pre>
 <p> 找到 ms-dns 去掉 # 号，并修改 DNS 地址</p>
-<pre><code><div class="line"> ms-dns 8.8.8.8</div><div class="line"> ms-dns 8.8.4.4</div></code></pre>
+<pre><code> ms-dns 8.8.8.8
+ ms-dns 8.8.4.4
+</code></pre>
 </li>
 <li><p>编辑 /etc/ppp/chap-secrets ，加入用户</p>
-<pre><code><div class="line"> 用户名 pptpd 密码 *</div></code></pre>
+<pre><code> 用户名 pptpd 密码 *
+</code></pre>
 <p> 解释一下：分别用你自己想要的用户名和密码去替换‘用户名’ 和 ‘密码’，你当然可以添加 n 个，每行一个。</p>
 <p> 以上设置完后基本上可以在 windows 上新建 vpn 连接后可以连接了，只是以上的设置只能访问服务器资源，而不能访问这台服务器以外的资源。所以，我们在进行配置。</p>
 </li>
 <li><p>编辑 /etc/sysctl.conf 文件，找到以下行，去掉 # 号注释符号</p>
-<pre><code><div class="line"> net<span class="variable">.ipv4</span><span class="variable">.ip_forward</span>=<span class="number">1</span></div></code></pre>
+<pre><code> net<span class="variable">.ipv4</span><span class="variable">.ip_forward</span>=<span class="number">1</span>
+</code></pre>
 <p> 然后在运行以下命令使配置生效</p>
-<pre><code><div class="line"> <span class="title">sysctl</span> -p</div></code></pre>
+<pre><code> <span class="title">sysctl</span> -p
+</code></pre>
 </li>
 <li><p>安装 iptables</p>
-<pre><code><div class="line"> apt-<span class="keyword">get</span> install iptables</div></code></pre>
+<pre><code> apt-<span class="keyword">get</span> install iptables
+</code></pre>
 </li>
 <li><p>向 nat 表中添加一条规则：</p>
-<pre><code><div class="line"> <span class="comment">iptables</span> <span class="literal">-</span><span class="comment">t</span> <span class="comment">nat</span> <span class="literal">-</span><span class="comment">A</span> <span class="comment">POSTROUTING</span> <span class="literal">-</span><span class="comment">s</span> <span class="comment">192</span>.<span class="comment">168</span>.<span class="comment">0</span>.<span class="comment">0/24</span> <span class="literal">-</span><span class="comment">o</span> <span class="comment">venet0</span> <span class="literal">-</span><span class="comment">j</span> <span class="comment">MASQUERADE</span></div><div class="line"> <span class="comment">//venet0是物理网卡，用</span> <span class="comment">ifconfig</span> <span class="comment">查看</div></code></pre>
+<pre><code> <span class="comment">iptables</span> <span class="literal">-</span><span class="comment">t</span> <span class="comment">nat</span> <span class="literal">-</span><span class="comment">A</span> <span class="comment">POSTROUTING</span> <span class="literal">-</span><span class="comment">s</span> <span class="comment">192</span>.<span class="comment">168</span>.<span class="comment">0</span>.<span class="comment">0/24</span> <span class="literal">-</span><span class="comment">o</span> <span class="comment">venet0</span> <span class="literal">-</span><span class="comment">j</span> <span class="comment">MASQUERADE</span>
+ <span class="comment">//venet0是物理网卡，用</span> <span class="comment">ifconfig</span> <span class="comment">查看
+</code></pre>
 <p> 如果执行这条命令后提示</p>
-<pre><code><div class="line"> iptables: No chain/target/match <span class="keyword">by</span> <span class="keyword">that</span> <span class="property">name</span>.</div></code></pre>
+<pre><code> iptables: No chain/target/match <span class="keyword">by</span> <span class="keyword">that</span> <span class="property">name</span>.
+</code></pre>
 <p> 那么改为以下命令重新执行：</p>
-<pre><code><div class="line"> <span class="comment">iptables</span> <span class="literal">-</span><span class="comment">t</span> <span class="comment">nat</span> <span class="literal">-</span><span class="comment">A</span> <span class="comment">POSTROUTING</span> <span class="literal">-</span><span class="comment">s</span> <span class="comment">192</span>.<span class="comment">168</span>.<span class="comment">0</span>.<span class="comment">0/24</span> <span class="literal">-</span><span class="comment">o</span> <span class="comment">venet0</span> <span class="literal">-</span><span class="comment">j</span> <span class="comment">SNAT</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">to</span>-<span class="comment">source</span> <span class="comment">xxx</span>.<span class="comment">xxx</span>.<span class="comment">xxx</span>.<span class="comment">xxx</div></code></pre>
+<pre><code> <span class="comment">iptables</span> <span class="literal">-</span><span class="comment">t</span> <span class="comment">nat</span> <span class="literal">-</span><span class="comment">A</span> <span class="comment">POSTROUTING</span> <span class="literal">-</span><span class="comment">s</span> <span class="comment">192</span>.<span class="comment">168</span>.<span class="comment">0</span>.<span class="comment">0/24</span> <span class="literal">-</span><span class="comment">o</span> <span class="comment">venet0</span> <span class="literal">-</span><span class="comment">j</span> <span class="comment">SNAT</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">to</span>-<span class="comment">source</span> <span class="comment">xxx</span>.<span class="comment">xxx</span>.<span class="comment">xxx</span>.<span class="comment">xxx
+</code></pre>
 <p> 最后的 xxx.xxx.xxx.xxx 是你 vps 的 ip 地址。</p>
 </li>
 <li><p>虽然现在设置好了 iptables 但是下次重启时会被清除，所以我们需要把它保存下来</p>
-<pre><code><div class="line"> iptables-save &gt; <span class="regexp">/etc/iptables</span>-rules</div></code></pre>
+<pre><code> iptables-save &gt; <span class="regexp">/etc/iptables</span>-rules
+</code></pre>
 <p> 然后修改 /etc/network/interfaces 文件，找到 venet0 的结点，添加 pre-up 那一行：</p>
-<pre><code><div class="line"> auto venet0</div><div class="line"> iface venet0 inet static</div><div class="line"> pre-up iptables-restore <span class="tag">&lt; /<span class="attribute">etc</span>/<span class="attribute">iptables-rules</span></div></code></pre>
+<pre><code> auto venet0
+ iface venet0 inet static
+ pre-up iptables-restore <span class="tag">&lt; /<span class="attribute">etc</span>/<span class="attribute">iptables-rules</span>
+</code></pre>
 <p> 这样重启后会自动加载之前设置好的 iptables 规则。</p>
 <p> 但是有可能每次重启后 interfaces 都会被重写还原,那么上面方法就失效了。</p>
 <p> 而我用的方法是在 /etc/rc.local 文件中添加一行 <code>iptables-restore /etc/iptables-rules</code></p>
@@ -135,27 +173,6 @@
         
         
 
-  <div class="jiathis_style_24x24">
-    <a class="jiathis_button_qzone"></a>
-    <a class="jiathis_button_tsina"></a>
-    <a class="jiathis_button_tqq"></a>
-    <a class="jiathis_button_renren"></a>
-    <a class="jiathis_button_kaixin001"></a>
-    <a class="jiathis_button_xiaoyou"></a>
-    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
-    <a class="jiathis_counter_style"></a>
-  </div>
-  <script type="text/javascript" >
-    var jiathis_config={
-      data_track_clickback:true,
-      siteNum:8,
-      sm:"googleplus,douban9dian,twitter,fb,huaban,xianguo,fanfou,evernote",
-      summary:"",
-      hideMore:false
-    }
-  </script>
-  <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
-
       
       <div class="clearfix"></div>
     </footer>
@@ -171,25 +188,25 @@
 </section>
 </div></div>
     <aside id="sidebar" class="alignright">
-<div class="search">
+  <div class="search">
   <form action="http://google.com/search" method="get" accept-charset="utf-8">
-    <input type="text" name="q" results="0" placeholder="搜索">
+    <input type="search" name="q" results="0" placeholder="搜索">
     <input type="hidden" name="q" value="site:blog.jkey.lu">
   </form>
 </div>
 
-
+  
 <div class="widget tag">
   <h3 class="title">分类</h3>
   <ul class="entry">
   
-    <li><a href="/categories/backbone-tutorials/">backbone-tutorials</a><small>1</small></li>
+    <li><a href="/backbone-tutorials/">backbone-tutorials</a><small>1</small></li>
   
   </ul>
 </div>
 
 
-
+  
 <div class="widget tag">
   <h3 class="title">标签</h3>
   <ul class="entry">
@@ -200,9 +217,6 @@
   
   </ul>
 </div>
-
-
-
 
 </aside>
     <div class="clearfix"></div>
