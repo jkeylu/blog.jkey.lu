@@ -1,0 +1,32 @@
+menu:
+  Home: /
+  Archives: /archives
+
+widgets:
+- search
+- category
+- tag
+
+excerpt_link: Read More
+
+twitter:
+  username:
+  show_replies: false
+  tweet_count: 5
+
+addthis:
+  enable: false
+  pubid:
+  facebook: true
+  twitter: true
+  google: true
+  pinterest: true
+
+jiathis:
+  enable: false
+  uid:
+
+fancybox: true
+
+google_analytics: UA-16294460-1
+rss:
