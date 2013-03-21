@@ -1,0 +1,572 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>python 装饰器和 functools 模块 | jKey Blog</title>
+  <meta name="author" content="jKey Lu">
+  
+  <meta name="description" content="什么是装饰器？
+在 python 语言里第一次看到装饰器不免让人想到设计模式中的装饰模式——动态地给一个对象添加一些额外的职责，就增加功能来说，装饰模式比生成子类更为灵活。
+好吧，python 中的装饰器显然和装饰模式毫无关系。那 python 中的装饰器到底是什么呢？
+简而言之，装饰器提供了一种方法，在函数和类定义语句的末尾插入自动运行代码。python 中有两种装饰器：函数装饰器和类装饰器。
+函数装饰器
+简单的装饰器例子：
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+def decorator(F): # 装饰器函数定义
+    print &quot;I'm decorator&quot;
+    return F
+
+@decorator
+def foo():
+    print 'Hello World!'
+# 上面等价于 foo = decorator(foo)
+
+foo()
+&quot;&quot;&quot;
+I'm decorator
+Hello World!
+&quot;&quot;&quot;
+
+decorator(foo)() # 所以这里的输出与 foo() 相同
+&quot;&quot;&quot;
+I'm decorator
+Hello World!
+&quot;&quot;&quot;
+
+
+从上面运行后结果看出，装饰器就是一个能够返回可调用对象（函数）的可调用对象（函数）。">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="python 装饰器和 functools 模块"/>
+  <meta property="og:site_name" content="jKey Blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="jKey Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-16294460-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">jKey Blog</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2013-03-15T15:11:49.000Z"><a href="/2013/03/15/python-decorator-and-functools-module/">Mar 15, 2013</a></time>
+      
+      
+  
+    <h1 class="title">python 装饰器和 functools 模块</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h2>什么是装饰器？</h2>
+<p>在 python 语言里第一次看到装饰器不免让人想到设计模式中的装饰模式——动态地给一个对象添加一些额外的职责，就增加功能来说，装饰模式比生成子类更为灵活。</p>
+<p>好吧，python 中的装饰器显然和装饰模式毫无关系。那 python 中的装饰器到底是什么呢？</p>
+<p>简而言之，装饰器提供了一种方法，在函数和类定义语句的末尾插入自动运行代码。python 中有两种装饰器：函数装饰器和类装饰器。</p>
+<h2>函数装饰器</h2>
+<h3>简单的装饰器例子：</h3>
+<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> <span class="title">decorator</span><span class="params">(F)</span>:</span> <span class="comment"># 装饰器函数定义</span>
+    <span class="keyword">print</span> <span class="string">"I'm decorator"</span>
+    <span class="keyword">return</span> F
+
+<span class="decorator">@decorator</span>
+<span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">()</span>:</span>
+    <span class="keyword">print</span> <span class="string">'Hello World!'</span>
+<span class="comment"># 上面等价于 foo = decorator(foo)</span>
+
+foo()
+<span class="string">"""
+I'm decorator
+Hello World!
+"""</span>
+
+decorator(foo)() <span class="comment"># 所以这里的输出与 foo() 相同</span>
+<span class="string">"""
+I'm decorator
+Hello World!
+"""</span>
+</pre></td></tr></table></figure>
+
+<p>从上面运行后结果看出，装饰器就是一个能够返回可调用对象（函数）的可调用对象（函数）。</p>
+<a name="more"></a>
+
+<h3>具有封闭作用域的装饰器</h3>
+<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> <span class="title">decorator</span><span class="params">(func)</span>:</span> <span class="comment"># 装饰器函数</span>
+    <span class="keyword">print</span> <span class="string">'in decorator'</span>
+    <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">(*args)</span>:</span>
+        <span class="keyword">print</span> <span class="string">'in decorator wrapper'</span>
+        wrapper._calls += <span class="number">1</span>
+        <span class="keyword">print</span> <span class="string">"calls = %d"</span> % (wrapper._calls)
+        func(*args)
+    wrapper._calls = <span class="number">0</span>
+    <span class="keyword">return</span> wrapper
+
+<span class="decorator">@decorator</span>
+<span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(x, y)</span>:</span>
+    <span class="keyword">print</span> <span class="string">"x = %d, y = %d"</span> % (x, y)
+
+foo(<span class="number">1</span>, <span class="number">2</span>) <span class="comment"># 第一次调用</span>
+<span class="string">"""
+in decorator
+in decorator wrapper
+calls = 1
+x = 1, y = 2
+"""</span>
+
+foo(<span class="number">2</span>, <span class="number">3</span>) <span class="comment"># 第二次调用</span>
+<span class="string">"""
+in decorator wrapper
+calls = 2
+x = 2, y = 3
+"""</span>
+</pre></td></tr></table></figure>
+
+<p>可以看出第一次调用 <code>foo(1, 2)</code> 时，相当于</p>
+<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre>foo = decorator(foo)
+foo(<span class="number">1</span>, <span class="number">2</span>)
+</pre></td></tr></table></figure>
+
+<p>第二次调用 <code>foo(2, 3)</code> 时 <em>foo</em> 已经为 <em>decorator(foo)</em> 的返回值了</p>
+<p>再看看一个装饰器类来实现的：</p>
+<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+</pre></td><td class="code"><pre><span class="class"><span class="keyword">class</span> <span class="title">decorator</span>:</span> <span class="comment"># 一个装饰器类</span>
+    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, func)</span>:</span>
+        <span class="keyword">print</span> <span class="string">'in decorator __init__'</span>
+        self.func = func
+        self.calls = <span class="number">0</span>
+    <span class="function"><span class="keyword">def</span> <span class="title">__call__</span><span class="params">(self, *args)</span>:</span>
+        <span class="keyword">print</span> <span class="string">'in decorator __call__'</span>
+        self.calls += <span class="number">1</span>
+        <span class="keyword">print</span> <span class="string">"calls = %d"</span> % (self.calls)
+        self.func(*args)
+
+<span class="decorator">@decorator</span>
+<span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(x, y)</span>:</span>
+    <span class="keyword">print</span> <span class="string">"x = %d, y = %d"</span> % (x, y)
+
+foo(<span class="number">1</span>, <span class="number">2</span>) <span class="comment"># 第一次调用</span>
+<span class="string">"""
+in decorator __init__
+in decorator __call__
+calls = 1
+x = 1, y = 2
+"""</span>
+
+foo(<span class="number">2</span>, <span class="number">3</span>) <span class="comment"># 第二次调用</span>
+<span class="string">"""
+in decorator __call__
+calls = 2
+x = 2, y = 3
+"""</span>
+</pre></td></tr></table></figure>
+
+<h3>装饰器参数</h3>
+<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> <span class="title">decorator_wrapper</span><span class="params">(a, b)</span>:</span>
+    <span class="keyword">print</span> <span class="string">'in decorator_wrapper'</span>
+    <span class="keyword">print</span> <span class="string">"a = %d, b = %d"</span> % (a, b)
+    <span class="function"><span class="keyword">def</span> <span class="title">decorator</span><span class="params">(func)</span>:</span>
+        <span class="keyword">print</span> <span class="string">'in decorator'</span>
+        <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">(*args)</span>:</span>
+            <span class="keyword">print</span> <span class="string">'in wrapper'</span>
+            func(*args)
+        <span class="keyword">return</span> wrapper
+    <span class="keyword">return</span> decorator
+
+<span class="decorator">@decorator_wrapper(1, 2) # 这里先回执行 decorator_wrapper(1, 2), 返回 decorator 相当于 @decorator</span>
+<span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(word)</span>:</span>
+    <span class="keyword">print</span> word
+
+foo(<span class="string">'Hello World!'</span>)
+<span class="string">"""
+in decorator_wrapper
+a = 1, b = 2
+in decorator
+in wrapper
+Hello World!
+"""</span>
+</pre></td></tr></table></figure>
+
+<h2>functools 模块</h2>
+<p>functools 模块中有三个主要的函数 partial(), update_wrapper() 和 wraps(), 下面我们分别来看一下吧。</p>
+<h3>partial(func[,<em>args][, *</em>keywords])</h3>
+<p>看源码时发现这个函数不是用 python 写的，而是用 C 写的，但是帮助文档中给出了用 python 实现的代码，如下：</p>
+<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> <span class="title">partial</span><span class="params">(func, *args, **keywords)</span>:</span>
+    <span class="function"><span class="keyword">def</span> <span class="title">newfunc</span><span class="params">(*fargs, **fkeywords)</span>:</span>
+        newkeywords = keywords.copy()
+        newkeywords.update(fkeywords)
+        <span class="keyword">return</span> func(*(args + fargs), **newkeywords)
+    newfunc.func = func
+    newfunc.args = args
+    newfunc.keywords = keywords
+    <span class="keyword">return</span> newfunc
+</pre></td></tr></table></figure>
+
+<p>OK，可能一下子没看明白，那么继续往下看，看一下是怎么用的。我们知道 python 中有个 <code>int([x[,base]])</code> 函数，作用是把字符串转换为一个普通的整型。如果要把所有输入的二进制数转为整型，那么就要这样写 <code>int(&#39;11&#39;, base=2)</code>。这样写起来貌似不太方便，那么我们就能用 partial 来实现值传递一个参数就能转换二进制数转为整型的方法。</p>
+<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+</pre></td><td class="code"><pre><span class="keyword">from</span> functools <span class="keyword">import</span> partial
+int2 = partial(int, base=<span class="number">2</span>)
+
+<span class="keyword">print</span> int2(<span class="string">'11'</span>) <span class="comment"># 3</span>
+<span class="keyword">print</span> int2(<span class="string">'101'</span>) <span class="comment"># 5</span>
+</pre></td></tr></table></figure>
+
+<h3>update_wrapper(wrapper, wrapped[, assigned][, updated])</h3>
+<p>看这个函数的源代码发现，它就是把被封装的函数的 <strong>module</strong>, <strong>name</strong>, <strong>doc</strong> 和 <strong>dict</strong> 复制到封装的函数中去，源码如下，很简单的几句：</p>
+<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="code"><pre>WRAPPER_ASSIGNMENTS = (<span class="string">'__module__'</span>, <span class="string">'__name__'</span>, <span class="string">'__doc__'</span>)
+WRAPPER_UPDATES = (<span class="string">'__dict__'</span>,)
+<span class="function"><span class="keyword">def</span> <span class="title">update_wrapper</span><span class="params">(wrapper,
+                   wrapped,
+                   assigned = WRAPPER_ASSIGNMENTS,
+                   updated = WRAPPER_UPDATES)</span>:</span>
+    <span class="keyword">for</span> attr <span class="keyword">in</span> assigned:
+        setattr(wrapper, attr, getattr(wrapped, attr))
+    <span class="keyword">for</span> attr <span class="keyword">in</span> updated:
+        getattr(wrapper, attr).update(getattr(wrapped, attr, {}))
+    <span class="keyword">return</span> wrapper
+</pre></td></tr></table></figure>
+
+<p>具体如何用我们可以往下看一下。</p>
+<h3>wraps(wrapped[, assigned][, updated])</h3>
+<p>wraps() 函数把用 partial() 把 update_wrapper() 给封装了一下。</p>
+<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> <span class="title">wraps</span><span class="params">(wrapped,
+          assigned = WRAPPER_ASSIGNMENTS,
+          updated = WRAPPER_UPDATES)</span>:</span>
+
+    <span class="keyword">return</span> partial(update_wrapper, wrapped=wrapped,
+                   assigned=assigned, updated=updated)
+</pre></td></tr></table></figure>
+
+<p>好，接下来看一下是如何使用的，这才恍然大悟，一直在很多开源项目的代码中看到如下使用。</p>
+<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+</pre></td><td class="code"><pre><span class="keyword">from</span> functools <span class="keyword">import</span> wraps
+<span class="function"><span class="keyword">def</span> <span class="title">my_decorator</span><span class="params">(f)</span>:</span>
+     <span class="decorator">@wraps(f)</span>
+     <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">(*args, **kwds)</span>:</span>
+         <span class="keyword">print</span> <span class="string">'Calling decorated function'</span>
+         <span class="keyword">return</span> f(*args, **kwds)
+     <span class="keyword">return</span> wrapper
+
+<span class="decorator">@my_decorator</span>
+<span class="function"><span class="keyword">def</span> <span class="title">example</span><span class="params">()</span>:</span>
+    <span class="string">"""这里是文档注释"""</span>
+    <span class="keyword">print</span> <span class="string">'Called example function'</span>
+
+example()
+
+<span class="comment"># 下面是输出</span>
+<span class="string">"""
+Calling decorated function
+Called example function
+"""</span>
+<span class="keyword">print</span> example.__name__ <span class="comment"># 'example'</span>
+<span class="keyword">print</span> example.__doc__ <span class="comment"># '这里是文档注释'</span>
+</pre></td></tr></table></figure>
+      
+    </div>
+    <footer>
+      
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/python/">python</a>
+  </div>
+
+        
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">留言</h1>
+  <div class="ds-thread">
+    <noscript>Please enable JavaScript to view the comments powered by DuoShuo.</noscript>
+  </div>
+</section>
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="http://google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:blog.jkey.lu">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">分类</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/backbone-tutorials/">backbone-tutorials</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">标签</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/backbone/">backbone</a><small>1</small></li>
+  
+    <li><a href="/tags/python/">python</a><small>2</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2013 jKey Lu
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"blogjkeylu"};
+
+(function() {
+  var ds = document.createElement('script');
+  ds.type = 'text/javascript';ds.async = true;
+  ds.src = 'http://static.duoshuo.com/embed.js';
+  ds.charset = 'UTF-8';
+  (document.getElementsByTagName('head')[0] 
+  || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>
