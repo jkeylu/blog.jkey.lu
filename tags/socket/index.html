@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>归档：2013/3 | jKey Blog</title>
+  <title>socket | jKey Blog</title>
   <meta name="author" content="jKey Lu">
   
   
@@ -55,7 +55,7 @@
 <div class="clearfix"></div></header>
   <div id="content" class="inner">
     <div id="main-col" class="alignleft"><div id="wrapper">
-<h2 class="archive-title">2013/3</h2>
+<h2 class="archive-title tag">socket</h2>
 
 
   
@@ -105,143 +105,6 @@
         
           <div class="alignleft">
             <a href="/2013/03/22/linux-c-socket/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-  
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2013-03-15T15:11:49.000Z"><a href="/2013/03/15/python-decorator-and-functools-module/">Mar 15, 2013</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2013/03/15/python-decorator-and-functools-module/">python 装饰器和 functools 模块</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <h2>什么是装饰器？</h2>
-<p>在 python 语言里第一次看到装饰器不免让人想到设计模式中的装饰模式——动态地给一个对象添加一些额外的职责，就增加功能来说，装饰模式比生成子类更为灵活。</p>
-<p>好吧，python 中的装饰器显然和装饰模式毫无关系。那 python 中的装饰器到底是什么呢？</p>
-<p>简而言之，装饰器提供了一种方法，在函数和类定义语句的末尾插入自动运行代码。python 中有两种装饰器：函数装饰器和类装饰器。</p>
-<h2>函数装饰器</h2>
-<h3>简单的装饰器例子：</h3>
-<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> <span class="title">decorator</span><span class="params">(F)</span>:</span> <span class="comment"># 装饰器函数定义</span>
-    <span class="keyword">print</span> <span class="string">"I'm decorator"</span>
-    <span class="keyword">return</span> F
-
-<span class="decorator">@decorator</span>
-<span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">()</span>:</span>
-    <span class="keyword">print</span> <span class="string">'Hello World!'</span>
-<span class="comment"># 上面等价于 foo = decorator(foo)</span>
-
-foo()
-<span class="string">"""
-I'm decorator
-Hello World!
-"""</span>
-
-decorator(foo)() <span class="comment"># 所以这里的输出与 foo() 相同</span>
-<span class="string">"""
-I'm decorator
-Hello World!
-"""</span>
-</pre></td></tr></table></figure>
-
-<p>从上面运行后结果看出，装饰器就是一个能够返回可调用对象（函数）的可调用对象（函数）。</p>
-
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2013/03/15/python-decorator-and-functools-module/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-  
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2013-03-03T05:55:58.000Z"><a href="/2013/03/03/what-is-a-model-in-backbone/">Mar 3, 2013</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2013/03/03/what-is-a-model-in-backbone/">Backbone.js 中的 model 是什么？</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>根据维基百科上对 <a href="http://zh.wikipedia.org/wiki/MVC">MVC</a> 的定义，我们很难搞懂 model 到底是个什么东西。Backbone.js 的作者对 model 在 backbone.js 中的定义如下。</p>
-<blockquote>
-<p>Models are the heart of any JavaScript application, containing the interactive data as well as a large part of the logic surrounding it: conversions, validations, computed properties, and access control.</p>
-</blockquote>
-<p>所以接下来让我们创建一个 model 来搞懂到底什么是 model。</p>
-<figure class="highlight lang-javascript"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-</pre></td><td class="code"><pre><span class="keyword">var</span> Person = Backbone.Model.extend({
-    initialize: <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
-        alert(<span class="string">'Welcome to this world'</span>);
-    }
-});
-</pre></td></tr></table></figure>
-
-<p>所以 <em>initialize()</em> 会在初始化 model 为一个新的实例时被触发（models, collections 和 views 都是一样的）。当然你可以在写你的 model 时不写初始化函数，但是你会发现你会很平凡的使用它。</p>
-
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2013/03/03/what-is-a-model-in-backbone/#more" class="more-link">Read More</a>
           </div>
         
         
