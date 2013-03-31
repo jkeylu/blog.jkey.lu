@@ -3,10 +3,8 @@
 <head>
   <meta charset="utf-8">
   
-  <title>jKey Blog</title>
+  <title>tornado | jKey Blog</title>
   <meta name="author" content="jKey Lu">
-  
-  <meta name="description" content="google-site-verification: google8e02b43ff8a2ffdf.html">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -56,29 +54,41 @@
 </nav>
 <div class="clearfix"></div></header>
   <div id="content" class="inner">
-    <div id="main-col" class="alignleft"><div id="wrapper"><article class="page">
+    <div id="main-col" class="alignleft"><div id="wrapper">
+<h2 class="archive-title tag">tornado</h2>
+
+
+  
+    <article class="post">
   
   <div class="post-content">
     <header>
       
+        <div class="icon"></div>
+        <time datetime="2013-03-31T01:34:47.000Z"><a href="/2013/03/31/tornado-configurable-interface/">Mar 31, 2013</a></time>
+      
       
   
-    <h1 class="title"></h1>
+    <h1 class="title"><a href="/2013/03/31/tornado-configurable-interface/">tornado util 模块中的 Configurable 类</a></h1>
   
 
     </header>
     <div class="entry">
       
-        google-site-verification: google8e02b43ff8a2ffdf.html
+        <p>简单的说 Configurable 就是让继承自它的子类的构造函数具有工厂函数一样的行为。意思是，只要一个类继承自 Configurable, 那么在这个类在实例化时，构造函数就像工厂一样来选择一个这个类的子类来实例化。</p>
+<p>通常如果要继承 Configurable 接口，那么首先要实现 <code>configurable_base(cls)</code> 和 <code>configurable_default(cls)</code> 这两个静态方法。</p>
+<p>在 tornado 中有三个类是继承自 Configurable 的，分别是 AsyncHttpClient, IOLoop 和 Resolver。</p>
+
       
     </div>
     <footer>
       
         
+          <div class="alignleft">
+            <a href="/2013/03/31/tornado-configurable-interface/#more" class="more-link">Read More</a>
+          </div>
         
         
-
-
       
       <div class="clearfix"></div>
     </footer>
@@ -86,12 +96,13 @@
 </article>
 
 
-<section id="comment">
-  <h1 class="title">留言</h1>
-  <div class="ds-thread">
-    <noscript>Please enable JavaScript to view the comments powered by DuoShuo.</noscript>
-  </div>
-</section>
+  
+
+  <nav id="pagination">
+  
+  
+  <div class="clearfix"></div>
+</nav>
 </div></div>
     <aside id="sidebar" class="alignright">
   <div class="search">
