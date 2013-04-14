@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://blog.jkey.lu/2013/04/11/create-python-egg/</loc>
+    <lastmod>2013-04-14T14:19:22.000Z</lastmod>
+  </url>
+  <url>
     <loc>http://blog.jkey.lu/2013/03/31/tornado-configurable-interface/</loc>
     <lastmod>2013-03-31T04:38:31.000Z</lastmod>
   </url>

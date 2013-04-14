@@ -1,4 +1,4 @@
-@import url("http://fonts.googleapis.com/css?family=Lato:400,400italic");
+@import url("//fonts.googleapis.com/css?family=Lato:400,400italic");
 @font-face {
   font-family: 'FontAwesome';
   font-style: normal;
@@ -636,6 +636,7 @@ article footer .addthis iframe {
 }
 #sidebar .tagcloud a {
   margin-right: 10px;
+  display: inline-block;
 }
 #footer {
   color: #999;

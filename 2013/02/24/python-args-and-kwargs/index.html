@@ -85,7 +85,7 @@ foo(1, 2, 3) # (1, 2, 3)">
         <p>python 中的 <em>args 和 *</em>kwargs 真是个神奇的东西，看了书研究了一下 python 的参数匹配模型，顺便记录下来，感觉自己记性总是不怎么好。</p>
 <h2>1. 位置：从做至右进行匹配</h2>
 <p>这种应该是最常见的一种了，看下面代码，一看便知了。</p>
-<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -99,7 +99,7 @@ foo(<span class="number">1</span>, <span class="number">2</span>, <span class="n
 
 <h2>2. 关键字参数：通过参数名进行匹配</h2>
 <p>调用的函数可以定义哪一个函数参数接受这个值，好吧，还是看代码把。</p>
-<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -115,7 +115,7 @@ foo(<span class="number">1</span>, c=<span class="number">2</span>, b=<span clas
 
 <h2>3. 默认参数：为没有传入值的参数定义参数值</h2>
 <p>顾名思义，就是在定义函数时同时定义某个参数的默认值</p>
-<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -130,7 +130,7 @@ foo(<span class="number">1</span>, c=<span class="number">2</span>) <span class=
 <h2>4. 可变参数：收集任意多关于位置或关键字的参数</h2>
 <p>好吧，终于到了重点，写到这里感觉这篇文章根本不应该叫这个名字，哎，算了。</p>
 <p>在函数头用 * 定义的参数是用来收集调用者传进来的参数的，还是看代码吧。</p>
-<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -142,7 +142,7 @@ foo(<span class="number">1</span>, <span class="number">2</span>, a=<span class=
 
 <h2>5. 可变参数解包：传递任意多的基于位置或关键字的参数</h2>
 <p>当在调用函数时用 * 时，这就意味着解包，就是把参数集合打散，然后传给函数。</p>
-<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -165,7 +165,7 @@ bar(<span class="number">1</span>, <span class="number">2</span>, c=<span class=
 </pre></td></tr></table></figure>
 
 <p>最后看一个混合的</p>
-<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -246,7 +246,7 @@ bar(<span class="number">1</span>, <span class="number">2</span>, <span class="n
   
     <li><a href="/tags/backbone/">backbone</a><small>1</small></li>
   
-    <li><a href="/tags/python/">python</a><small>2</small></li>
+    <li><a href="/tags/python/">python</a><small>3</small></li>
   
     <li><a href="/tags/socket/">socket</a><small>1</small></li>
   

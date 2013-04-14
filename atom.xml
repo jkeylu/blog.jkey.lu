@@ -3,7 +3,7 @@
   <title><![CDATA[jKey Blog]]></title>
   <link href="http://blog.jkey.lu/atom.xml" rel="self"/>
   <link href="http://blog.jkey.lu"/>
-  <updated>2013-03-31T04:38:40.870Z</updated>
+  <updated>2013-04-14T14:23:52.626Z</updated>
   <id>http://blog.jkey.lu/</id>
   <author>
     <name><![CDATA[jKey Lu]]></name>
@@ -11,117 +11,373 @@
   </author>
   <generator uri="http://zespia.tw/hexo">Hexo</generator>
   <entry>
-    <title type="html"><![CDATA[感觉最近不能掌控自己了]]></title>
-    <link href="http://blog.jkey.lu/2013/02/02/began-to-lose-control/"/>
-    <id>http://blog.jkey.lu/2013/02/02/began-to-lose-control/</id>
-    <published>2013-02-02T11:58:10.000Z</published>
-    <updated>2013-02-16T15:46:34.000Z</updated>
-    <content type="html"><![CDATA[<p>最近感觉自己很累，每天想僵尸一样的生活。确切的说现在的生活就像把自己的大脑放进一具僵尸的身体里，虽然能够清楚的看清周围，但是身体已经完全不受大脑控制了。每天做着意义不大的机械运动，渐渐的身体疲惫了，身体对大脑说“我累了，我要停下来休息一下”，大脑说“刹车已经坏很久了，你现在做的运动完全靠的是惯性，我已经失去了控制”。</p>
-<p>去年买了两本书《拖延心理学》和《拆掉思维的墙》，两本书都没有看完，现在烂在那里。两本都只看了一般，初看感觉这本书就是完全在写我的。看了一半没有看完恰恰有印证了这一点，从书中的案例中我看到了自己，知道自己为什么导致了不受自己掌控的原因，但是就是无法改变自己。</p>
-<p>就像《拖延心理学》中讲的那样，拖延者每每在经历一次拖延的折磨后，都会毅然决然的下定决心从此不再踏入那个拖延怪圈一步。你发誓，下一次你一定早一点开始，控制好自己……</p>
-<p>而我接下来做的也就是毅然决然的下定决心……</p>
-<p>去年买了很多书都还没看完，自己的几个 idea 还没实现，空气是免费的。</p>
+    <title type="html"><![CDATA[制作一个 python egg]]></title>
+    <link href="http://blog.jkey.lu/2013/04/11/create-python-egg/"/>
+    <id>http://blog.jkey.lu/2013/04/11/create-python-egg/</id>
+    <published>2013-04-11T14:06:51.000Z</published>
+    <updated>2013-04-14T14:19:22.000Z</updated>
+    <content type="html"><![CDATA[<p>最近用 Python 写了一个公共的库，然后我想让它能够像平常使用 pip 安装第三方库一样方便的安装。然后就去研究了一下 python 是如何打包的，更确切的说是适合用于 pip 安装的打包方式。</p>
+<p>首先创建一个项目文件夹，这个项目文件夹的结构如下：</p>
+<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+</pre></td><td class="code"><pre>helloworld/
+    helloworld/
+        __init__.py
+        foo.py
+    setup.py
+    README.md
+</pre></td></tr></table></figure>
+
+<a name="more"></a>
+
+<p>在 foo.py 中顶一个简单的函数</p>
+<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> <span class="title">sayHello</span><span class="params">()</span>:</span>
+    <span class="keyword">print</span> <span class="string">'Hello World!'</span>
+</pre></td></tr></table></figure>
+
+<p>然后就是 setup.py 文件，他是创建 egg 的配置文件</p>
+<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td><td class="code"><pre><span class="keyword">import</span> distutils.core
+
+version = <span class="string">'0.1'</span>
+
+distutils.core.setup(
+    name=<span class="string">'helloworld'</span>,
+    version=version,
+    packages=[<span class="string">'helloworld'</span>],
+    author=<span class="string">'jKey Lu'</span>,
+    author_email=<span class="string">'i@jkey.lu'</span>,
+    url=<span class="string">'https://blog.jkey.lu/2013/04/11/create-python-egg/'</span>,
+    license=<span class="string">'http://opensource.org/licenses/mit-license.php'</span>,
+    description=<span class="string">'Create Python Egg'</span>
+    )
+</pre></td></tr></table></figure>
+
+<p>更多关于 distutils.core.setup 中的参数可以看这里：<a href="http://docs.python.org/2/distutils/setupscript.html#additional-meta-data">Additional meta-data</a></p>
+<p>接下来就是我们最终想要的，就是打包了，其实这是最简单的一条命令</p>
+<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>python setup.py sdist
+</pre></td></tr></table></figure>
+
+<p>上面命令回车后，看看我们的项目文件夹有何变化</p>
+<ol>
+<li>多了一个 dist/ 文件夹，里面 helloworld-0.1.zip 就是我们生成的包</li>
+<li>多了个 MANIFEST 文件，这是打包这个命令自动生成的。你会发现文件里列出的文件名称和打包进 helloworld-0.1.zip 中的文件是一样的</li>
+</ol>
+<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="code"><pre>helloworld/
+    helloworld/
+        __inti__.py
+        foo.py
+    dist/
+        helloworld-<span class="number">0.1</span>.zip
+    MANIFEST
+    setup.py
+    README.md
+</pre></td></tr></table></figure>
+
+<p>接下来我们用 pip 安装刚刚打包完成的包</p>
+<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>pip install dist/helloworld-<span class="number">0.1</span>.zip
+</pre></td></tr></table></figure>
+
+<p>在 IDEL 中验证一下刚安装的包是否成功，很显然是成功了</p>
+<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre><span class="keyword">from</span> helloworld.foo <span class="keyword">import</span> sayHello
+sayHello() <span class="comment"># Hello World!</span>
+</pre></td></tr></table></figure>
+
+<p>写到这里差不多该结束，等等，发现 helloworld-0.1.zip 中没有 README.md 文件，想打包的时候一起包含进去咋办？</p>
+<p>在项目文件夹中添加 MANIFEST.in 文件，是不是和打包命令自动生成的 MANIFEST 文件有点像，多了个文件扩展名，其实 MANIFEST.in 是 MANIFEST 的模板。关于这个文件的详细信息可以看着里 <a href="http://docs.python.org/2/distutils/sourcedist.html#the-manifest-in-template">The MANIFEST.in template</a></p>
+<p>下面是 MANIFEST.in 中的内容</p>
+<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>include README.md
+</pre></td></tr></table></figure>
+
+<p>重新打包一下，helloworld-0.1.zip 中就包含 README.md 文件了。</p>
+<p>可能你会注意到我打包后生成的文件是 zip 压缩包，这是因为我在 windows 上大的包，如果在 linux 上打包，默认生成的是 tar.gz 的压缩包。问题：如果想在 windows 上也生成 tar.gz 的包该如何？</p>
+<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>python setup.py sdist --formats=gztar
+</pre></td></tr></table></figure>
+
+<p>更多关于生成的格式看这里 <a href="http://docs.python.org/2/distutils/sourcedist.html#creating-a-source-distribution">Create a Source Distribution</a></p>
 ]]></content>
+    <category scheme="http://blog.jkey.lu/tags/python/" term="python"/>
   </entry>
   <entry>
-    <title type="html"><![CDATA[Hello World]]></title>
-    <link href="http://blog.jkey.lu/2013/01/09/hello-world/"/>
-    <id>http://blog.jkey.lu/2013/01/09/hello-world/</id>
-    <published>2013-01-08T16:18:21.000Z</published>
-    <updated>2013-02-16T15:46:34.000Z</updated>
-    <content type="html"><![CDATA[<p>Welcome to <a href="http://zespia.tw/hexo">Hexo</a>! This is your very first post. Check <a href="http://zespia.tw/hexo/docs">documentation</a> to learn how to use.</p>
-]]></content>
+    <title type="html"><![CDATA[tornado util 模块中的 Configurable 类]]></title>
+    <link href="http://blog.jkey.lu/2013/03/31/tornado-configurable-interface/"/>
+    <id>http://blog.jkey.lu/2013/03/31/tornado-configurable-interface/</id>
+    <published>2013-03-31T01:34:47.000Z</published>
+    <updated>2013-03-31T04:38:31.000Z</updated>
+    <content type="html"><![CDATA[<p>简单的说 Configurable 就是让继承自它的子类的构造函数具有工厂函数一样的行为。意思是，只要一个类继承自 Configurable, 那么在这个类在实例化时，构造函数就像工厂一样来选择一个这个类的子类来实例化。</p>
+<p>通常如果要继承 Configurable 接口，那么首先要实现 <code>configurable_base(cls)</code> 和 <code>configurable_default(cls)</code> 这两个静态方法。</p>
+<p>在 tornado 中有三个类是继承自 Configurable 的，分别是 AsyncHttpClient, IOLoop 和 Resolver。</p>
+<a name="more"></a>
+
+<p>下面是 Configurable 类的主要代码：</p>
+<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+</pre></td><td class="code"><pre><span class="class"><span class="keyword">class</span> <span class="title">Configurable</span><span class="params">(object)</span>:</span>
+    __impl_class = <span class="built_in">None</span>
+    __impl_kwargs = <span class="built_in">None</span>
+
+    <span class="function"><span class="keyword">def</span> <span class="title">__new__</span><span class="params">(cls, **kwargs)</span>:</span>
+        base = cls.configurable_base()
+        args = {}
+        <span class="keyword">if</span> cls <span class="keyword">is</span> base:
+            impl = cls.configured_class()
+            <span class="keyword">if</span> base.__impl_kwargs:
+                args.update(base.__impl_kwargs)
+        <span class="keyword">else</span>:
+            impl = cls
+        args.update(kwargs)
+        instance = super(Configurable, cls).__new__(impl)
+
+        <span class="comment"># initialize vs __init__ 的选择是为了兼容 AsyncHTTPClient 单例模式的 magic。</span>
+        <span class="comment"># 如果能摆脱它，那么这里我们也能切换到 __init__</span>
+        instance.initialize(**args)
+        <span class="keyword">return</span> instance
+
+    <span class="decorator">@classmethod</span>
+    <span class="function"><span class="keyword">def</span> <span class="title">configurable_base</span><span class="params">(cls)</span>:</span>
+        <span class="string">"""返回继承于 Configurable 的基类
+
+        一般这里直接返回这个类（但是不必须是和 cls 相同的类）
+        """</span>
+        <span class="keyword">raise</span> NotImplementedError()
+
+    <span class="decorator">@classmethod</span>
+    <span class="function"><span class="keyword">def</span> <span class="title">configurable_default</span><span class="params">(cls)</span>:</span>
+        <span class="string">"""返回真正实现的类
+
+        其实真正的工厂是在这里实现的
+        """</span>
+        <span class="keyword">raise</span> NotImplementedError()
+
+    <span class="function"><span class="keyword">def</span> <span class="title">initialize</span><span class="params">(self)</span>:</span>
+        <span class="string">"""初始化一个 `Configurable` 子类的实例。
+
+        Configurable 类应该用 `initialize` 来代替 ``__init__``
+        """</span>
+
+    <span class="decorator">@classmethod</span>
+    <span class="function"><span class="keyword">def</span> <span class="title">configured_class</span><span class="params">(cls)</span>:</span>
+        <span class="string">"""返回当前配置完成的类。"""</span>
+        base = cls.configurable_base()
+        <span class="keyword">if</span> cls.__impl_class <span class="keyword">is</span> <span class="built_in">None</span>:
+            base.__impl_class = cls.configurable_default()
+        <span class="keyword">return</span> base.__impl_class
+</pre></td></tr></table></figure>
+
+<p>这才明白为什么 tornado 应用在 main 最后调用 <code>tornado.ioloop.IOLoop.instance().start()</code> 就可以了选择和平台相关的 IOLoop 实现了。</p>
+<p>下面就是 IOLoop 中的 <code>configurable_default(cls)</code> 定义</p>
+<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="code"><pre><span class="class"><span class="keyword">class</span> <span class="title">IOLoop</span><span class="params">(Configurable)</span>:</span>
+
+    <span class="decorator">@classmethod</span>
+    <span class="function"><span class="keyword">def</span> <span class="title">configurable_default</span><span class="params">(cls)</span>:</span>
+        <span class="keyword">if</span> hasattr(select, <span class="string">"epoll"</span>):
+            <span class="keyword">from</span> tornado.platform.epoll <span class="keyword">import</span> EPollIOLoop
+            <span class="keyword">return</span> EPollIOLoop
+        <span class="keyword">if</span> hasattr(select, <span class="string">"kqueue"</span>):
+            <span class="comment"># Python 2.6+ on BSD or Mac</span>
+            <span class="keyword">from</span> tornado.platform.kqueue <span class="keyword">import</span> KQueueIOLoop
+            <span class="keyword">return</span> KQueueIOLoop
+        <span class="keyword">from</span> tornado.platform.select <span class="keyword">import</span> SelectIOLoop
+        <span class="keyword">return</span> SelectIOLoop
+</pre></td></tr></table></figure>]]></content>
+    <category scheme="http://blog.jkey.lu/tags/tornado/" term="tornado"/>
   </entry>
   <entry>
-    <title type="html"><![CDATA[Ubuntu 上安装 pptp]]></title>
-    <link href="http://blog.jkey.lu/2013/02/15/install-pptp-on-ubuntu/"/>
-    <id>http://blog.jkey.lu/2013/02/15/install-pptp-on-ubuntu/</id>
-    <published>2013-02-15T13:55:35.000Z</published>
-    <updated>2013-03-03T15:08:35.000Z</updated>
-    <content type="html"><![CDATA[<p>好吧，这其这篇是很久很久以前用 Wordpress 时写的，但是，过去了很久，又快忘了。所以，再写一遍。</p>
-<p>先说一下我安装 pptp 的环境是 buyvm 上 128m 的 vps，安装了 ubuntu 系统。</p>
-<ol>
-<li><p>首先到 /dev/ 和 /dev/net/ 下确认是否有 ppp 和 tun 两个设备</p>
-<pre><code> <span class="regexp">/dev/</span>ppp
- <span class="regexp">/dev/net/</span>tun
-</code></pre>
+    <title type="html"><![CDATA[Linux 上 C 语言的 socket 编程]]></title>
+    <link href="http://blog.jkey.lu/2013/03/22/linux-c-socket/"/>
+    <id>http://blog.jkey.lu/2013/03/22/linux-c-socket/</id>
+    <published>2013-03-22T15:42:19.000Z</published>
+    <updated>2013-03-30T07:15:54.000Z</updated>
+    <content type="html"><![CDATA[<p>这几天看了一下 Linux 上的 socket 编程，把主要几个 socket 编程用到的函数研究了一下，并记录下来备忘。</p>
+<h2>socket()</h2>
+<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre><span class="comment">#include &lt;sys/socket.h&gt;</span>
+int socket(int domain, int type, int protocol);
+</pre></td></tr></table></figure>
+
+<ul>
+<li><p><strong>domain</strong> 指定 socket 的通信协议集(AF_UNIX 和 AF_INET 等)</p>
+<p>  AF_UNIX (与 AF_LOCAL 和 AF_FILE 相同) 只能够用于单一的 *nix 的系统上，使用 AF_UNIX 会在系统上创建一个 socket 文件，不同进程通过读写这个文件来实现通信。</p>
+<p>  AF_INET 则是用于网络的，所以可以允许远程主机之间的通信。</p>
+<p>  更多协议可以看 <bits/socket.h></p>
 </li>
-<li><p>安装 pptpd</p>
-<pre><code> apt-<span class="keyword">get</span> install pptpd
-</code></pre>
- <a name="more"></a>
+<li><p><strong>type</strong> 指定 socket 的类型(SOCK_STREAM 和 SOCK_DGRAM 等)</p>
+<p>  SOCK_STREAM 表明使用 TCP 协议，这就意味着会提供按顺序的、可靠、双向、面向连接的比特流。</p>
+<p>  SOCK_DGRAM 表明使用 UDP 协议，这就意味着会提供定长的、不可靠、无连接的通信。</p>
 </li>
-<li><p>编辑 /etc/pptpd.conf 文件</p>
-<pre><code> <span class="title">vim</span> /etc/pptpd.conf
-</code></pre>
-<p> 去掉一下几句前面的 # 号</p>
-<pre><code> <span class="title">option</span> /etc/ppp/pptpd-options
- localip <span class="number">192.168.0.1</span>
- remoteip <span class="number">192.168.0.234</span>-<span class="number">238</span>,<span class="number">192.168.0.245</span>
-</code></pre>
+<li><p><strong>protocol</strong> 指定实际使用的传输协议。最常见的就是 IPPROTO_TCP, IPPROTO_SCTP, IPPROTO_UDP, IPPROTO_DCCP。这些协议都在 <netinet/in.h> 中有详细说明。如果该项为 0 的话，即根据选定的domain和type选择使用缺省协议。</p>
 </li>
-<li><p>编辑 /etc/ppp/pptpd-options 文件，设置 DNS</p>
-<pre><code> <span class="title">vim</span> /etc/ppp/pptpd-options
-</code></pre>
-<p> 找到 ms-dns 去掉 # 号，并修改 DNS 地址</p>
-<pre><code> ms-dns 8.8.8.8
- ms-dns 8.8.4.4
-</code></pre>
+</ul>
+<p>调用 socket() 函数后，成功会返回文件描述符，失败则返回 -1。</p>
+<a name="more"></a>
+
+<h2>bind()</h2>
+<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+2
+3
+</pre></td><td class="code"><pre><span class="comment">#include &lt;sys/socket.h&gt;</span>
+int bind(int socket, const struct sockaddr *address,
+        socklen_t address_len);
+</pre></td></tr></table></figure>
+
+<p>bind() 为 socket 分配地址。当使用 socket() 创建套接字后，仅仅赋予了其所使用的协议，而没有分配地址。在接受其它主机连接前，必须先调用 bind() 为 socket 分配地址。</p>
+<ul>
+<li><p><strong>socket</strong> 这是 socket 的描述符</p>
 </li>
-<li><p>编辑 /etc/ppp/chap-secrets ，加入用户</p>
-<pre><code> 用户名 pptpd 密码 *
-</code></pre>
-<p> 解释一下：分别用你自己想要的用户名和密码去替换‘用户名’ 和 ‘密码’，你当然可以添加 n 个，每行一个。</p>
-<p> 以上设置完后基本上可以在 windows 上新建 vpn 连接后可以连接了，只是以上的设置只能访问服务器资源，而不能访问这台服务器以外的资源。所以，我们在进行配置。</p>
+<li><p><strong>address</strong> 指向 sockaddr 结构（用于表示所分配地址）的指针</p>
 </li>
-<li><p>编辑 /etc/sysctl.conf 文件，找到以下行，去掉 # 号注释符号</p>
-<pre><code> net<span class="variable">.ipv4</span><span class="variable">.ip_forward</span>=<span class="number">1</span>
-</code></pre>
-<p> 然后在运行以下命令使配置生效</p>
-<pre><code> <span class="title">sysctl</span> -p
-</code></pre>
+<li><p><strong>address_len</strong> sockaddr 结构的长度</p>
 </li>
-<li><p>安装 iptables</p>
-<pre><code> apt-<span class="keyword">get</span> install iptables
-</code></pre>
+</ul>
+<h2>listen()</h2>
+<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre><span class="comment">#include &lt;sys/socket.h&gt;</span>
+int listen(int socket, int backlog);
+</pre></td></tr></table></figure>
+
+<p>当 socket 和一个地址绑定后，调用 listen() 函数开始监听连接请求。但是，这只能在有可靠数据流保证时使用，如 SOCK_STREAM, SOCK_SEQPACKET 。</p>
+<ul>
+<li><p><strong>socket</strong> socket 的描述符</p>
 </li>
-<li><p>向 nat 表中添加一条规则：</p>
-<pre><code> <span class="comment">iptables</span> <span class="literal">-</span><span class="comment">t</span> <span class="comment">nat</span> <span class="literal">-</span><span class="comment">A</span> <span class="comment">POSTROUTING</span> <span class="literal">-</span><span class="comment">s</span> <span class="comment">192</span>.<span class="comment">168</span>.<span class="comment">0</span>.<span class="comment">0/24</span> <span class="literal">-</span><span class="comment">o</span> <span class="comment">venet0</span> <span class="literal">-</span><span class="comment">j</span> <span class="comment">MASQUERADE</span>
- <span class="comment">//venet0是物理网卡，用</span> <span class="comment">ifconfig</span> <span class="comment">查看
-</code></pre>
-<p> 如果执行这条命令后提示</p>
-<pre><code> iptables: No chain/target/match <span class="keyword">by</span> <span class="keyword">that</span> <span class="property">name</span>.
-</code></pre>
-<p> 那么改为以下命令重新执行：</p>
-<pre><code> <span class="comment">iptables</span> <span class="literal">-</span><span class="comment">t</span> <span class="comment">nat</span> <span class="literal">-</span><span class="comment">A</span> <span class="comment">POSTROUTING</span> <span class="literal">-</span><span class="comment">s</span> <span class="comment">192</span>.<span class="comment">168</span>.<span class="comment">0</span>.<span class="comment">0/24</span> <span class="literal">-</span><span class="comment">o</span> <span class="comment">venet0</span> <span class="literal">-</span><span class="comment">j</span> <span class="comment">SNAT</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">to</span>-<span class="comment">source</span> <span class="comment">xxx</span>.<span class="comment">xxx</span>.<span class="comment">xxx</span>.<span class="comment">xxx
-</code></pre>
-<p> 最后的 xxx.xxx.xxx.xxx 是你 vps 的 ip 地址。</p>
+<li><p><strong>backlog</strong> 一个决定监听队列大小的整数，当有一个连接请求到来，就会进入此监听队列，当队列满后，新的连接请求会返回错误。</p>
 </li>
-<li><p>虽然现在设置好了 iptables 但是下次重启时会被清除，所以我们需要把它保存下来</p>
-<pre><code> iptables-save &gt; <span class="regexp">/etc/iptables</span>-rules
-</code></pre>
-<p> 然后修改 /etc/network/interfaces 文件，找到 venet0 的结点，添加 pre-up 那一行：</p>
-<pre><code> auto venet0
- iface venet0 inet static
- pre-up iptables-restore <span class="tag">&lt; /<span class="attribute">etc</span>/<span class="attribute">iptables-rules</span>
-</code></pre>
-<p> 这样重启后会自动加载之前设置好的 iptables 规则。</p>
-<p> 但是有可能每次重启后 interfaces 都会被重写还原,那么上面方法就失效了。</p>
-<p> 而我用的方法是在 /etc/rc.local 文件中添加一行 <code>iptables-restore /etc/iptables-rules</code></p>
-<p> 当然你也可以在每次重启后手动执行 <code>iptables-restore /etc/iptables-rules</code></p>
-<p> 好了这样就设置好了。</p>
+</ul>
+<p>如果成功监听返回 0，否则返回 -1 。</p>
+<h2>accept()</h2>
+<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+2
+3
+</pre></td><td class="code"><pre><span class="comment">#include &lt;sys/socket.h&gt;</span>
+int accept(int socket, struct sockaddr *restrict address,
+        socklen_t *restrict address_len);
+</pre></td></tr></table></figure>
+
+<p>当应用程序监听来自其他主机的面对数据流的连接时，通过事件（比如Unix select()系统调用）通知它。必须用 accept()函数初始化连接。 Accept() 为每个连接创立新的套接字并从监听队列中移除这个连接。它使用如下参数：</p>
+<ul>
+<li><p><strong>socket</strong> 监听的 socket 描述符</p>
 </li>
-</ol>
-<p>参考文章：</p>
-<ol>
-<li><p><a href="http://wiki.wowubuntu.com/linux/openvz-archlinux-pptp-vpn">OpenVZ VPS 上架设 PPTP VPN</a></p>
+<li><p><strong>address</strong> 指向sockaddr 结构体的指针，客户机地址信息。</p>
 </li>
-<li><p><a href="http://qiaodahai.com/personal/article/2010/debian-ubuntu-setup-pptp-vpn.htm">Debian/Ubuntu快速搭建PPTP VPN</a></p>
+<li><p><strong>address_len</strong> 指向 socklen_t的指针，确定客户机地址结构体的大小 。</p>
 </li>
-<li><p><a href="http://pityonline.info/?p=1054">Install and Configure OpenVPN</a></p>
-</li>
-</ol>
-]]></content>
+</ul>
+<p>返回新的套接字描述符，出错返回-1。进一步的通信必须通过这个套接字。</p>
+<p>Datagram 套接字不要求用accept()处理，因为接收方可能用监听套接字立即处理这个请求。</p>
+<h2>connect()</h2>
+<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+2
+3
+</pre></td><td class="code"><pre><span class="comment">#include &lt;sys/socket.h&gt;</span>
+int connect(int socket, const struct sockaddr *address,
+        socklen_t address_len);
+</pre></td></tr></table></figure>
+
+<p>connect() 系统调用为一个套接字设置连接，参数有文件描述符和主机地址。</p>
+<p>某些类型的套接字是无连接的，大多数是 UDP 协议。对于这些套接字，连接时这样的：默认发送和接收数据的主机由给定的地址确定，可以使用 send() 和 recv()。返回 -1 表示出错，0 表示成功。</p>
+<h2>socket 实例</h2>
+<p><em>client.c 文件</em></p>
+<script src="https://gist.github.com/jkeylu/5275687.js?file=client.c"></script>
+
+<p><em>server.c 文件</em></p>
+<script src="https://gist.github.com/jkeylu/5275687.js?file=server.c"></script>]]></content>
+    <category scheme="http://blog.jkey.lu/tags/socket/" term="socket"/>
   </entry>
   <entry>
     <title type="html"><![CDATA[python 装饰器和 functools 模块]]></title>
@@ -482,124 +738,6 @@ Called example function
 """</span>
 <span class="keyword">print</span> example.__name__ <span class="comment"># 'example'</span>
 <span class="keyword">print</span> example.__doc__ <span class="comment"># '这里是文档注释'</span>
-</pre></td></tr></table></figure>]]></content>
-    <category scheme="http://blog.jkey.lu/tags/python/" term="python"/>
-  </entry>
-  <entry>
-    <title type="html"><![CDATA[python 中 *args 和 **kwargs]]></title>
-    <link href="http://blog.jkey.lu/2013/02/24/python-args-and-kwargs/"/>
-    <id>http://blog.jkey.lu/2013/02/24/python-args-and-kwargs/</id>
-    <published>2013-02-24T04:56:35.000Z</published>
-    <updated>2013-03-03T15:07:13.000Z</updated>
-    <content type="html"><![CDATA[<p>python 中的 <em>args 和 *</em>kwargs 真是个神奇的东西，看了书研究了一下 python 的参数匹配模型，顺便记录下来，感觉自己记性总是不怎么好。</p>
-<h2>1. 位置：从做至右进行匹配</h2>
-<p>这种应该是最常见的一种了，看下面代码，一看便知了。</p>
-<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(a, b, c)</span>:</span>
-    print(a, b, c)
-
-foo(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>) <span class="comment"># (1, 2, 3)</span>
-</pre></td></tr></table></figure>
-
-<a name="more"></a>
-
-<h2>2. 关键字参数：通过参数名进行匹配</h2>
-<p>调用的函数可以定义哪一个函数参数接受这个值，好吧，还是看代码把。</p>
-<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(a, b, c)</span>:</span>
-    print(a, b, c)
-
-<span class="comment"># 注意这里传递参数时的顺序可以与定义的顺序不一致</span>
-foo(b=<span class="number">1</span>, a=<span class="number">2</span>, c=<span class="number">3</span>) <span class="comment"># (2, 1, 3)</span>
-foo(<span class="number">1</span>, c=<span class="number">2</span>, b=<span class="number">3</span>) <span class="comment"># (1, 3, 2)</span>
-</pre></td></tr></table></figure>
-
-<h2>3. 默认参数：为没有传入值的参数定义参数值</h2>
-<p>顾名思义，就是在定义函数时同时定义某个参数的默认值</p>
-<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(a, b=<span class="number">1</span>, c=<span class="number">4</span>)</span>:</span>
-    print(a, b, c)
-
-foo(<span class="number">1</span>) <span class="comment"># (1, 1, 4)</span>
-foo(<span class="number">1</span>, c=<span class="number">2</span>) <span class="comment"># (1, 1, 2)</span>
-</pre></td></tr></table></figure>
-
-<h2>4. 可变参数：收集任意多关于位置或关键字的参数</h2>
-<p>好吧，终于到了重点，写到这里感觉这篇文章根本不应该叫这个名字，哎，算了。</p>
-<p>在函数头用 * 定义的参数是用来收集调用者传进来的参数的，还是看代码吧。</p>
-<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(*args, **kwargs)</span>:</span>
-    print(args, kwargs)
-
-foo(<span class="number">1</span>, <span class="number">2</span>, a=<span class="number">3</span>, b=<span class="number">4</span>) <span class="comment"># ((1, 2), {'a': 3, 'b': 4})</span>
-</pre></td></tr></table></figure>
-
-<h2>5. 可变参数解包：传递任意多的基于位置或关键字的参数</h2>
-<p>当在调用函数时用 * 时，这就意味着解包，就是把参数集合打散，然后传给函数。</p>
-<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(a, b, c, d)</span>:</span>
-    print(a, b, c, d)
-
-<span class="function"><span class="keyword">def</span> <span class="title">bar</span><span class="params">(*args, **kwargs)</span>:</span> <span class="comment"># 这里的 * 是收集参数的</span>
-    print(args, kwargs)
-    foo(*args, **kwargs) <span class="comment"># 当在调用函数时用 * 时，则用来解包的</span>
-
-bar(<span class="number">1</span>, <span class="number">2</span>, c=<span class="number">3</span>, d=<span class="number">4</span>)
-<span class="comment"># ((1, 2), {'c': 3, 'd': 4})</span>
-<span class="comment"># (1, 2, 3, 4)</span>
-</pre></td></tr></table></figure>
-
-<p>最后看一个混合的</p>
-<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(a, b, c, d, e=<span class="number">4</span>)</span>:</span>
-    print(a, b, c, d, e)
-
-p1 = [<span class="number">1</span>, <span class="number">2</span>]
-p2 = {<span class="string">'d'</span>: <span class="number">3</span>}
-
-foo(<span class="number">0</span>, *p1, d=<span class="number">3</span>) <span class="comment"># (0, 1, 2, 3, 4)</span>
-foo(<span class="number">0</span>, *p1, **p2) <span class="comment"># (0, 1, 2, 3, 4)</span>
-
-<span class="function"><span class="keyword">def</span> <span class="title">bar</span><span class="params">(a, *args, **kwargs)</span>:</span>
-    print(a, args, kwargs)
-
-bar(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, b=<span class="number">4</span>, c=<span class="number">5</span>) <span class="comment"># (1, (2, 3), {'c': 5, 'b': 4})</span>
 </pre></td></tr></table></figure>]]></content>
     <category scheme="http://blog.jkey.lu/tags/python/" term="python"/>
   </entry>
@@ -1089,122 +1227,98 @@ bill.set({name: <span class="string">'Bill Jones'</span>});
 <p>基于版本：<a href="https://github.com/thomasdavis/backbonetutorials/tree/9e4aba0af8b56538e6cdda034770c4971a43c181">9e4aba0af8</a></p>
 ]]></content>
     <category scheme="http://blog.jkey.lu/tags/backbone/" term="backbone"/>
+    <category scheme="http://blog.jkey.lu/categories/backbone-tutorials/" term="backbone-tutorials"/>
   </entry>
   <entry>
-    <title type="html"><![CDATA[Linux 上 C 语言的 socket 编程]]></title>
-    <link href="http://blog.jkey.lu/2013/03/22/linux-c-socket/"/>
-    <id>http://blog.jkey.lu/2013/03/22/linux-c-socket/</id>
-    <published>2013-03-22T15:42:19.000Z</published>
-    <updated>2013-03-30T07:15:54.000Z</updated>
-    <content type="html"><![CDATA[<p>这几天看了一下 Linux 上的 socket 编程，把主要几个 socket 编程用到的函数研究了一下，并记录下来备忘。</p>
-<h2>socket()</h2>
+    <title type="html"><![CDATA[python 中 *args 和 **kwargs]]></title>
+    <link href="http://blog.jkey.lu/2013/02/24/python-args-and-kwargs/"/>
+    <id>http://blog.jkey.lu/2013/02/24/python-args-and-kwargs/</id>
+    <published>2013-02-24T04:56:35.000Z</published>
+    <updated>2013-03-03T15:07:13.000Z</updated>
+    <content type="html"><![CDATA[<p>python 中的 <em>args 和 *</em>kwargs 真是个神奇的东西，看了书研究了一下 python 的参数匹配模型，顺便记录下来，感觉自己记性总是不怎么好。</p>
+<h2>1. 位置：从做至右进行匹配</h2>
+<p>这种应该是最常见的一种了，看下面代码，一看便知了。</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
-</pre></td><td class="code"><pre><span class="preprocessor">#include &lt;sys/socket.h&gt;</span>
-<span class="keyword">int</span> socket(<span class="keyword">int</span> domain, <span class="keyword">int</span> type, <span class="keyword">int</span> protocol);
+3
+4
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(a, b, c)</span>:</span>
+    print(a, b, c)
+
+foo(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>) <span class="comment"># (1, 2, 3)</span>
 </pre></td></tr></table></figure>
 
-<ul>
-<li><p><strong>domain</strong> 指定 socket 的通信协议集(AF_UNIX 和 AF_INET 等)</p>
-<p>  AF_UNIX (与 AF_LOCAL 和 AF_FILE 相同) 只能够用于单一的 *nix 的系统上，使用 AF_UNIX 会在系统上创建一个 socket 文件，不同进程通过读写这个文件来实现通信。</p>
-<p>  AF_INET 则是用于网络的，所以可以允许远程主机之间的通信。</p>
-<p>  更多协议可以看 <bits/socket.h></p>
-</li>
-<li><p><strong>type</strong> 指定 socket 的类型(SOCK_STREAM 和 SOCK_DGRAM 等)</p>
-<p>  SOCK_STREAM 表明使用 TCP 协议，这就意味着会提供按顺序的、可靠、双向、面向连接的比特流。</p>
-<p>  SOCK_DGRAM 表明使用 UDP 协议，这就意味着会提供定长的、不可靠、无连接的通信。</p>
-</li>
-<li><p><strong>protocol</strong> 指定实际使用的传输协议。最常见的就是 IPPROTO_TCP, IPPROTO_SCTP, IPPROTO_UDP, IPPROTO_DCCP。这些协议都在 <netinet/in.h> 中有详细说明。如果该项为 0 的话，即根据选定的domain和type选择使用缺省协议。</p>
-</li>
-</ul>
-<p>调用 socket() 函数后，成功会返回文件描述符，失败则返回 -1。</p>
 <a name="more"></a>
 
-<h2>bind()</h2>
+<h2>2. 关键字参数：通过参数名进行匹配</h2>
+<p>调用的函数可以定义哪一个函数参数接受这个值，好吧，还是看代码把。</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 3
-</pre></td><td class="code"><pre><span class="preprocessor">#include &lt;sys/socket.h&gt;</span>
-<span class="keyword">int</span> bind(<span class="keyword">int</span> socket, <span class="keyword">const</span> <span class="keyword">struct</span> sockaddr *address,
-        socklen_t address_len);
+4
+5
+6
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(a, b, c)</span>:</span>
+    print(a, b, c)
+
+<span class="comment"># 注意这里传递参数时的顺序可以与定义的顺序不一致</span>
+foo(b=<span class="number">1</span>, a=<span class="number">2</span>, c=<span class="number">3</span>) <span class="comment"># (2, 1, 3)</span>
+foo(<span class="number">1</span>, c=<span class="number">2</span>, b=<span class="number">3</span>) <span class="comment"># (1, 3, 2)</span>
 </pre></td></tr></table></figure>
 
-<p>bind() 为 socket 分配地址。当使用 socket() 创建套接字后，仅仅赋予了其所使用的协议，而没有分配地址。在接受其它主机连接前，必须先调用 bind() 为 socket 分配地址。</p>
-<ul>
-<li><p><strong>socket</strong> 这是 socket 的描述符</p>
-</li>
-<li><p><strong>address</strong> 指向 sockaddr 结构（用于表示所分配地址）的指针</p>
-</li>
-<li><p><strong>address_len</strong> sockaddr 结构的长度</p>
-</li>
-</ul>
-<h2>listen()</h2>
-<figure class="highlight"><table><tr><td class="gutter"><pre>1
-2
-</pre></td><td class="code"><pre><span class="comment">#include &lt;sys/socket.h&gt;</span>
-<span class="keyword">int</span> <span class="keyword">listen</span>(<span class="keyword">int</span> <span class="keyword">socket</span>, <span class="keyword">int</span> backlog);
-</pre></td></tr></table></figure>
-
-<p>当 socket 和一个地址绑定后，调用 listen() 函数开始监听连接请求。但是，这只能在有可靠数据流保证时使用，如 SOCK_STREAM, SOCK_SEQPACKET 。</p>
-<ul>
-<li><p><strong>socket</strong> socket 的描述符</p>
-</li>
-<li><p><strong>backlog</strong> 一个决定监听队列大小的整数，当有一个连接请求到来，就会进入此监听队列，当队列满后，新的连接请求会返回错误。</p>
-</li>
-</ul>
-<p>如果成功监听返回 0，否则返回 -1 。</p>
-<h2>accept()</h2>
+<h2>3. 默认参数：为没有传入值的参数定义参数值</h2>
+<p>顾名思义，就是在定义函数时同时定义某个参数的默认值</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 3
-</pre></td><td class="code"><pre><span class="comment">#include &lt;sys/socket.h&gt;</span>
-<span class="keyword">int</span> <span class="keyword">accept</span>(<span class="keyword">int</span> <span class="keyword">socket</span>, struct sockaddr <span class="variable">*restrict</span> address,
-        socklen_t <span class="variable">*restrict</span> address_len);
+4
+5
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(a, b=<span class="number">1</span>, c=<span class="number">4</span>)</span>:</span>
+    print(a, b, c)
+
+foo(<span class="number">1</span>) <span class="comment"># (1, 1, 4)</span>
+foo(<span class="number">1</span>, c=<span class="number">2</span>) <span class="comment"># (1, 1, 2)</span>
 </pre></td></tr></table></figure>
 
-<p>当应用程序监听来自其他主机的面对数据流的连接时，通过事件（比如Unix select()系统调用）通知它。必须用 accept()函数初始化连接。 Accept() 为每个连接创立新的套接字并从监听队列中移除这个连接。它使用如下参数：</p>
-<ul>
-<li><p><strong>socket</strong> 监听的 socket 描述符</p>
-</li>
-<li><p><strong>address</strong> 指向sockaddr 结构体的指针，客户机地址信息。</p>
-</li>
-<li><p><strong>address_len</strong> 指向 socklen_t的指针，确定客户机地址结构体的大小 。</p>
-</li>
-</ul>
-<p>返回新的套接字描述符，出错返回-1。进一步的通信必须通过这个套接字。</p>
-<p>Datagram 套接字不要求用accept()处理，因为接收方可能用监听套接字立即处理这个请求。</p>
-<h2>connect()</h2>
+<h2>4. 可变参数：收集任意多关于位置或关键字的参数</h2>
+<p>好吧，终于到了重点，写到这里感觉这篇文章根本不应该叫这个名字，哎，算了。</p>
+<p>在函数头用 * 定义的参数是用来收集调用者传进来的参数的，还是看代码吧。</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 3
-</pre></td><td class="code"><pre><span class="preprocessor">#include &lt;sys/socket.h&gt;</span>
-<span class="keyword">int</span> connect(<span class="keyword">int</span> socket, <span class="keyword">const</span> <span class="keyword">struct</span> sockaddr *address,
-        socklen_t address_len);
+4
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(*args, **kwargs)</span>:</span>
+    print(args, kwargs)
+
+foo(<span class="number">1</span>, <span class="number">2</span>, a=<span class="number">3</span>, b=<span class="number">4</span>) <span class="comment"># ((1, 2), {'a': 3, 'b': 4})</span>
 </pre></td></tr></table></figure>
 
-<p>connect() 系统调用为一个套接字设置连接，参数有文件描述符和主机地址。</p>
-<p>某些类型的套接字是无连接的，大多数是 UDP 协议。对于这些套接字，连接时这样的：默认发送和接收数据的主机由给定的地址确定，可以使用 send() 和 recv()。返回 -1 表示出错，0 表示成功。</p>
-<h2>socket 实例</h2>
-<p><em>client.c 文件</em></p>
-<script src="https://gist.github.com/jkeylu/5275687.js?file=client.c"></script>
+<h2>5. 可变参数解包：传递任意多的基于位置或关键字的参数</h2>
+<p>当在调用函数时用 * 时，这就意味着解包，就是把参数集合打散，然后传给函数。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(a, b, c, d)</span>:</span>
+    print(a, b, c, d)
 
-<p><em>server.c 文件</em></p>
-<script src="https://gist.github.com/jkeylu/5275687.js?file=server.c"></script>]]></content>
-    <category scheme="http://blog.jkey.lu/tags/socket/" term="socket"/>
-  </entry>
-  <entry>
-    <title type="html"><![CDATA[tornado util 模块中的 Configurable 类]]></title>
-    <link href="http://blog.jkey.lu/2013/03/31/tornado-configurable-interface/"/>
-    <id>http://blog.jkey.lu/2013/03/31/tornado-configurable-interface/</id>
-    <published>2013-03-31T01:34:47.000Z</published>
-    <updated>2013-03-31T04:38:31.000Z</updated>
-    <content type="html"><![CDATA[<p>简单的说 Configurable 就是让继承自它的子类的构造函数具有工厂函数一样的行为。意思是，只要一个类继承自 Configurable, 那么在这个类在实例化时，构造函数就像工厂一样来选择一个这个类的子类来实例化。</p>
-<p>通常如果要继承 Configurable 接口，那么首先要实现 <code>configurable_base(cls)</code> 和 <code>configurable_default(cls)</code> 这两个静态方法。</p>
-<p>在 tornado 中有三个类是继承自 Configurable 的，分别是 AsyncHttpClient, IOLoop 和 Resolver。</p>
-<a name="more"></a>
+<span class="function"><span class="keyword">def</span> <span class="title">bar</span><span class="params">(*args, **kwargs)</span>:</span> <span class="comment"># 这里的 * 是收集参数的</span>
+    print(args, kwargs)
+    foo(*args, **kwargs) <span class="comment"># 当在调用函数时用 * 时，则用来解包的</span>
 
-<p>下面是 Configurable 类的主要代码：</p>
-<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+bar(<span class="number">1</span>, <span class="number">2</span>, c=<span class="number">3</span>, d=<span class="number">4</span>)
+<span class="comment"># ((1, 2), {'c': 3, 'd': 4})</span>
+<span class="comment"># (1, 2, 3, 4)</span>
+</pre></td></tr></table></figure>
+
+<p>最后看一个混合的</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -1217,124 +1331,133 @@ bill.set({name: <span class="string">'Bill Jones'</span>});
 11
 12
 13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40
-41
-42
-43
-44
-45
-46
-47
-48
-49
-50
-</pre></td><td class="code"><pre><span class="class"><span class="keyword">class</span> <span class="title">Configurable</span><span class="params">(object)</span>:</span>
-    __impl_class = <span class="built_in">None</span>
-    __impl_kwargs = <span class="built_in">None</span>
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(a, b, c, d, e=<span class="number">4</span>)</span>:</span>
+    print(a, b, c, d, e)
 
-    <span class="function"><span class="keyword">def</span> <span class="title">__new__</span><span class="params">(cls, **kwargs)</span>:</span>
-        base = cls.configurable_base()
-        args = {}
-        <span class="keyword">if</span> cls <span class="keyword">is</span> base:
-            impl = cls.configured_class()
-            <span class="keyword">if</span> base.__impl_kwargs:
-                args.update(base.__impl_kwargs)
-        <span class="keyword">else</span>:
-            impl = cls
-        args.update(kwargs)
-        instance = super(Configurable, cls).__new__(impl)
+p1 = [<span class="number">1</span>, <span class="number">2</span>]
+p2 = {<span class="string">'d'</span>: <span class="number">3</span>}
 
-        <span class="comment"># initialize vs __init__ 的选择是为了兼容 AsyncHTTPClient 单例模式的 magic。</span>
-        <span class="comment"># 如果能摆脱它，那么这里我们也能切换到 __init__</span>
-        instance.initialize(**args)
-        <span class="keyword">return</span> instance
+foo(<span class="number">0</span>, *p1, d=<span class="number">3</span>) <span class="comment"># (0, 1, 2, 3, 4)</span>
+foo(<span class="number">0</span>, *p1, **p2) <span class="comment"># (0, 1, 2, 3, 4)</span>
 
-    <span class="decorator">@classmethod</span>
-    <span class="function"><span class="keyword">def</span> <span class="title">configurable_base</span><span class="params">(cls)</span>:</span>
-        <span class="string">"""返回继承于 Configurable 的基类
+<span class="function"><span class="keyword">def</span> <span class="title">bar</span><span class="params">(a, *args, **kwargs)</span>:</span>
+    print(a, args, kwargs)
 
-        一般这里直接返回这个类（但是不必须是和 cls 相同的类）
-        """</span>
-        <span class="keyword">raise</span> NotImplementedError()
-
-    <span class="decorator">@classmethod</span>
-    <span class="function"><span class="keyword">def</span> <span class="title">configurable_default</span><span class="params">(cls)</span>:</span>
-        <span class="string">"""返回真正实现的类
-
-        其实真正的工厂是在这里实现的
-        """</span>
-        <span class="keyword">raise</span> NotImplementedError()
-
-    <span class="function"><span class="keyword">def</span> <span class="title">initialize</span><span class="params">(self)</span>:</span>
-        <span class="string">"""初始化一个 `Configurable` 子类的实例。
-
-        Configurable 类应该用 `initialize` 来代替 ``__init__``
-        """</span>
-
-    <span class="decorator">@classmethod</span>
-    <span class="function"><span class="keyword">def</span> <span class="title">configured_class</span><span class="params">(cls)</span>:</span>
-        <span class="string">"""返回当前配置完成的类。"""</span>
-        base = cls.configurable_base()
-        <span class="keyword">if</span> cls.__impl_class <span class="keyword">is</span> <span class="built_in">None</span>:
-            base.__impl_class = cls.configurable_default()
-        <span class="keyword">return</span> base.__impl_class
-</pre></td></tr></table></figure>
-
-<p>这才明白为什么 tornado 应用在 main 最后调用 <code>tornado.ioloop.IOLoop.instance().start()</code> 就可以了选择和平台相关的 IOLoop 实现了。</p>
-<p>下面就是 IOLoop 中的 <code>configurable_default(cls)</code> 定义</p>
-<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-</pre></td><td class="code"><pre><span class="class"><span class="keyword">class</span> <span class="title">IOLoop</span><span class="params">(Configurable)</span>:</span>
-
-    <span class="decorator">@classmethod</span>
-    <span class="function"><span class="keyword">def</span> <span class="title">configurable_default</span><span class="params">(cls)</span>:</span>
-        <span class="keyword">if</span> hasattr(select, <span class="string">"epoll"</span>):
-            <span class="keyword">from</span> tornado.platform.epoll <span class="keyword">import</span> EPollIOLoop
-            <span class="keyword">return</span> EPollIOLoop
-        <span class="keyword">if</span> hasattr(select, <span class="string">"kqueue"</span>):
-            <span class="comment"># Python 2.6+ on BSD or Mac</span>
-            <span class="keyword">from</span> tornado.platform.kqueue <span class="keyword">import</span> KQueueIOLoop
-            <span class="keyword">return</span> KQueueIOLoop
-        <span class="keyword">from</span> tornado.platform.select <span class="keyword">import</span> SelectIOLoop
-        <span class="keyword">return</span> SelectIOLoop
+bar(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, b=<span class="number">4</span>, c=<span class="number">5</span>) <span class="comment"># (1, (2, 3), {'c': 5, 'b': 4})</span>
 </pre></td></tr></table></figure>]]></content>
-    <category scheme="http://blog.jkey.lu/tags/tornado/" term="tornado"/>
+    <category scheme="http://blog.jkey.lu/tags/python/" term="python"/>
+  </entry>
+  <entry>
+    <title type="html"><![CDATA[Ubuntu 上安装 pptp]]></title>
+    <link href="http://blog.jkey.lu/2013/02/15/install-pptp-on-ubuntu/"/>
+    <id>http://blog.jkey.lu/2013/02/15/install-pptp-on-ubuntu/</id>
+    <published>2013-02-15T13:55:35.000Z</published>
+    <updated>2013-03-03T15:08:35.000Z</updated>
+    <content type="html"><![CDATA[<p>好吧，这其这篇是很久很久以前用 Wordpress 时写的，但是，过去了很久，又快忘了。所以，再写一遍。</p>
+<p>先说一下我安装 pptp 的环境是 buyvm 上 128m 的 vps，安装了 ubuntu 系统。</p>
+<ol>
+<li><p>首先到 /dev/ 和 /dev/net/ 下确认是否有 ppp 和 tun 两个设备</p>
+<pre><code> <span class="regexp">/dev/</span>ppp
+ <span class="regexp">/dev/net/</span>tun
+</code></pre>
+</li>
+<li><p>安装 pptpd</p>
+<pre><code> apt-<span class="keyword">get</span> install pptpd
+</code></pre>
+ <a name="more"></a>
+</li>
+<li><p>编辑 /etc/pptpd.conf 文件</p>
+<pre><code> <span class="title">vim</span> /etc/pptpd.conf
+</code></pre>
+<p> 去掉一下几句前面的 # 号</p>
+<pre><code> <span class="title">option</span> /etc/ppp/pptpd-options
+ localip <span class="number">192.168.0.1</span>
+ remoteip <span class="number">192.168.0.234</span>-<span class="number">238</span>,<span class="number">192.168.0.245</span>
+</code></pre>
+</li>
+<li><p>编辑 /etc/ppp/pptpd-options 文件，设置 DNS</p>
+<pre><code> <span class="title">vim</span> /etc/ppp/pptpd-options
+</code></pre>
+<p> 找到 ms-dns 去掉 # 号，并修改 DNS 地址</p>
+<pre><code> ms-dns 8.8.8.8
+ ms-dns 8.8.4.4
+</code></pre>
+</li>
+<li><p>编辑 /etc/ppp/chap-secrets ，加入用户</p>
+<pre><code> 用户名 pptpd 密码 *
+</code></pre>
+<p> 解释一下：分别用你自己想要的用户名和密码去替换‘用户名’ 和 ‘密码’，你当然可以添加 n 个，每行一个。</p>
+<p> 以上设置完后基本上可以在 windows 上新建 vpn 连接后可以连接了，只是以上的设置只能访问服务器资源，而不能访问这台服务器以外的资源。所以，我们在进行配置。</p>
+</li>
+<li><p>编辑 /etc/sysctl.conf 文件，找到以下行，去掉 # 号注释符号</p>
+<pre><code> net<span class="variable">.ipv4</span><span class="variable">.ip_forward</span>=<span class="number">1</span>
+</code></pre>
+<p> 然后在运行以下命令使配置生效</p>
+<pre><code> <span class="title">sysctl</span> -p
+</code></pre>
+</li>
+<li><p>安装 iptables</p>
+<pre><code> apt-<span class="keyword">get</span> install iptables
+</code></pre>
+</li>
+<li><p>向 nat 表中添加一条规则：</p>
+<pre><code> <span class="comment">iptables</span> <span class="literal">-</span><span class="comment">t</span> <span class="comment">nat</span> <span class="literal">-</span><span class="comment">A</span> <span class="comment">POSTROUTING</span> <span class="literal">-</span><span class="comment">s</span> <span class="comment">192</span>.<span class="comment">168</span>.<span class="comment">0</span>.<span class="comment">0/24</span> <span class="literal">-</span><span class="comment">o</span> <span class="comment">venet0</span> <span class="literal">-</span><span class="comment">j</span> <span class="comment">MASQUERADE</span>
+ <span class="comment">//venet0是物理网卡，用</span> <span class="comment">ifconfig</span> <span class="comment">查看
+</code></pre>
+<p> 如果执行这条命令后提示</p>
+<pre><code> iptables: No chain/target/match <span class="keyword">by</span> <span class="keyword">that</span> <span class="property">name</span>.
+</code></pre>
+<p> 那么改为以下命令重新执行：</p>
+<pre><code> <span class="comment">iptables</span> <span class="literal">-</span><span class="comment">t</span> <span class="comment">nat</span> <span class="literal">-</span><span class="comment">A</span> <span class="comment">POSTROUTING</span> <span class="literal">-</span><span class="comment">s</span> <span class="comment">192</span>.<span class="comment">168</span>.<span class="comment">0</span>.<span class="comment">0/24</span> <span class="literal">-</span><span class="comment">o</span> <span class="comment">venet0</span> <span class="literal">-</span><span class="comment">j</span> <span class="comment">SNAT</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">to</span>-<span class="comment">source</span> <span class="comment">xxx</span>.<span class="comment">xxx</span>.<span class="comment">xxx</span>.<span class="comment">xxx
+</code></pre>
+<p> 最后的 xxx.xxx.xxx.xxx 是你 vps 的 ip 地址。</p>
+</li>
+<li><p>虽然现在设置好了 iptables 但是下次重启时会被清除，所以我们需要把它保存下来</p>
+<pre><code> iptables-save &gt; <span class="regexp">/etc/iptables</span>-rules
+</code></pre>
+<p> 然后修改 /etc/network/interfaces 文件，找到 venet0 的结点，添加 pre-up 那一行：</p>
+<pre><code> auto venet0
+ iface venet0 inet static
+ pre-up iptables-restore <span class="tag">&lt; /<span class="attribute">etc</span>/<span class="attribute">iptables-rules</span>
+</code></pre>
+<p> 这样重启后会自动加载之前设置好的 iptables 规则。</p>
+<p> 但是有可能每次重启后 interfaces 都会被重写还原,那么上面方法就失效了。</p>
+<p> 而我用的方法是在 /etc/rc.local 文件中添加一行 <code>iptables-restore /etc/iptables-rules</code></p>
+<p> 当然你也可以在每次重启后手动执行 <code>iptables-restore /etc/iptables-rules</code></p>
+<p> 好了这样就设置好了。</p>
+</li>
+</ol>
+<p>参考文章：</p>
+<ol>
+<li><p><a href="http://wiki.wowubuntu.com/linux/openvz-archlinux-pptp-vpn">OpenVZ VPS 上架设 PPTP VPN</a></p>
+</li>
+<li><p><a href="http://qiaodahai.com/personal/article/2010/debian-ubuntu-setup-pptp-vpn.htm">Debian/Ubuntu快速搭建PPTP VPN</a></p>
+</li>
+<li><p><a href="http://pityonline.info/?p=1054">Install and Configure OpenVPN</a></p>
+</li>
+</ol>
+]]></content>
+  </entry>
+  <entry>
+    <title type="html"><![CDATA[感觉最近不能掌控自己了]]></title>
+    <link href="http://blog.jkey.lu/2013/02/02/began-to-lose-control/"/>
+    <id>http://blog.jkey.lu/2013/02/02/began-to-lose-control/</id>
+    <published>2013-02-02T11:58:10.000Z</published>
+    <updated>2013-02-16T15:46:34.000Z</updated>
+    <content type="html"><![CDATA[<p>最近感觉自己很累，每天想僵尸一样的生活。确切的说现在的生活就像把自己的大脑放进一具僵尸的身体里，虽然能够清楚的看清周围，但是身体已经完全不受大脑控制了。每天做着意义不大的机械运动，渐渐的身体疲惫了，身体对大脑说“我累了，我要停下来休息一下”，大脑说“刹车已经坏很久了，你现在做的运动完全靠的是惯性，我已经失去了控制”。</p>
+<p>去年买了两本书《拖延心理学》和《拆掉思维的墙》，两本书都没有看完，现在烂在那里。两本都只看了一般，初看感觉这本书就是完全在写我的。看了一半没有看完恰恰有印证了这一点，从书中的案例中我看到了自己，知道自己为什么导致了不受自己掌控的原因，但是就是无法改变自己。</p>
+<p>就像《拖延心理学》中讲的那样，拖延者每每在经历一次拖延的折磨后，都会毅然决然的下定决心从此不再踏入那个拖延怪圈一步。你发誓，下一次你一定早一点开始，控制好自己……</p>
+<p>而我接下来做的也就是毅然决然的下定决心……</p>
+<p>去年买了很多书都还没看完，自己的几个 idea 还没实现，空气是免费的。</p>
+]]></content>
+  </entry>
+  <entry>
+    <title type="html"><![CDATA[Hello World]]></title>
+    <link href="http://blog.jkey.lu/2013/01/09/hello-world/"/>
+    <id>http://blog.jkey.lu/2013/01/09/hello-world/</id>
+    <published>2013-01-08T16:18:21.000Z</published>
+    <updated>2013-02-16T15:46:34.000Z</updated>
+    <content type="html"><![CDATA[<p>Welcome to <a href="http://zespia.tw/hexo">Hexo</a>! This is your very first post. Check <a href="http://zespia.tw/hexo/docs">documentation</a> to learn how to use.</p>
+]]></content>
   </entry>
 </feed>
