@@ -1,0 +1,280 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>重新配置我的树莓派 | jKey Blog</title>
+  <meta name="author" content="jKey Lu">
+  
+  <meta name="description" content="安装系统
+下载 Arch Linux ARM 系统镜像：http://www.raspberrypi.org/downloads
+解压出 .img 文件，然后使用以下命令把镜像写入 SD 卡中
+1
+dd if=archlinux-hf-2013-02-11.img of=/dev/sdb bs=1M
+
+
+如果是 window 系统，可以下载 Win32DiskImager 来把镜像写入 SD 卡。">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="重新配置我的树莓派"/>
+  <meta property="og:site_name" content="jKey Blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="jKey Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-16294460-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">jKey Blog</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2013-04-18T13:42:06.000Z"><a href="/2013/04/18/configure-raspberry-pi/">Apr 18, 2013</a></time>
+      
+      
+  
+    <h1 class="title">重新配置我的树莓派</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h2>安装系统</h2>
+<p>下载 Arch Linux ARM 系统镜像：<a href="http://www.raspberrypi.org/downloads"><a href="http://www.raspberrypi.org/downloads">http://www.raspberrypi.org/downloads</a></a></p>
+<p>解压出 .img 文件，然后使用以下命令把镜像写入 SD 卡中</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="title">dd</span> <span class="keyword">if</span>=archlinux-hf-<span class="number">2013</span>-<span class="number">02</span>-<span class="number">11.</span>img <span class="keyword">of</span>=/dev/sdb bs=<span class="number">1</span>M
+</pre></td></tr></table></figure>
+
+<p>如果是 window 系统，可以下载 <a href="http://sourceforge.net/projects/win32diskimager/">Win32DiskImager</a> 来把镜像写入 SD 卡。</p>
+<a name="more"></a>
+
+<h2>设置内存</h2>
+<p>由于主要把我的树莓派当作服务器用，所以没必要分配太多的 VIDEO RAM，可以设置/boot/config.txt：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+</pre></td><td class="code"><pre>gpu_mem=<span class="number">16</span>
+<span class="preprocessor">#gpu_mem_512=316</span>
+<span class="preprocessor">#gpu_mem_256=128</span>
+<span class="preprocessor">#cma_lwm=16</span>
+<span class="preprocessor">#cma_hwm=32</span>
+<span class="preprocessor">#cma_offline_start=16</span>
+</pre></td></tr></table></figure>
+
+<p>更多关于 config.txt 文件的配置信息查看 <a href="http://elinux.org/RPiconfig"><a href="http://elinux.org/RPiconfig">http://elinux.org/RPiconfig</a></a></p>
+<h2>调整分区大小</h2>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre>echo -e "d<span class="command">\n</span>2<span class="command">\nn</span><span class="command">\np</span><span class="command">\n</span><span class="command">\n</span><span class="command">\n</span><span class="command">\nw</span><span class="command">\n</span>" | fdisk /dev/mmcblk0
+reboot
+</pre></td></tr></table></figure>
+
+<p>重启后</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="title">resize2fs</span> /dev/mmcblk0p2
+</pre></td></tr></table></figure>
+
+<p>更多关于<a href="http://elinux.org/RPi_Resize_Flash_Partitions#Manually_resizing_the_SD_card_on_Raspberry_Pi">调整分区大小</a></p>
+<h2>系统设置</h2>
+<ul>
+<li>设置时区</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>timedatectl <span class="operator"><span class="keyword">set</span>-timezone Asia/Shanghai
+</pre></td></tr></table></figure>
+
+<p>更多关于<a href="https://wiki.archlinux.org/index.php/Time#Time_Zone">时区设置</a></p>
+<ul>
+<li>设置 Hostname</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>hostnamectl <span class="operator"><span class="keyword">set</span>-hostname rpi
+</pre></td></tr></table></figure>
+
+<p>更多关于 <a href="https://wiki.archlinux.org/index.php/Network_Configuration#Set_the_hostname">Hostname</a></p>
+<ul>
+<li>更新系统</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="title">pacman</span> -Syu
+</pre></td></tr></table></figure>
+
+<ul>
+<li>安装 Sudo</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>pacman -S su<span class="operator"><span class="keyword">do</span>
+</pre></td></tr></table></figure>
+
+<p>配置 sudo，执行 <code>visudo</code>，去掉下面这句注释</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>%wheel <span class="keyword">ALL</span>=(<span class="keyword">ALL</span>) <span class="keyword">ALL</span>
+</pre></td></tr></table></figure>
+
+<p>更多关于 <a href="https://wiki.archlinux.org/index.php/Sudo">Sudo</a></p>
+<ul>
+<li>添加用户</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre><span class="comment">useradd</span> <span class="literal">-</span><span class="comment">m</span> <span class="literal">-</span><span class="comment">U</span> <span class="literal">-</span><span class="comment">G</span> <span class="comment">wheel</span> <span class="literal">-</span><span class="comment">s</span> <span class="comment">/bin/bash</span> <span class="comment">jkey</span>
+<span class="comment">passwd</span> <span class="comment">jkey
+</pre></td></tr></table></figure>
+
+<p>更多关于<a href="https://wiki.archlinux.org/index.php/Users_and_Groups#User_groups">用户和组</a></p>
+<ul>
+<li>配置 SSH</li>
+</ul>
+<p>修改 /etc/ssh/sshd_config 文件，修改默认端口，禁止 root 登录，禁止使用密码登录</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+</pre></td><td class="code"><pre><span class="title">Port</span> <span class="number">8888</span>
+PermitRootLogin <span class="built_in">no</span>
+PasswordAuthentication <span class="built_in">no</span>
+</pre></td></tr></table></figure>
+
+<p>锁住 root 用户</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="title">passwd</span> -l root
+</pre></td></tr></table></figure>
+      
+    </div>
+    <footer>
+      
+        
+        
+        
+
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">留言</h1>
+  <div class="ds-thread">
+    <noscript>Please enable JavaScript to view the comments powered by DuoShuo.</noscript>
+  </div>
+</section>
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:blog.jkey.lu">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">分类</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/backbone-tutorials/">backbone-tutorials</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">标签</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/backbone/">backbone</a><small>1</small></li>
+  
+    <li><a href="/tags/python/">python</a><small>4</small></li>
+  
+    <li><a href="/tags/socket/">socket</a><small>1</small></li>
+  
+    <li><a href="/tags/tornado/">tornado</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2013 jKey Lu
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"blogjkeylu"};
+
+(function() {
+  var ds = document.createElement('script');
+  ds.type = 'text/javascript';ds.async = true;
+  ds.src = 'http://static.duoshuo.com/embed.js';
+  ds.charset = 'UTF-8';
+  (document.getElementsByTagName('head')[0] 
+  || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

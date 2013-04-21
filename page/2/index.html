@@ -61,6 +61,107 @@
     <header>
       
         <div class="icon"></div>
+        <time datetime="2013-03-03T05:55:58.000Z"><a href="/2013/03/03/what-is-a-model-in-backbone/">Mar 3, 2013</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2013/03/03/what-is-a-model-in-backbone/">Backbone.js 中的 model 是什么？</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>根据维基百科上对 <a href="http://zh.wikipedia.org/wiki/MVC">MVC</a> 的定义，我们很难搞懂 model 到底是个什么东西。Backbone.js 的作者对 model 在 backbone.js 中的定义如下。</p>
+<blockquote>
+<p>Models are the heart of any JavaScript application, containing the interactive data as well as a large part of the logic surrounding it: conversions, validations, computed properties, and access control.</p>
+</blockquote>
+<p>所以接下来让我们创建一个 model 来搞懂到底什么是 model。</p>
+<figure class="highlight lang-javascript"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+</pre></td><td class="code"><pre><span class="keyword">var</span> Person = Backbone.Model.extend({
+    initialize: <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+        alert(<span class="string">'Welcome to this world'</span>);
+    }
+});
+</pre></td></tr></table></figure>
+
+<p>所以 <em>initialize()</em> 会在初始化 model 为一个新的实例时被触发（models, collections 和 views 都是一样的）。当然你可以在写你的 model 时不写初始化函数，但是你会发现你会很平凡的使用它。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2013/03/03/what-is-a-model-in-backbone/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2013-02-24T04:56:35.000Z"><a href="/2013/02/24/python-args-and-kwargs/">Feb 24, 2013</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2013/02/24/python-args-and-kwargs/">python 中 *args 和 **kwargs</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>python 中的 <em>args 和 *</em>kwargs 真是个神奇的东西，看了书研究了一下 python 的参数匹配模型，顺便记录下来，感觉自己记性总是不怎么好。</p>
+<h2>1. 位置：从做至右进行匹配</h2>
+<p>这种应该是最常见的一种了，看下面代码，一看便知了。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> <span class="title">foo</span><span class="params">(a, b, c)</span>:</span>
+    print(a, b, c)
+
+foo(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>) <span class="comment"># (1, 2, 3)</span>
+</pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2013/02/24/python-args-and-kwargs/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
         <time datetime="2013-02-15T13:55:35.000Z"><a href="/2013/02/15/install-pptp-on-ubuntu/">Feb 15, 2013</a></time>
       
       
@@ -211,7 +312,7 @@
   
     <li><a href="/tags/backbone/">backbone</a><small>1</small></li>
   
-    <li><a href="/tags/python/">python</a><small>3</small></li>
+    <li><a href="/tags/python/">python</a><small>4</small></li>
   
     <li><a href="/tags/socket/">socket</a><small>1</small></li>
   

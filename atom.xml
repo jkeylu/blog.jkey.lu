@@ -3,13 +3,349 @@
   <title><![CDATA[jKey Blog]]></title>
   <link href="http://blog.jkey.lu/atom.xml" rel="self"/>
   <link href="http://blog.jkey.lu"/>
-  <updated>2013-04-14T14:32:01.748Z</updated>
+  <updated>2013-04-21T08:23:45.361Z</updated>
   <id>http://blog.jkey.lu/</id>
   <author>
     <name><![CDATA[jKey Lu]]></name>
     <email><![CDATA[i@jkey.lu]]></email>
   </author>
   <generator uri="http://zespia.tw/hexo">Hexo</generator>
+  <entry>
+    <title type="html"><![CDATA[pep 8]]></title>
+    <link href="http://blog.jkey.lu/2013/04/21/pep-8/"/>
+    <id>http://blog.jkey.lu/2013/04/21/pep-8/</id>
+    <published>2013-04-21T07:32:09.000Z</published>
+    <updated>2013-04-21T08:17:08.000Z</updated>
+    <content type="html"><![CDATA[<h1>简介</h1>
+<p>这篇是讲关于 python 代码风格的一些约定，主要用于 python 中标准库的代码风格的约定。关于 <a href="http://www.python.org/dev/peps/pep-0008/">pep 8</a> 这份文档网上也有很多翻译，但是为了自己便于记忆，大致的翻译记录一下。所以，对照原文可能是不完整的。</p>
+<h1>A Foolish Consistency is the Hobgoblin of Little Minds</h1>
+<p>总之一句话，就是保持代码的一致性。</p>
+<h1>代码排版</h1>
+<h2>缩进</h2>
+<ul>
+<li><p>每级缩进使用 4 个空格。</p>
+</li>
+<li><p>如果和旧代码不一致，还是改为与旧代码相同的缩减方式。</p>
+</li>
+</ul>
+<a name="more"></a>
+
+<p>Yes:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="code"><pre><span class="comment"># Aligned with opening delimiter</span>
+foo = long_function_name(var_one, var_two,
+                         var_three, var_four)
+
+<span class="comment"># More indentation included to distinguish this from the rest.</span>
+<span class="function"><span class="keyword">def</span> <span class="title">long_function_name</span><span class="params">(
+        var_one, var_two, var_three,
+        var_four)</span>:</span>
+    print(var_one)
+</pre></td></tr></table></figure>
+
+<p>No:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="code"><pre><span class="comment"># Arguments on first line forbidden when not using vertical alignment</span>
+foo = long_function_name(var_one, var_two,
+    var_three, var_four)
+
+<span class="comment"># Further indentation required as indentation is not distinguishable</span>
+<span class="function"><span class="keyword">def</span> <span class="title">long_function_name</span><span class="params">(
+    var_one, var_two, var_three,
+    var_four)</span>:</span>
+    print(var_one)
+</pre></td></tr></table></figure>
+
+<p>Optional:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+</pre></td><td class="code"><pre><span class="comment"># Extra indentation is not necessary.</span>
+<span class="title">foo</span> = long_function_name(
+  var_one, var_two,
+  var_three, var_four)
+</pre></td></tr></table></figure>
+
+<h2>制表符还是空格？</h2>
+<ul>
+<li><p>永远不要混着一起用。</p>
+</li>
+<li><p>建议使用空格。在调用 python 命令行解释器时可以使用 -t 或 -tt 选项来检查代码中是否混用制表符和空格，前者发出警告，后者发出错误。</p>
+</li>
+</ul>
+<h2>每行最大长度</h2>
+<ul>
+<li><p>限制所有行最大字符数不超过 79 个字符。</p>
+</li>
+<li><p>文档或注释的话推荐将长度限制在 72 个字符。</p>
+</li>
+<li><p>可以使用圆括号、方括号和大括号来指示连续的行。可以用圆括号把原来一句很长的表达式分割为多行。</p>
+</li>
+</ul>
+<p>Some examples:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td><td class="code"><pre><span class="class"><span class="keyword">class</span> <span class="title">Rectangle</span>(<span class="title">Blob</span>):
+
+    <span class="title">def</span> <span class="title">__init__</span>(<span class="title">self</span>, <span class="title">width</span>, <span class="title">height</span>,
+                 <span class="title">color</span>='<span class="title">black</span>', <span class="title">emphasis</span>=<span class="title">None</span>, <span class="title">highlight</span>=0):
+        <span class="title">if</span> (<span class="title">width</span> == 0 <span class="title">and</span> <span class="title">height</span> == 0 <span class="title">and</span>
+            <span class="title">color</span> == '<span class="title">red</span>' <span class="title">and</span> <span class="title">emphasis</span> == '<span class="title">strong</span>' <span class="title">or</span>
+            <span class="title">highlight</span> &<span class="title">gt</span>; 100):
+            <span class="title">raise</span> <span class="title">ValueError</span>("<span class="title">sorry</span>, <span class="title">you</span> <span class="title">lose</span>")
+        <span class="title">if</span> <span class="title">width</span> == 0 <span class="title">and</span> <span class="title">height</span> == 0 <span class="title">and</span> (<span class="title">color</span> == '<span class="title">red</span>' <span class="title">or</span>
+                                           <span class="title">emphasis</span> <span class="title">is</span> <span class="title">None</span>):
+            <span class="title">raise</span> <span class="title">ValueError</span>("<span class="title">I</span> <span class="title">don</span>'<span class="title">t</span> <span class="title">think</span> <span class="title">so</span> -- <span class="title">values</span> <span class="title">are</span> %<span class="title">s</span>, %<span class="title">s</span>" %
+                             (<span class="title">width</span>, <span class="title">height</span>))
+        <span class="title">Blob</span>.<span class="title">__init__</span>(<span class="title">self</span>, <span class="title">width</span>, <span class="title">height</span>,
+                      <span class="title">color</span>, <span class="title">emphasis</span>, <span class="title">highlight</span>)
+</pre></td></tr></table></figure>
+
+<h2>空行</h2>
+<ul>
+<li><p>顶级函数和类定义用两行空行分割。</p>
+</li>
+<li><p>类中的方法定义用一行空行分割。</p>
+</li>
+<li><p>可以用额外的空行分割一组相关的函数。</p>
+</li>
+</ul>
+<h2>编码 (<a href="http://www.python.org/dev/peps/pep-0263">PEP 263</a>)</h2>
+<p>python 核心代码应该使用 ASCII 或 Latin-1 编码。python 3.0 以上使用 UTF-8，更多请看 <a href="http://www.python.org/dev/peps/pep-3120">PEP 3120</a></p>
+<h2>导入</h2>
+<ul>
+<li><p>通常在单独的行导入</p>
+<pre><code>  <span class="type">Yes</span>: <span class="import"><span class="keyword">import</span> os</span>
+       <span class="import"><span class="keyword">import</span> sys</span>
+
+  <span class="type">No</span>:  <span class="import"><span class="keyword">import</span> sys, os</span>
+</code></pre>
+</li>
+<li><p>以下请看是没问题的：</p>
+<pre><code>  from subprocess <span class="import"><span class="keyword">import</span> Popen, PIPE</span>
+</code></pre>
+</li>
+<li><p>导入通常被放在文件的顶部，在模块注释和文档字符串之后，在模块的全局变量和常量之前。</p>
+<p>  导入应该按照下面顺序分组排放：</p>
+<pre><code>  1. 标准库的导入
+  2. 相关的第三方包的导入
+  3. 本地应用/库的特定导入
+</code></pre>
+<p>  并且用一行空行分隔每个分组。</p>
+<p>  把任何相关 __all__ 说明的放在导入之后。</p>
+</li>
+<li><p>对于所有导入都是用据对路径。</p>
+</li>
+<li><p>从一个包含类的模块中导入类时，通常可以写成这样：</p>
+<pre><code>  from my<span class="class"><span class="keyword">class</span> <span class="title">import</span> <span class="title">MyClass</span></span>
+  from foo.bar.your<span class="class"><span class="keyword">class</span> <span class="title">import</span> <span class="title">YourClass</span></span>
+</code></pre>
+<p>  如果这样写导致了本地名字冲突，那么就这样写：</p>
+<pre><code>  <span class="import"><span class="keyword">import</span> myclass</span>
+  <span class="import"><span class="keyword">import</span> foo.bar.yourclass</span>
+</code></pre>
+<p>  并且使用 &quot;myclass.MyClass&quot; 和 &quot;foo.bar.yourclass.YourClass&quot;.</p>
+</li>
+</ul>
+<h1>表达式和语句中的空格</h1>
+<h2>不能忍受的事</h2>
+<p><strong>避免</strong>在下述情况中使用无关的空格：</p>
+<ul>
+<li><p>紧挨着圆括号，方括号或大括号里空格</p>
+<pre><code>  <span class="tag">Yes</span>: <span class="tag">spam</span>(<span class="tag">ham</span><span class="attr_selector">[1]</span>, <span class="rules">{<span class="rule"><span class="attribute">eggs</span>:<span class="value"> <span class="number">2</span>}</span></span></span>)
+  <span class="tag">No</span>:  <span class="tag">spam</span>( <span class="tag">ham</span><span class="attr_selector">[ 1 ]</span>, <span class="rules">{ <span class="rule"><span class="attribute">eggs</span>:<span class="value"> <span class="number">2</span> }</span></span></span> )
+</code></pre>
+</li>
+<li><p>在逗号，分号或冒号前有空格</p>
+<pre><code>  Yes: <span class="keyword">if</span> x == <span class="number">4</span>: <span class="built_in">print</span> x, y; x, y = y, x
+  No:  <span class="keyword">if</span> x == <span class="number">4</span> : <span class="built_in">print</span> x , y ; x , y = y , x
+</code></pre>
+</li>
+<li><p>在函数调用的左括号前有空格</p>
+<pre><code>  <span class="attribute">Yes</span>: <span class="string">spam(1)</span>
+  <span class="attribute">No</span>: <span class="string"> spam (1)</span>
+</code></pre>
+</li>
+<li><p>在索引的多括号前有空格</p>
+<pre><code>  <span class="attribute">Yes</span>: <span class="string">dict['key'] = list[index]</span>
+  <span class="attribute">No</span>: <span class="string"> dict ['key'] = list [index]</span>
+</code></pre>
+</li>
+<li><p>在等号前加多余的空格</p>
+<p>  Yes:</p>
+<pre><code>  <span class="title">x</span> = <span class="number">1</span>
+  y = <span class="number">2</span>
+  long_variable = <span class="number">3</span>
+</code></pre>
+<p>  No:</p>
+<pre><code>  <span class="title">x</span>             = <span class="number">1</span>
+  y             = <span class="number">2</span>
+  long_variable = <span class="number">3</span>
+</code></pre>
+</li>
+</ul>
+<h2>其他推荐</h2>
+<h1>注释</h1>
+<h2>Block Comments</h2>
+<h2>Inline Comments</h2>
+<h2>Documentation Strings</h2>
+<h1>Version Bookkeeping</h1>
+<h1>Naming Conventions</h1>
+<h2>Descriptive: Naming Styles</h2>
+<h2>Prescriptive: Naming Conventions</h2>
+<h3>Names to Avoid</h3>
+<h3>Package and Module Names</h3>
+<h3>Class Names</h3>
+<h3>Exception Names</h3>
+<h3>Global Variable Names</h3>
+<h3>Function Names</h3>
+<h3>Function and method arguments</h3>
+<h3>Method Names and Instance Variables</h3>
+<h3>Constants</h3>
+<h3>Designing for inheritance</h3>
+<h1>Programming Recommendations</h1>
+]]></content>
+    <category scheme="http://blog.jkey.lu/tags/python/" term="python"/>
+  </entry>
+  <entry>
+    <title type="html"><![CDATA[重新配置我的树莓派]]></title>
+    <link href="http://blog.jkey.lu/2013/04/18/configure-raspberry-pi/"/>
+    <id>http://blog.jkey.lu/2013/04/18/configure-raspberry-pi/</id>
+    <published>2013-04-18T13:42:06.000Z</published>
+    <updated>2013-04-21T07:27:00.000Z</updated>
+    <content type="html"><![CDATA[<h2>安装系统</h2>
+<p>下载 Arch Linux ARM 系统镜像：<a href="http://www.raspberrypi.org/downloads"><a href="http://www.raspberrypi.org/downloads">http://www.raspberrypi.org/downloads</a></a></p>
+<p>解压出 .img 文件，然后使用以下命令把镜像写入 SD 卡中</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="title">dd</span> <span class="keyword">if</span>=archlinux-hf-<span class="number">2013</span>-<span class="number">02</span>-<span class="number">11.</span>img <span class="keyword">of</span>=/dev/sdb bs=<span class="number">1</span>M
+</pre></td></tr></table></figure>
+
+<p>如果是 window 系统，可以下载 <a href="http://sourceforge.net/projects/win32diskimager/">Win32DiskImager</a> 来把镜像写入 SD 卡。</p>
+<a name="more"></a>
+
+<h2>设置内存</h2>
+<p>由于主要把我的树莓派当作服务器用，所以没必要分配太多的 VIDEO RAM，可以设置/boot/config.txt：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+</pre></td><td class="code"><pre>gpu_mem=<span class="number">16</span>
+<span class="preprocessor">#gpu_mem_512=316</span>
+<span class="preprocessor">#gpu_mem_256=128</span>
+<span class="preprocessor">#cma_lwm=16</span>
+<span class="preprocessor">#cma_hwm=32</span>
+<span class="preprocessor">#cma_offline_start=16</span>
+</pre></td></tr></table></figure>
+
+<p>更多关于 config.txt 文件的配置信息查看 <a href="http://elinux.org/RPiconfig"><a href="http://elinux.org/RPiconfig">http://elinux.org/RPiconfig</a></a></p>
+<h2>调整分区大小</h2>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre>echo -e "d<span class="command">\n</span>2<span class="command">\nn</span><span class="command">\np</span><span class="command">\n</span><span class="command">\n</span><span class="command">\n</span><span class="command">\nw</span><span class="command">\n</span>" | fdisk /dev/mmcblk0
+reboot
+</pre></td></tr></table></figure>
+
+<p>重启后</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="title">resize2fs</span> /dev/mmcblk0p2
+</pre></td></tr></table></figure>
+
+<p>更多关于<a href="http://elinux.org/RPi_Resize_Flash_Partitions#Manually_resizing_the_SD_card_on_Raspberry_Pi">调整分区大小</a></p>
+<h2>系统设置</h2>
+<ul>
+<li>设置时区</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>timedatectl <span class="operator"><span class="keyword">set</span>-timezone Asia/Shanghai
+</pre></td></tr></table></figure>
+
+<p>更多关于<a href="https://wiki.archlinux.org/index.php/Time#Time_Zone">时区设置</a></p>
+<ul>
+<li>设置 Hostname</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>hostnamectl <span class="operator"><span class="keyword">set</span>-hostname rpi
+</pre></td></tr></table></figure>
+
+<p>更多关于 <a href="https://wiki.archlinux.org/index.php/Network_Configuration#Set_the_hostname">Hostname</a></p>
+<ul>
+<li>更新系统</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="title">pacman</span> -Syu
+</pre></td></tr></table></figure>
+
+<ul>
+<li>安装 Sudo</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>pacman -S su<span class="operator"><span class="keyword">do</span>
+</pre></td></tr></table></figure>
+
+<p>配置 sudo，执行 <code>visudo</code>，去掉下面这句注释</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>%wheel <span class="keyword">ALL</span>=(<span class="keyword">ALL</span>) <span class="keyword">ALL</span>
+</pre></td></tr></table></figure>
+
+<p>更多关于 <a href="https://wiki.archlinux.org/index.php/Sudo">Sudo</a></p>
+<ul>
+<li>添加用户</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre><span class="comment">useradd</span> <span class="literal">-</span><span class="comment">m</span> <span class="literal">-</span><span class="comment">U</span> <span class="literal">-</span><span class="comment">G</span> <span class="comment">wheel</span> <span class="literal">-</span><span class="comment">s</span> <span class="comment">/bin/bash</span> <span class="comment">jkey</span>
+<span class="comment">passwd</span> <span class="comment">jkey
+</pre></td></tr></table></figure>
+
+<p>更多关于<a href="https://wiki.archlinux.org/index.php/Users_and_Groups#User_groups">用户和组</a></p>
+<ul>
+<li>配置 SSH</li>
+</ul>
+<p>修改 /etc/ssh/sshd_config 文件，修改默认端口，禁止 root 登录，禁止使用密码登录</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+</pre></td><td class="code"><pre><span class="title">Port</span> <span class="number">8888</span>
+PermitRootLogin <span class="built_in">no</span>
+PasswordAuthentication <span class="built_in">no</span>
+</pre></td></tr></table></figure>
+
+<p>锁住 root 用户</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="title">passwd</span> -l root
+</pre></td></tr></table></figure>]]></content>
+  </entry>
   <entry>
     <title type="html"><![CDATA[制作一个 python egg]]></title>
     <link href="http://blog.jkey.lu/2013/04/11/create-python-egg/"/>

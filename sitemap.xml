@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://blog.jkey.lu/2013/04/21/pep-8/</loc>
+    <lastmod>2013-04-21T08:17:08.000Z</lastmod>
+  </url>
+  <url>
+    <loc>http://blog.jkey.lu/2013/04/18/configure-raspberry-pi/</loc>
+    <lastmod>2013-04-21T07:27:00.000Z</lastmod>
+  </url>
+  <url>
     <loc>http://blog.jkey.lu/2013/04/11/create-python-egg/</loc>
     <lastmod>2013-04-14T14:19:22.000Z</lastmod>
   </url>
@@ -33,11 +41,11 @@
     <lastmod>2013-02-24T11:28:40.000Z</lastmod>
   </url>
   <url>
-    <loc>http://blog.jkey.lu/2013/02/02/began-to-lose-control/</loc>
+    <loc>http://blog.jkey.lu/2013/01/09/hello-world/</loc>
     <lastmod>2013-02-16T15:46:34.000Z</lastmod>
   </url>
   <url>
-    <loc>http://blog.jkey.lu/2013/01/09/hello-world/</loc>
+    <loc>http://blog.jkey.lu/2013/02/02/began-to-lose-control/</loc>
     <lastmod>2013-02-16T15:46:34.000Z</lastmod>
   </url>
 </urlset>
