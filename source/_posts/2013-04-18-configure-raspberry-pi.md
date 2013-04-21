@@ -16,6 +16,8 @@ dd if=archlinux-hf-2013-02-11.img of=/dev/sdb bs=1M
 
 如果是 window 系统，可以下载 [Win32DiskImager](http://sourceforge.net/projects/win32diskimager/) 来把镜像写入 SD 卡。
 
+<!-- more -->
+
 设置内存
 --------
 
