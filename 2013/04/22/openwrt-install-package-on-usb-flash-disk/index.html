@@ -3,13 +3,30 @@
 <head>
   <meta charset="utf-8">
   
-  <title>归档：2013/4 | jKey Blog</title>
+  <title>openwrt 把包装到u盘上 | jKey Blog</title>
   <meta name="author" content="jKey Lu">
+  
+  <meta name="description" content="买了个可以刷 openwrt 的路由器，但是路由器始终是路由器。ROM 大小只有 16M，想装个 python 包到上面显然有些不现实。不过也是有办法把包装到u盘上的，当然前提是路由器上有个 usb 口。
+
+u盘查到路由器上，然后挂载u盘。
+
+在u盘上创建文件夹，用于安装包
+
+
+1
+mkdir /mnt/sdb1/packages
+
+
+
+创建 /opt 软连接
+
+1
+ln -s /mnt/sdb1/packages /opt">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="openwrt 把包装到u盘上"/>
   <meta property="og:site_name" content="jKey Blog"/>
 
   
@@ -54,12 +71,7 @@
 </nav>
 <div class="clearfix"></div></header>
   <div id="content" class="inner">
-    <div id="main-col" class="alignleft"><div id="wrapper">
-<h2 class="archive-title">2013/4</h2>
-
-
-  
-    <article class="post">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
   
   <div class="post-content">
     <header>
@@ -69,7 +81,7 @@
       
       
   
-    <h1 class="title"><a href="/2013/04/22/openwrt-install-package-on-usb-flash-disk/">openwrt 把包装到u盘上</a></h1>
+    <h1 class="title">openwrt 把包装到u盘上</h1>
   
 
     </header>
@@ -92,158 +104,55 @@
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
 </pre></td><td class="code"><pre><span class="title">ln</span> -s /mnt/sdb1/packages /opt
 </pre></td></tr></table></figure>
+<a name="more"></a>
 
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2013/04/22/openwrt-install-package-on-usb-flash-disk/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
+* 然后编辑 /etc/opkg.conf 文件，添加一行如下
 
-
-  
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2013-04-21T07:32:09.000Z"><a href="/2013/04/21/pep-8/">Apr 21, 2013</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2013/04/21/pep-8/">pep 8</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <h1>简介</h1>
-<p>这篇是讲关于 python 代码风格的一些约定，主要用于 python 中标准库的代码风格的约定。关于 <a href="http://www.python.org/dev/peps/pep-0008/">pep 8</a> 这份文档网上也有很多翻译，但是为了自己便于记忆，大致的翻译记录一下。所以，对照原文可能是不完整的。</p>
-<h1>A Foolish Consistency is the Hobgoblin of Little Minds</h1>
-<p>总之一句话，就是保持代码的一致性。</p>
-<h1>代码排版</h1>
-<h2>缩进</h2>
-<ul>
-<li><p>每级缩进使用 4 个空格。</p>
-</li>
-<li><p>如果和旧代码不一致，还是改为与旧代码相同的缩减方式。</p>
-</li>
-</ul>
-
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2013/04/21/pep-8/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-  
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2013-04-18T13:42:06.000Z"><a href="/2013/04/18/configure-raspberry-pi/">Apr 18, 2013</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2013/04/18/configure-raspberry-pi/">重新配置我的树莓派</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <h2>安装系统</h2>
-<p>下载 Arch Linux ARM 系统镜像：<a href="http://www.raspberrypi.org/downloads"><a href="http://www.raspberrypi.org/downloads">http://www.raspberrypi.org/downloads</a></a></p>
-<p>解压出 .img 文件，然后使用以下命令把镜像写入 SD 卡中</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre><span class="title">dd</span> <span class="keyword">if</span>=archlinux-hf-<span class="number">2013</span>-<span class="number">02</span>-<span class="number">11.</span>img <span class="keyword">of</span>=/dev/sdb bs=<span class="number">1</span>M
+</pre></td><td class="code"><pre><span class="title">dest</span> usb /opt
 </pre></td></tr></table></figure>
 
-<p>如果是 window 系统，可以下载 <a href="http://sourceforge.net/projects/win32diskimager/">Win32DiskImager</a> 来把镜像写入 SD 卡。</p>
-
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2013/04/18/configure-raspberry-pi/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-  
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2013-04-11T14:06:51.000Z"><a href="/2013/04/11/create-python-egg/">Apr 11, 2013</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2013/04/11/create-python-egg/">制作一个 python egg</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>最近用 Python 写了一个公共的库，然后我想让它能够像平常使用 pip 安装第三方库一样方便的安装。然后就去研究了一下 python 是如何打包的，更确切的说是适合用于 pip 安装的打包方式。</p>
-<p>首先创建一个项目文件夹，这个项目文件夹的结构如下：</p>
-<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+<ul>
+<li>在 /etc/profile 文件中添加环境变量</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
-3
-4
-5
-6
-</pre></td><td class="code"><pre>helloworld/
-    helloworld/
-        __init__.py
-        foo.py
-    setup.py
-    README.md
+</pre></td><td class="code"><pre>export <span class="constant">PATH</span>=<span class="variable">$PATH</span><span class="symbol">:/opt/bin</span><span class="symbol">:/opt/sbin</span><span class="symbol">:/opt/usr/bin</span><span class="symbol">:/opt/usr/sbin</span>
+export <span class="constant">LD_LIBRARY_PATH</span>=<span class="variable">$LD_LIBRARY_PATH</span><span class="symbol">:/opt/lib</span><span class="symbol">:/opt/usr/lib</span>
 </pre></td></tr></table></figure>
 
+<ul>
+<li>安装包到u盘上</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre><span class="title">opkg</span> update
+<span class="title">opkg</span> -dest usb install python
+</pre></td></tr></table></figure>
+
+<ul>
+<li>如果安装的包中有启动服务的脚本，可以在 /etc/init.d 中添加软连接</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>ln -s /opt/etc/init<span class="variable">.d</span>/nginx /etc/init<span class="variable">.d</span>/nginx
+</pre></td></tr></table></figure>
+
+<p>更多详细：<a href="http://wiki.openwrt.org/doc/techref/opkg#mount.point"><a href="http://wiki.openwrt.org/doc/techref/opkg#mount.point">http://wiki.openwrt.org/doc/techref/opkg#mount.point</a></a></p>
 
       
     </div>
     <footer>
       
         
-          <div class="alignleft">
-            <a href="/2013/04/11/create-python-egg/#more" class="more-link">Read More</a>
-          </div>
         
+  
+  <div class="tags">
+    <a href="/tags/openwrt/">openwrt</a>
+  </div>
+
         
+
+
       
       <div class="clearfix"></div>
     </footer>
@@ -251,13 +160,12 @@
 </article>
 
 
-  
-
-  <nav id="pagination">
-  
-  
-  <div class="clearfix"></div>
-</nav>
+<section id="comment">
+  <h1 class="title">留言</h1>
+  <div class="ds-thread">
+    <noscript>Please enable JavaScript to view the comments powered by DuoShuo.</noscript>
+  </div>
+</section>
 </div></div>
     <aside id="sidebar" class="alignright">
   <div class="search">

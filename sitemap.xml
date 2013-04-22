@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://blog.jkey.lu/2013/04/22/openwrt-install-package-on-usb-flash-disk/</loc>
+    <lastmod>2013-04-21T09:15:00.000Z</lastmod>
+  </url>
+  <url>
     <loc>http://blog.jkey.lu/2013/04/21/pep-8/</loc>
     <lastmod>2013-04-21T08:17:08.000Z</lastmod>
   </url>

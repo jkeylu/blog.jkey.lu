@@ -3,13 +3,73 @@
   <title><![CDATA[jKey Blog]]></title>
   <link href="http://blog.jkey.lu/atom.xml" rel="self"/>
   <link href="http://blog.jkey.lu"/>
-  <updated>2013-04-21T08:23:45.361Z</updated>
+  <updated>2013-04-22T15:55:10.492Z</updated>
   <id>http://blog.jkey.lu/</id>
   <author>
     <name><![CDATA[jKey Lu]]></name>
     <email><![CDATA[i@jkey.lu]]></email>
   </author>
   <generator uri="http://zespia.tw/hexo">Hexo</generator>
+  <entry>
+    <title type="html"><![CDATA[openwrt 把包装到u盘上]]></title>
+    <link href="http://blog.jkey.lu/2013/04/22/openwrt-install-package-on-usb-flash-disk/"/>
+    <id>http://blog.jkey.lu/2013/04/22/openwrt-install-package-on-usb-flash-disk/</id>
+    <published>2013-04-22T12:47:24.000Z</published>
+    <updated>2013-04-21T09:15:00.000Z</updated>
+    <content type="html"><![CDATA[<p>买了个可以刷 openwrt 的路由器，但是路由器始终是路由器。ROM 大小只有 16M，想装个 python 包到上面显然有些不现实。不过也是有办法把包装到u盘上的，当然前提是路由器上有个 usb 口。</p>
+<ul>
+<li><p>u盘查到路由器上，然后挂载u盘。</p>
+</li>
+<li><p>在u盘上创建文件夹，用于安装包</p>
+</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="title">mkdir</span> /mnt/sdb1/packages
+</pre></td></tr></table></figure>
+
+<ul>
+<li>创建 /opt 软连接</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="title">ln</span> -s /mnt/sdb1/packages /opt
+</pre></td></tr></table></figure>
+<a name="more"></a>
+
+* 然后编辑 /etc/opkg.conf 文件，添加一行如下
+
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="title">dest</span> usb /opt
+</pre></td></tr></table></figure>
+
+<ul>
+<li>在 /etc/profile 文件中添加环境变量</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre>export <span class="constant">PATH</span>=<span class="variable">$PATH</span><span class="symbol">:/opt/bin</span><span class="symbol">:/opt/sbin</span><span class="symbol">:/opt/usr/bin</span><span class="symbol">:/opt/usr/sbin</span>
+export <span class="constant">LD_LIBRARY_PATH</span>=<span class="variable">$LD_LIBRARY_PATH</span><span class="symbol">:/opt/lib</span><span class="symbol">:/opt/usr/lib</span>
+</pre></td></tr></table></figure>
+
+<ul>
+<li>安装包到u盘上</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre><span class="title">opkg</span> update
+<span class="title">opkg</span> -dest usb install python
+</pre></td></tr></table></figure>
+
+<ul>
+<li>如果安装的包中有启动服务的脚本，可以在 /etc/init.d 中添加软连接</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>ln -s /opt/etc/init<span class="variable">.d</span>/nginx /etc/init<span class="variable">.d</span>/nginx
+</pre></td></tr></table></figure>
+
+<p>更多详细：<a href="http://wiki.openwrt.org/doc/techref/opkg#mount.point"><a href="http://wiki.openwrt.org/doc/techref/opkg#mount.point">http://wiki.openwrt.org/doc/techref/opkg#mount.point</a></a></p>
+]]></content>
+    <category scheme="http://blog.jkey.lu/tags/openwrt/" term="openwrt"/>
+  </entry>
   <entry>
     <title type="html"><![CDATA[pep 8]]></title>
     <link href="http://blog.jkey.lu/2013/04/21/pep-8/"/>
