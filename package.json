@@ -1,6 +1,6 @@
 {
   "name": "jkey-blog",
-  "version": "1.1.2",
+  "version": "1.2.4",
   "private": true,
   "engines": {
     "node": ">= 0.6.0",
