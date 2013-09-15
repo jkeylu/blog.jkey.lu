@@ -13,6 +13,7 @@ permalink: :year/:month/:day/:title/
 tag_dir: tags
 archive_dir: archives
 category_dir: categories
+#code_dir: downloads/code
 
 # Writing
 new_post_name: :year-:month-:day-:title.md
@@ -20,6 +21,8 @@ default_layout: post
 auto_spacing: false # Add spaces between asian characters and western characters
 titlecase: false # Transform title into titlecase
 max_open_file: 100
+multi_thread: true
+filename_case: 0
 highlight:
   enable: true
   backtick_code_block: true
