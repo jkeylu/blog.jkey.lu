@@ -3,7 +3,7 @@
   <title><![CDATA[jKey Blog]]></title>
   <link href="http://blog.jkey.lu/atom.xml" rel="self"/>
   <link href="http://blog.jkey.lu"/>
-  <updated>2013-09-15T14:01:31.634Z</updated>
+  <updated>2013-09-15T14:23:18.191Z</updated>
   <id>http://blog.jkey.lu/</id>
   <author>
     <name><![CDATA[jKey Lu]]></name>
@@ -1913,8 +1913,8 @@ Called example function
   </entry>
   <entry>
     <title type="html"><![CDATA[Backbone.js 中的 model 是什么？]]></title>
-    <link href="http://blog.jkey.lu/2013/03/03/2013-03-03-what-is-a-model-in-backbone/"/>
-    <id>http://blog.jkey.lu/2013/03/03/2013-03-03-what-is-a-model-in-backbone/</id>
+    <link href="http://blog.jkey.lu/2013/03/03/what-is-a-model-in-backbone/"/>
+    <id>http://blog.jkey.lu/2013/03/03/what-is-a-model-in-backbone/</id>
     <published>2013-03-03T05:55:58.000Z</published>
     <updated>2013-03-03T13:40:18.000Z</updated>
     <content type="html"><![CDATA[<p>根据维基百科上对 <a href="http://zh.wikipedia.org/wiki/MVC" target="_blank">MVC</a> 的定义，我们很难搞懂 model 到底是个什么东西。Backbone.js 的作者对 model 在 backbone.js 中的定义如下。</p>
