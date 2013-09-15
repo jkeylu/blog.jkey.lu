@@ -31,7 +31,6 @@ A Foolish Consistency is the Hobgoblin of Little Minds
   <link rel="alternate" href="/atom.xml" title="jKey Blog" type="application/atom+xml">
   <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
   <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
   
 <script type="text/javascript">
   var _gaq = _gaq || [];
@@ -71,7 +70,7 @@ A Foolish Consistency is the Hobgoblin of Little Minds
     <header>
       
         <div class="icon"></div>
-        <time datetime="2013-04-21T07:32:09.000Z"><a href="/2013/04/21/pep-8/">Apr 21, 2013</a></time>
+        <time datetime="2013-04-21T07:32:09.000Z"><a href="/2013/04/21/pep-8/">4月 21, 2013</a></time>
       
       
   
@@ -82,7 +81,7 @@ A Foolish Consistency is the Hobgoblin of Little Minds
     <div class="entry">
       
         <h1>简介</h1>
-<p>这篇是讲关于 python 代码风格的一些约定，主要用于 python 中标准库的代码风格的约定。关于 <a href="http://www.python.org/dev/peps/pep-0008/">pep 8</a> 这份文档网上也有很多翻译，但是为了自己便于记忆，大致的翻译记录一下。所以，对照原文可能是不完整的。</p>
+<p>这篇是讲关于 python 代码风格的一些约定，主要用于 python 中标准库的代码风格的约定。关于 <a href="http://www.python.org/dev/peps/pep-0008/" target="_blank">pep 8</a> 这份文档网上也有很多翻译，但是为了自己便于记忆，大致的翻译记录一下。所以，对照原文可能是不完整的。</p>
 <h1>A Foolish Consistency is the Hobgoblin of Little Minds</h1>
 <p>总之一句话，就是保持代码的一致性。</p>
 <h1>代码排版</h1>
@@ -93,7 +92,7 @@ A Foolish Consistency is the Hobgoblin of Little Minds
 <li><p>如果和旧代码不一致，还是改为与旧代码相同的缩减方式。</p>
 </li>
 </ul>
-<a name="more"></a>
+<a id="more"></a>
 
 <p>Yes:</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
@@ -185,7 +184,7 @@ foo = long_function_name(var_one, var_two,
                  <span class="title">color</span>='<span class="title">black</span>', <span class="title">emphasis</span>=<span class="title">None</span>, <span class="title">highlight</span>=0):
         <span class="title">if</span> (<span class="title">width</span> == 0 <span class="title">and</span> <span class="title">height</span> == 0 <span class="title">and</span>
             <span class="title">color</span> == '<span class="title">red</span>' <span class="title">and</span> <span class="title">emphasis</span> == '<span class="title">strong</span>' <span class="title">or</span>
-            <span class="title">highlight</span> &<span class="title">gt</span>; 100):
+            <span class="title">highlight</span> &gt; 100):
             <span class="title">raise</span> <span class="title">ValueError</span>("<span class="title">sorry</span>, <span class="title">you</span> <span class="title">lose</span>")
         <span class="title">if</span> <span class="title">width</span> == 0 <span class="title">and</span> <span class="title">height</span> == 0 <span class="title">and</span> (<span class="title">color</span> == '<span class="title">red</span>' <span class="title">or</span>
                                            <span class="title">emphasis</span> <span class="title">is</span> <span class="title">None</span>):
@@ -204,80 +203,118 @@ foo = long_function_name(var_one, var_two,
 <li><p>可以用额外的空行分割一组相关的函数。</p>
 </li>
 </ul>
-<h2>编码 (<a href="http://www.python.org/dev/peps/pep-0263">PEP 263</a>)</h2>
-<p>python 核心代码应该使用 ASCII 或 Latin-1 编码。python 3.0 以上使用 UTF-8，更多请看 <a href="http://www.python.org/dev/peps/pep-3120">PEP 3120</a></p>
+<h2>编码 (<a href="http://www.python.org/dev/peps/pep-0263" target="_blank">PEP 263</a>)</h2>
+<p>python 核心代码应该使用 ASCII 或 Latin-1 编码。python 3.0 以上使用 UTF-8，更多请看 <a href="http://www.python.org/dev/peps/pep-3120" target="_blank">PEP 3120</a></p>
 <h2>导入</h2>
 <ul>
-<li><p>通常在单独的行导入</p>
-<pre><code>  <span class="type">Yes</span>: <span class="import"><span class="keyword">import</span> os</span>
-       <span class="import"><span class="keyword">import</span> sys</span>
+<li>通常在单独的行导入</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+</pre></td><td class="code"><pre>    <span class="type">Yes</span>: <span class="import"><span class="keyword">import</span> os</span>
+         <span class="import"><span class="keyword">import</span> sys</span>
 
-  <span class="type">No</span>:  <span class="import"><span class="keyword">import</span> sys, os</span>
-</code></pre>
-</li>
-<li><p>以下请看是没问题的：</p>
-<pre><code>  from subprocess <span class="import"><span class="keyword">import</span> Popen, PIPE</span>
-</code></pre>
-</li>
+    <span class="type">No</span>:  <span class="import"><span class="keyword">import</span> sys, os</span>
+</pre></td></tr></table></figure>
+
+<ul>
+<li>以下请看是没问题的：</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>    from subprocess <span class="import"><span class="keyword">import</span> Popen, PIPE</span>
+</pre></td></tr></table></figure>
+
+<ul>
 <li><p>导入通常被放在文件的顶部，在模块注释和文档字符串之后，在模块的全局变量和常量之前。</p>
 <p>  导入应该按照下面顺序分组排放：</p>
 <pre><code>  1. 标准库的导入
   2. 相关的第三方包的导入
-  3. 本地应用/库的特定导入
-</code></pre>
+  3. 本地应用/库的特定导入</code></pre>
 <p>  并且用一行空行分隔每个分组。</p>
 <p>  把任何相关 __all__ 说明的放在导入之后。</p>
 </li>
 <li><p>对于所有导入都是用据对路径。</p>
 </li>
 <li><p>从一个包含类的模块中导入类时，通常可以写成这样：</p>
-<pre><code>  from my<span class="class"><span class="keyword">class</span> <span class="title">import</span> <span class="title">MyClass</span></span>
-  from foo.bar.your<span class="class"><span class="keyword">class</span> <span class="title">import</span> <span class="title">YourClass</span></span>
-</code></pre>
-<p>  如果这样写导致了本地名字冲突，那么就这样写：</p>
-<pre><code>  <span class="import"><span class="keyword">import</span> myclass</span>
-  <span class="import"><span class="keyword">import</span> foo.bar.yourclass</span>
-</code></pre>
-<p>  并且使用 &quot;myclass.MyClass&quot; 和 &quot;foo.bar.yourclass.YourClass&quot;.</p>
 </li>
 </ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre>    from my<span class="class"><span class="keyword">class</span> <span class="title">import</span> <span class="title">MyClass</span></span>
+    from foo.bar.your<span class="class"><span class="keyword">class</span> <span class="title">import</span> <span class="title">YourClass</span></span>
+</pre></td></tr></table></figure>
+
+<pre><code>如果这样写导致了本地名字冲突，那么就这样写：</code></pre>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre>    <span class="import"><span class="keyword">import</span> myclass</span>
+    <span class="import"><span class="keyword">import</span> foo.bar.yourclass</span>
+</pre></td></tr></table></figure>
+
+<pre><code>并且使用 &quot;myclass.MyClass&quot; 和 &quot;foo.bar.yourclass.YourClass&quot;.</code></pre>
 <h1>表达式和语句中的空格</h1>
 <h2>不能忍受的事</h2>
 <p><strong>避免</strong>在下述情况中使用无关的空格：</p>
 <ul>
-<li><p>紧挨着圆括号，方括号或大括号里空格</p>
-<pre><code>  <span class="tag">Yes</span>: <span class="tag">spam</span>(<span class="tag">ham</span><span class="attr_selector">[1]</span>, <span class="rules">{<span class="rule"><span class="attribute">eggs</span>:<span class="value"> <span class="number">2</span>}</span></span></span>)
-  <span class="tag">No</span>:  <span class="tag">spam</span>( <span class="tag">ham</span><span class="attr_selector">[ 1 ]</span>, <span class="rules">{ <span class="rule"><span class="attribute">eggs</span>:<span class="value"> <span class="number">2</span> }</span></span></span> )
-</code></pre>
-</li>
-<li><p>在逗号，分号或冒号前有空格</p>
-<pre><code>  Yes: <span class="keyword">if</span> x == <span class="number">4</span>: <span class="built_in">print</span> x, y; x, y = y, x
-  No:  <span class="keyword">if</span> x == <span class="number">4</span> : <span class="built_in">print</span> x , y ; x , y = y , x
-</code></pre>
-</li>
-<li><p>在函数调用的左括号前有空格</p>
-<pre><code>  <span class="attribute">Yes</span>: <span class="string">spam(1)</span>
-  <span class="attribute">No</span>: <span class="string"> spam (1)</span>
-</code></pre>
-</li>
-<li><p>在索引的多括号前有空格</p>
-<pre><code>  <span class="attribute">Yes</span>: <span class="string">dict['key'] = list[index]</span>
-  <span class="attribute">No</span>: <span class="string"> dict ['key'] = list [index]</span>
-</code></pre>
-</li>
+<li>紧挨着圆括号，方括号或大括号里空格</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre>    <span class="tag">Yes</span>: <span class="tag">spam</span>(<span class="tag">ham</span><span class="attr_selector">[1]</span>, <span class="rules">{<span class="rule"><span class="attribute">eggs</span>:<span class="value"> <span class="number">2</span>}</span></span></span>)
+    <span class="tag">No</span>:  <span class="tag">spam</span>( <span class="tag">ham</span><span class="attr_selector">[ 1 ]</span>, <span class="rules">{ <span class="rule"><span class="attribute">eggs</span>:<span class="value"> <span class="number">2</span> }</span></span></span> )
+</pre></td></tr></table></figure>
+
+<ul>
+<li>在逗号，分号或冒号前有空格</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre>    Yes: <span class="keyword">if</span> x == <span class="number">4</span>: <span class="built_in">print</span> x, y; x, y = y, x
+    No:  <span class="keyword">if</span> x == <span class="number">4</span> : <span class="built_in">print</span> x , y ; x , y = y , x
+</pre></td></tr></table></figure>
+
+<ul>
+<li>在函数调用的左括号前有空格</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre>    <span class="attribute">Yes</span>: <span class="string">spam(1)</span>
+    <span class="attribute">No</span>: <span class="string"> spam (1)</span>
+</pre></td></tr></table></figure>
+
+<ul>
+<li>在索引的多括号前有空格</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre>    <span class="attribute">Yes</span>: <span class="string">dict['key'] = list[index]</span>
+    <span class="attribute">No</span>: <span class="string"> dict ['key'] = list [index]</span>
+</pre></td></tr></table></figure>
+
+<ul>
 <li><p>在等号前加多余的空格</p>
 <p>  Yes:</p>
-<pre><code>  <span class="title">x</span> = <span class="number">1</span>
-  y = <span class="number">2</span>
-  long_variable = <span class="number">3</span>
-</code></pre>
-<p>  No:</p>
-<pre><code>  <span class="title">x</span>             = <span class="number">1</span>
-  y             = <span class="number">2</span>
-  long_variable = <span class="number">3</span>
-</code></pre>
 </li>
 </ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+</pre></td><td class="code"><pre>    <span class="title">x</span> = <span class="number">1</span>
+    y = <span class="number">2</span>
+    long_variable = <span class="number">3</span>
+</pre></td></tr></table></figure>
+
+<pre><code><span class="attribute">No:</code></pre>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+</pre></td><td class="code"><pre>    <span class="title">x</span>             = <span class="number">1</span>
+    y             = <span class="number">2</span>
+    long_variable = <span class="number">3</span>
+</pre></td></tr></table></figure>
+
 <h2>其他推荐</h2>
 <h1>注释</h1>
 <h2>Block Comments</h2>
@@ -336,15 +373,6 @@ foo = long_function_name(var_one, var_two,
 </div>
 
   
-<div class="widget tag">
-  <h3 class="title">分类</h3>
-  <ul class="entry">
-  
-    <li><a href="/categories/backbone-tutorials/">backbone-tutorials</a><small>1</small></li>
-  
-  </ul>
-</div>
-
 
   
 <div class="widget tag">
@@ -352,6 +380,8 @@ foo = long_function_name(var_one, var_two,
   <ul class="entry">
   
     <li><a href="/tags/backbone/">backbone</a><small>1</small></li>
+  
+    <li><a href="/tags/nodejs/">nodejs</a><small>1</small></li>
   
     <li><a href="/tags/openwrt/">openwrt</a><small>1</small></li>
   
@@ -373,7 +403,8 @@ foo = long_function_name(var_one, var_two,
   
 </div>
 <div class="clearfix"></div></footer>
-  <script src="/js/jquery.imagesloaded.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
 <script src="/js/gallery.js"></script>
 
 

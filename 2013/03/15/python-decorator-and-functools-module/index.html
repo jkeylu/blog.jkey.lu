@@ -70,7 +70,6 @@ Hello World!
   <link rel="alternate" href="/atom.xml" title="jKey Blog" type="application/atom+xml">
   <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
   <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
   
 <script type="text/javascript">
   var _gaq = _gaq || [];
@@ -110,7 +109,7 @@ Hello World!
     <header>
       
         <div class="icon"></div>
-        <time datetime="2013-03-15T15:11:49.000Z"><a href="/2013/03/15/python-decorator-and-functools-module/">Mar 15, 2013</a></time>
+        <time datetime="2013-03-15T15:11:49.000Z"><a href="/2013/03/15/python-decorator-and-functools-module/">3月 15, 2013</a></time>
       
       
   
@@ -169,7 +168,7 @@ Hello World!
 </pre></td></tr></table></figure>
 
 <p>从上面运行后结果看出，装饰器就是一个能够返回可调用对象（函数）的可调用对象（函数）。</p>
-<a name="more"></a>
+<a id="more"></a>
 
 <h3>具有封闭作用域的装饰器</h3>
 <figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
@@ -231,10 +230,10 @@ x = 2, y = 3
 </pre></td></tr></table></figure>
 
 <p>可以看出第一次调用 <code>foo(1, 2)</code> 时，相当于</p>
-<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 </pre></td><td class="code"><pre>foo = decorator(foo)
-foo(<span class="number">1</span>, <span class="number">2</span>)
+<span class="function"><span class="title">foo</span><span class="params">(<span class="number">1</span>, <span class="number">2</span>)</span>
 </pre></td></tr></table></figure>
 
 <p>第二次调用 <code>foo(2, 3)</code> 时 <em>foo</em> 已经为 <em>decorator(foo)</em> 的返回值了</p>
@@ -387,7 +386,7 @@ int2 = partial(int, base=<span class="number">2</span>)
 
 <h3>update_wrapper(wrapper, wrapped[, assigned][, updated])</h3>
 <p>看这个函数的源代码发现，它就是把被封装的函数的 <strong>module</strong>, <strong>name</strong>, <strong>doc</strong> 和 <strong>dict</strong> 复制到封装的函数中去，源码如下，很简单的几句：</p>
-<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -414,7 +413,7 @@ WRAPPER_UPDATES = (<span class="string">'__dict__'</span>,)
 <p>具体如何用我们可以往下看一下。</p>
 <h3>wraps(wrapped[, assigned][, updated])</h3>
 <p>wraps() 函数把用 partial() 把 update_wrapper() 给封装了一下。</p>
-<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -429,7 +428,7 @@ WRAPPER_UPDATES = (<span class="string">'__dict__'</span>,)
 </pre></td></tr></table></figure>
 
 <p>好，接下来看一下是如何使用的，这才恍然大悟，一直在很多开源项目的代码中看到如下使用。</p>
-<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -474,6 +473,8 @@ Called example function
 <span class="keyword">print</span> example.__name__ <span class="comment"># 'example'</span>
 <span class="keyword">print</span> example.__doc__ <span class="comment"># '这里是文档注释'</span>
 </pre></td></tr></table></figure>
+
+
       
     </div>
     <footer>
@@ -511,15 +512,6 @@ Called example function
 </div>
 
   
-<div class="widget tag">
-  <h3 class="title">分类</h3>
-  <ul class="entry">
-  
-    <li><a href="/categories/backbone-tutorials/">backbone-tutorials</a><small>1</small></li>
-  
-  </ul>
-</div>
-
 
   
 <div class="widget tag">
@@ -527,6 +519,8 @@ Called example function
   <ul class="entry">
   
     <li><a href="/tags/backbone/">backbone</a><small>1</small></li>
+  
+    <li><a href="/tags/nodejs/">nodejs</a><small>1</small></li>
   
     <li><a href="/tags/openwrt/">openwrt</a><small>1</small></li>
   
@@ -548,7 +542,8 @@ Called example function
   
 </div>
 <div class="clearfix"></div></footer>
-  <script src="/js/jquery.imagesloaded.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
 <script src="/js/gallery.js"></script>
 
 

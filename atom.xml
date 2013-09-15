@@ -3,13 +3,739 @@
   <title><![CDATA[jKey Blog]]></title>
   <link href="http://blog.jkey.lu/atom.xml" rel="self"/>
   <link href="http://blog.jkey.lu"/>
-  <updated>2013-04-22T15:55:10.492Z</updated>
+  <updated>2013-09-15T14:01:31.634Z</updated>
   <id>http://blog.jkey.lu/</id>
   <author>
     <name><![CDATA[jKey Lu]]></name>
     <email><![CDATA[i@jkey.lu]]></email>
   </author>
   <generator uri="http://zespia.tw/hexo">Hexo</generator>
+  <entry>
+    <title type="html"><![CDATA[vim 快捷键映射和模式]]></title>
+    <link href="http://blog.jkey.lu/2013/09/15/vim-mapping-and-mode/"/>
+    <id>http://blog.jkey.lu/2013/09/15/vim-mapping-and-mode/</id>
+    <published>2013-09-15T08:17:15.000Z</published>
+    <updated>2013-09-15T13:41:35.000Z</updated>
+    <content type="html"><![CDATA[<p>以前在 vim 中映射快捷键时，不是网上看被人怎么写然后拷贝回来，要么直接用 ‘map’ 来映射，根本搞不懂 ‘map’, ‘noremap’, ‘nmap’, ‘vmap’ … 之间的区别到底是什么。</p>
+<p>今天，上网 Google 了下，不过先要从 vim 的几种模式说起。</p>
+<h2>vim 中有六种基本模式:</h2>
+<ol>
+<li><p>普通模式 (Normal-mode)</p>
+<p> 一般，启动编辑器之后就处于普通模式，除非你设置了 ‘insertmode’。也称为命令 (command) 模式。</p>
+</li>
+<li><p>可视模式 (Visual-mode)</p>
+<p> 可视模式与普通模式相似，只是光标移动会扩展高亮的区域。而其它非移动命令会作用于高亮的区域。在普通模式下，可以通过 v 或 V 或 CTRL-V 进入。如果没有关闭 ‘showmode’ 选项，窗口底部会出现 “—VISUAL—” 字样。</p>
+</li>
+<li><p>选择模式 (Select-mode)</p>
+<p> 选择模式与 Windows 下其它编辑器的选择模式很像。选中字符后，键入一个可显示字符会删掉所有被选择的字符，并进入插入模式。一般，可以在普通模式下按 gh 进入，或在 gvim 中用鼠标拖选区域。窗口底部会出现 “—SELECT—” 字样。</p>
+</li>
+<li><p>插入模式 (Insert-mode)</p>
+<p> 插入模式下你键入的内容会插入到缓冲区。一般，在普通模式下按 i 或 a 进入插入模式。窗口底部会出现 “—INSERT—” 字样。</p>
+</li>
+<li><p>命令行模式 (Cmdline-mode)</p>
+<p> 命令行模式可以在窗口底部输入一行命令。可以用 “:” 执行命令，用 “?” 和 “/” 来查找。</p>
+</li>
+<li><p>Ex 模式 (Ex-mode)</p>
+<p> 与命令行模式类似，只是执行完一条命令后，会继续停留在 Ex 模式。在普通模式下，按 Q 进入 Ex 模式。</p>
+</li>
+</ol>
+<a id="more"></a>
+
+<h2>快捷键映射</h2>
+<p>快捷键映射分两种: map 和 noremap</p>
+<h3>递归映射 (map)</h3>
+<p>如果键 b 映射为键 a，然后键 c 映射为键 b，那么当按键 c 时会产生按键 a 的效果。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre><span class="symbol">:map</span> b a
+<span class="symbol">:map</span> c b
+</pre></td></tr></table></figure>
+
+<p>相当于</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="symbol">:map</span> c a
+</pre></td></tr></table></figure>
+
+<h3>非递归映射 (noremap)</h3>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre><span class="symbol">:noremap</span> b a
+<span class="symbol">:noremap</span> c b
+</pre></td></tr></table></figure>
+
+<p>非递归映射则不会产生递归映射一样的效果。</p>
+<h2>不同模式下的快捷键映射</h2>
+<p>在 map 与 noremap 前分别可以加 ‘n’, ‘v’, ‘x’, ‘s’, ‘o’, ‘i’, ‘l’, ‘c’ 以及 &#39;map!‘ 和 ’noremap!&#39;。</p>
+<ul>
+<li>n 表示在普通模式下生效，如 nmap, nnoremap</li>
+<li>v 表示在可视模式下生效，如 vmap, vnoremap</li>
+<li>s 表示在选择模式下生效，如 smap, snoremap</li>
+<li>i 表示在插入模式下生效，如 imap, inoremap</li>
+<li>c 表示在命令行模式下生效，如 cmap, cnoremap</li>
+</ul>
+<p>map 和 noremap 不加任何前缀的话，是 mapmode-nvo。会在普通模式，可视模式，操作符等待模式下生效。</p>
+<h2>清除模式</h2>
+<ul>
+<li>unmap</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="title">unmap</span> {lhs}
+</pre></td></tr></table></figure>
+
+<p>在映射命令作用的模式中删除 {lhs} 的映射。该映射仍然可以在其它模式中保留其定义。</p>
+<ul>
+<li>mapclear</li>
+</ul>
+<p>在映射命令作用的模式中删除<em>所有</em>的映射。</p>
+]]></content>
+  </entry>
+  <entry>
+    <title type="html"><![CDATA[Nodejs Addons]]></title>
+    <link href="http://blog.jkey.lu/2013/07/05/nodejs-addons/"/>
+    <id>http://blog.jkey.lu/2013/07/05/nodejs-addons/</id>
+    <published>2013-07-05T14:02:07.000Z</published>
+    <updated>2013-07-06T05:50:51.000Z</updated>
+    <content type="html"><![CDATA[<p>有时候仅仅用 javascript 并不能够实现我们想要的功能，比如说我最近买了一块 nokia 5110 的显示屏，想连在我的树莓派上显示一些有用的信息。而这块显示屏是 spi 接口的，树莓派上也是有 SPI 接口。但是我要对 SPI 接口写入信息传到显示屏上，就必须要用 c++ 来写，不是很方便。所以我就想写一个 nodejs 的 addon，最后可以实现 javascript 来与 SPI 总线进行通信。</p>
+<p>所以，就要学习如何写一个 nodejs 的 addon，这篇文章完全参考 <a href="http://nodejs.org/api/addons.html" target="_blank"><a href="http://nodejs.org/api/addons.html">http://nodejs.org/api/addons.html</a></a></p>
+<p>下面所有例子的代码可以从 <a href="https://github.com/rvagg/node-addon-examples" target="_blank"><a href="https://github.com/rvagg/node-addon-examples">https://github.com/rvagg/node-addon-examples</a></a> 下载到。</p>
+<h2>Hello world</h2>
+<p>我们要写一个简单的模块，这个模块的 javascript 代码实现如下，目标是把他转换为 c++ 实现的 Addon。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="transposed_variable">exports.</span>hello = <span class="function"><span class="keyword">function</span> <span class="params">()</span> { <span class="title">return</span> '<span class="title">world</span>'; };</span>
+</pre></td></tr></table></figure>
+
+<p>首先创建 <code>hello.cc</code>，内容如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+</pre></td><td class="code"><pre><span class="preprocessor">#include &lt;node.h&gt;</span>
+<span class="preprocessor">#include &lt;v8.h&gt;</span>
+
+<span class="keyword">using</span> <span class="class"><span class="keyword">namespace</span> <span class="title">v8</span>;
+
+/**
+ * "<span class="title">Method</span>" 的名字可以任取，可以换成 "<span class="title">Hello</span>"
+ * 来对应 <span class="title">exports</span> 的名称
+ */
+<span class="title">Handle</span>&lt;<span class="title">Value</span>&gt; <span class="title">Method</span>(<span class="title">const</span> <span class="title">Arguments</span>& <span class="title">args</span>) {</span>
+  HandleScope scope;
+  <span class="keyword">return</span> scope.Close(String::New(<span class="string">"world"</span>));
+}
+
+<span class="keyword">void</span> Init(Handle&lt;<span class="built_in">Object</span>&gt; exports) {
+  exports-&gt;Set(String::NewSymbol(<span class="string">"hello"</span>),
+    FunctionTemplate::New(Method)-&gt;GetFunction());
+}
+
+NODE_MODULE(hello, Init)
+</pre></td></tr></table></figure>
+
+<p>所有的 Node addons 必须输出一个初始化函数：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre>void Initialize(Handle<span class="tag">&lt;<span class="title">Object</span>&gt;</span> exports);
+NODE_MODULE(module_name, Initialize)
+</pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<p>注意 <code>NODE_MODULE</code> 后面是没有分号的，因为他是一个宏 (see <a href="https://github.com/joyent/node/blob/master/src/node.h" target="_blank">node.h</a>)</p>
+<p><code>module_name</code> 需要和最终生成的二进制文件相同（不包括 .node 后缀）</p>
+<p>为了把上面的 <code>hello.cc</code> 编译成 <code>hello.node</code> 二进制文件，我们要创建一个 <code>binding.gyp</code> 文件，它是用来描述你编译模块用到的配置，格式是 JSON 风格的。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="code"><pre>{
+  "<span class="attribute">targets</span>": <span class="value">[
+    {
+      "<span class="attribute">target_name</span>": <span class="value"><span class="string">"hello"</span></span>,
+      "<span class="attribute">sources</span>": <span class="value">[ <span class="string">"hello.cc"</span> ]
+    }</span>
+  ]
+}</span>
+</pre></td></tr></table></figure>
+
+<p>真正编译成二进制文件我们需要 <a href="https://github.com/TooTallNate/node-gyp" target="_blank">node-gyp</a> 工具。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="title">npm</span> install -g node-gyp
+</pre></td></tr></table></figure>
+
+<p>安装好 node-gyp 后，先要生成与当前平台相关的项目生成文件。运行下面命令</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="title">node</span>-gyp configure
+</pre></td></tr></table></figure>
+
+<p>然后你会发现在我的的项目文件夹中多出了一个 <code>build/</code> 文件夹，里面包含了 <code>Makefile</code> (linux 平台) 或 <code>vcxproj</code> (windows 平台) 文件。</p>
+<p>然后运行</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="title">node</span>-gyp build
+</pre></td></tr></table></figure>
+
+<p>编译完成后，可以在 <code>build/Release/</code> 下看到 <code>hello.node</code> 文件。</p>
+<p>然后测试一下这个模块，创建 <code>hello.js</code> 文件，内容如下。执行 <code>node hello.js</code> 后看看是否会输出正确的结果。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre><span class="keyword">var</span> addon = <span class="keyword">require</span>(<span class="string">'./build/Release/hello'</span>);
+console.log(addon.hello()); <span class="comment">// 'world'</span>
+</pre></td></tr></table></figure>
+
+<h2>Addon patterns</h2>
+<p>下面是一些 addon patterns 的例子。可以通过查阅 <a href="http://izs.me/v8-docs/main.html" target="_blank">v8 reference</a> 和 <a href="http://code.google.com/apis/v8/embed.html" target="_blank">Embedder&#39;s Guide</a> 获得更多帮助。</p>
+<h3>Function arguments</h3>
+<p>javascript 实现：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+</pre></td><td class="code"><pre>exports.add = <span class="function"><span class="keyword">function</span> <span class="params">(a, b)</span> {</span>
+  <span class="keyword">if</span> (arguments.length &lt; <span class="number">2</span>) {
+    <span class="keyword">throw</span> <span class="keyword">new</span> Error(<span class="string">'Wrong number of arguments'</span>);
+    <span class="keyword">return</span>;
+  }
+
+  <span class="function"><span class="keyword">function</span> <span class="title">isNum</span><span class="params">(s)</span> {</span>
+    <span class="keyword">if</span> (s!=<span class="literal">null</span> && s!=<span class="string">''</span>) {
+      <span class="keyword">return</span> !isNaN(s);
+    }
+    reutrn <span class="literal">false</span>;
+  }
+
+  <span class="keyword">if</span> (!isNum(a) || !isNum(b)) {
+    <span class="keyword">throw</span> <span class="keyword">new</span> Error(<span class="string">'Wrong arguments'</span>);
+    <span class="keyword">return</span>;
+  }
+
+  <span class="keyword">return</span> a + b;
+};
+</pre></td></tr></table></figure>
+
+<p>c++ 实现：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+</pre></td><td class="code"><pre><span class="preprocessor">#define BUILDING_NODE_EXTENSION</span>
+<span class="preprocessor">#include &lt;node.h&gt;</span>
+
+<span class="keyword">using</span> <span class="class"><span class="keyword">namespace</span> <span class="title">v8</span>;
+
+<span class="title">Handle</span>&lt;<span class="title">Value</span>&gt; <span class="title">Add</span>(<span class="title">const</span> <span class="title">Arguments</span>& <span class="title">args</span>) {</span>
+  HandleScope scope;
+
+  if (args.Length() &lt; <span class="number">2</span>) {
+    ThrowException(Exception::TypeError(String::New(<span class="string">"Wrong number of arguments"</span>)));
+    <span class="keyword">return</span> scope.Close(Undefined());
+  }
+
+  if (!args[<span class="number">0</span>]-&gt;IsNumber() || !args[<span class="number">1</span>]-&gt;IsNumber()) {
+    Throwexception(Exception::TypeError(String::New(<span class="string">"Wrong arguments"</span>)));
+    <span class="keyword">return</span> scope.Close(Undefined());
+  }
+
+  Local&lt;Number&gt; num = Number::New(args[<span class="number">0</span>]-&gt;NumberValue() +
+      args[<span class="number">1</span>]-&gt;NumberValue());
+  <span class="keyword">return</span> scope.Close(num);
+}
+
+<span class="keyword">void</span> Init(Handle&lt;<span class="built_in">Object</span>&gt; exports) {
+  exports-&gt;Set(String::NewSymbol(<span class="string">"add"</span>),
+      FunctionTemplate::New(Add)-&gt;GetFunction());
+}
+
+NODE_MODULE(addon, Init)
+</pre></td></tr></table></figure>
+
+<p>测试：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre>var addon = require(<span class="comment">'./build/Release/addon');</span>
+console.<span class="built_in">log</span>(<span class="comment">'This should be eight: ', addon.add(3, 8));</span>
+</pre></td></tr></table></figure>
+
+<h3>Callbacks</h3>
+<p>javascript 实现：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+</pre></td><td class="code"><pre><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> <span class="params">(cb)</span></span> {
+  cb(<span class="string">'hello world'</span>);
+};
+</pre></td></tr></table></figure>
+
+<p>c++ 实现：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+</pre></td><td class="code"><pre>#define BUILDING_NODE_EXTENSION
+#include <span class="tag">&lt;<span class="title">node.h</span>&gt;</span>
+
+using namespace v8;
+
+Handle<span class="tag">&lt;<span class="title">Value</span>&gt;</span> RunCallback(const Arguments& args) {
+  HandleScope scope;
+
+  Local<span class="tag">&lt;<span class="title">Function</span>&gt;</span> cb = Local<span class="tag">&lt;<span class="title">Function</span>&gt;</span>::Cast(args[0]);
+  const unsigned argc = 1;
+  Local<span class="tag">&lt;<span class="title">Value</span>&gt;</span> argv[argc] = { Local<span class="tag">&lt;<span class="title">Value</span>&gt;</span>::New(String::New("hello world")) };
+  cb-&gt;Call(Context::GetCurrent()-&gt;Global(), argc, argv);
+
+  return scope.Close(Undefined());
+}
+
+Void Init(Handle<span class="tag">&lt;<span class="title">Object</span>&gt;</span> exports, Handle<span class="tag">&lt;<span class="title">Object</span>&gt;</span> module) {
+  module-&gt;Set(String::NewSymbol("exports"),
+    FunctionTemplate::New(RunCallback)-&gt;GetFunction());
+}
+
+NODE_MODULE(addon, Init)
+</pre></td></tr></table></figure>
+
+<p>注意这个例子中 <code>Init()</code> 接收了两个参数，因为模块要直接暴露函数，和 javascript 一样。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">function</span> <span class="title">hello</span> <span class="params">()</span> <span class="comment">{}</span>
+
+<span class="title">moudle</span>.<span class="title">exports</span>.<span class="title">hello</span> = <span class="title">hello</span>;</span> <span class="comment">// 通过模块的一个属性来暴露函数</span>
+
+module.<span class="keyword">exports</span> = hello; <span class="comment">// 暴露一个函数</span>
+</pre></td></tr></table></figure>
+
+<p>测试：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+</pre></td><td class="code"><pre><span class="keyword">var</span> addon = <span class="keyword">require</span>(<span class="string">'./build/Release/addon'</span>);
+
+addon(<span class="function"><span class="keyword">function</span> <span class="params">(msg)</span> {</span>
+  console.log(msg); <span class="comment">// 'hello world'</span>
+});
+</pre></td></tr></table></figure>
+
+<h3>Object factory</h3>
+<p>javascript 实现：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+</pre></td><td class="code"><pre><span class="transposed_variable">module.</span>exports = <span class="function"><span class="keyword">function</span> <span class="params">(msg)</span> {</span>
+  var obj = <span class="cell">{}</span>;
+  <span class="transposed_variable">obj.</span>msg = msg;
+  <span class="keyword">return</span> obj;
+};
+</pre></td></tr></table></figure>
+
+<p>c++ 实现：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+</pre></td><td class="code"><pre><span class="preprocessor">#define BUILDING_NODE_EXTENSION</span>
+<span class="preprocessor">#include &lt;node.h&gt;</span>
+
+<span class="keyword">using</span> <span class="class"><span class="keyword">namespace</span> <span class="title">v8</span>;
+
+<span class="title">Handle</span>&lt;<span class="title">Value</span>&gt; <span class="title">CreateObject</span>(<span class="title">const</span> <span class="title">Arguments</span>& <span class="title">args</span>) {</span>
+  HandleScope scope;
+
+  Local&lt;<span class="built_in">Object</span>&gt; obj = <span class="built_in">Object</span>::New();
+  obj-&gt;Set(String::NewSymbol(<span class="string">"msg"</span>), args[<span class="number">0</span>]-&gt;ToString());
+
+  <span class="keyword">return</span> scope.Close(obj);
+}
+
+<span class="keyword">void</span> Init(Handle&lt;<span class="built_in">Object</span>&gt; exports, Handle&lt;<span class="built_in">Object</span>&gt; module) {
+  module-&gt;Set(String::NewSymbol(<span class="string">"exports"</span>),
+      FunctionTemplate::New(CreateObject)-&gt;GetFunction());
+}
+
+NODE_MODULE(addon, Init)
+</pre></td></tr></table></figure>
+
+<p>测试：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+</pre></td><td class="code"><pre><span class="keyword">var</span> addon = <span class="keyword">require</span>(<span class="string">'./build/Release/addon'</span>);
+
+<span class="keyword">var</span> obj1 = addon(<span class="string">'hello'</span>);
+<span class="keyword">var</span> obj2 = addon(<span class="string">'world'</span>);
+console.log(obj1.msg + <span class="string">' '</span> + obj2.msg); <span class="comment">// 'hello world'</span>
+</pre></td></tr></table></figure>
+
+<h3>Function factory</h3>
+<p>javascript 实现：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+</pre></td><td class="code"><pre><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> <span class="params">()</span></span> {
+  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="params">()</span></span> {
+    <span class="keyword">return</span> <span class="string">'hello world'</span>;
+  };
+};
+</pre></td></tr></table></figure>
+
+<p>c++ 实现：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+</pre></td><td class="code"><pre><span class="preprocessor">#define BUILDING_NODE_EXTENSION</span>
+<span class="preprocessor">#include &lt;node.h&gt;</span>
+
+<span class="keyword">using</span> <span class="class"><span class="keyword">namespace</span> <span class="title">v8</span>;
+
+<span class="title">Handle</span>&lt;<span class="title">Value</span>&gt; <span class="title">MyFunction</span>(<span class="title">const</span> <span class="title">Arguments</span>& <span class="title">args</span>) {</span>
+  HandleScope scope;
+  <span class="keyword">return</span> scope.Close(String::New(<span class="string">"hello world"</span>));
+}
+
+Handle&lt;Value&gt; CreateFunction(<span class="keyword">const</span> Arguments& args) {
+  HandleScope scope;
+
+  Local&lt;FunctionTemplate&gt; tpl = FunctionTemplate::New(MyFunction); <span class="comment">// 把 MyFunction 转换为对象实例</span>
+  Local&lt;Function&gt; fn = tpl-&gt;GetFunction();
+  fn-&gt;SetName(String::NewSymbol(<span class="string">"theFunction"</span>)); <span class="comment">// 省略这句，变成匿名函数</span>
+
+  <span class="keyword">return</span> scope.Close(fn);
+}
+
+<span class="keyword">void</span> Init(Handle&lt;<span class="built_in">Object</span>&gt; exports, Handle&lt;<span class="built_in">Object</span>&gt; moduel) {
+  module-&gt;Set(String::NewSymbol(<span class="string">"exports"</span>),
+      FunctionTemplate::New(Createobject)-&gt;GetFunction());
+}
+
+NODE_MODULE(addon, Init)
+</pre></td></tr></table></figure>
+
+<p>测试：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+</pre></td><td class="code"><pre>var addon = require(<span class="string">'./build/Release/addon'</span>);
+
+var <span class="function"><span class="keyword">fn</span> = <span class="title">addon</span>(</span>);
+console.<span class="keyword">log</span>(<span class="keyword">fn</span>()); <span class="comment">// 'hello world'</span>
+</pre></td></tr></table></figure>
+
+<h3>Wrapping C++ objects</h3>
+<p>javascript 实现：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">function</span> <span class="title">MyObject</span><span class="params">(count)</span> {</span>
+  <span class="transposed_variable">this.</span>counter_ = count;
+}
+
+<span class="transposed_variable">MyObject.</span><span class="transposed_variable">prototype.</span>plusOne = <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+  <span class="transposed_variable">this.</span>counter_ += <span class="number">1</span>;
+  <span class="keyword">return</span> <span class="transposed_variable">this.</span>counter_;
+};
+</pre></td></tr></table></figure>
+
+<p>c++ 实现：</p>
+<p><code>addon.cc</code> 文件：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="code"><pre><span class="preprocessor">#define BUILDING_NODE_EXTENSION</span>
+<span class="preprocessor">#include &lt;node.h&gt;</span>
+<span class="preprocessor">#include "myobject.h"</span>
+
+<span class="keyword">using</span> <span class="class"><span class="keyword">namespace</span> <span class="title">v8</span>;
+
+<span class="title">void</span> <span class="title">InitAll</span>(<span class="title">Handle</span>&lt;<span class="title">Object</span>&gt; <span class="title">exports</span>) {</span>
+  MyObject::Init(exports);
+}
+
+NODE_MODULE(addon, InitAll)
+</pre></td></tr></table></figure>
+
+<p><code>myobject.h</code> 文件</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+</pre></td><td class="code"><pre><span class="preprocessor">#ifndef MYOBJECT_H</span>
+<span class="preprocessor">#define MYOBJECT_H</span>
+
+<span class="preprocessor">#include &lt;node.h&gt;</span>
+
+<span class="class"><span class="keyword">class</span> <span class="title">MyObject</span> : <span class="title">public</span> <span class="title">node</span>::<span class="title">ObjectWrap</span> {</span>
+  <span class="keyword">public</span>:
+    <span class="keyword">static</span> <span class="keyword">void</span> Init(v8::Handle&lt;v8::<span class="built_in">Object</span>&gt; exports);
+
+  <span class="keyword">private</span>:
+    MyObject();
+    ~MyObject();
+
+    <span class="keyword">static</span> v8::Handle&lt;v8::Value&gt; New(<span class="keyword">const</span> v8::Arguments& args);
+    <span class="keyword">static</span> v8::Handle&lt;v8::Value&gt; PlusOne(<span class="keyword">const</span> v8::Arguments& args);
+
+    <span class="keyword">double</span> counter_;
+};
+
+<span class="preprocessor">#endif</span>
+</pre></td></tr></table></figure>
+
+<p><code>myobject.cc</code> 文件：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+</pre></td><td class="code"><pre><span class="comment">#define BUILDING_NODE_EXTENSION</span>
+<span class="comment">#include &lt;node.h&gt;</span>
+<span class="comment">#include "myobject.h"</span>
+
+using namespace v8;
+
+MyObject::MYObject() {}
+MyObject::~MYObject() {}
+
+void MyObject::Init(Handle&lt;Object&gt; exports) {
+  Local&lt;FunctionTemplate&gt; tpl = FunctionTemplate::New(New);
+  tpl-&gt;SetClassName(String::NewSymbol(<span class="string">"MyObject"</span>));
+  tpl-&gt;InstanceTemplate()-&gt;SetInternalField(<span class="number">1</span>);
+
+  tpl-&gt;PrototypeTemplate()-&gt;Set(String::NewSymbol(<span class="string">"plusOne"</span>),
+      FunctionTemplate::New(PlusOne)-&gt;GetFunction());
+
+  Persistent&lt;Function&gt; constructor = Persistent&lt;Function&gt;::New(tpl-&gt;GetFunction());
+  exports-&gt;Set(String::NewSymbol(<span class="string">"MyObject"</span>), constructor);
+}
+
+Handle&lt;Value&gt; MyObject::New(const Arguments& args) {
+  HandleScope scope;
+
+  MyObject* obj = new MyObject();
+  obj-&gt;counter_ = args[<span class="number">0</span>]-&gt;IsUndefined() ? <span class="number">0</span> : args[<span class="number">0</span>]-&gt;NumberValue();
+  obj-&gt;Wrap(args.This());
+
+  <span class="keyword">return</span> args.This();
+}
+
+Handle&lt;Value&gt; MyObject::PlusOne(const Arguments& args) {
+  HandleScope scope;
+
+  MyObject* obj = ObjectWrap::Unwrap&lt;MyObject&gt;(args.This());
+  obj-&gt;counter_ += <span class="number">1</span>;
+
+  <span class="keyword">return</span> scope.Close(Number::New(obj-&gt;counter_));
+}
+</pre></td></tr></table></figure>
+
+<p>测试：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+</pre></td><td class="code"><pre><span class="keyword">var</span> addon = <span class="keyword">require</span>(<span class="string">'./build/Release/addon'</span>);
+
+<span class="keyword">var</span> obj = <span class="keyword">new</span> addon.MyObject(<span class="number">10</span>);
+console.log(obj.plusOne()); <span class="comment">// 11</span>
+console.log(obj.plusOne()); <span class="comment">// 12</span>
+console.log(obj.plusOne()); <span class="comment">// 13</span>
+</pre></td></tr></table></figure>
+
+]]></content>
+    <category scheme="http://blog.jkey.lu/tags/nodejs/" term="nodejs"/>
+  </entry>
   <entry>
     <title type="html"><![CDATA[openwrt 把包装到u盘上]]></title>
     <link href="http://blog.jkey.lu/2013/04/22/openwrt-install-package-on-usb-flash-disk/"/>
@@ -33,10 +759,12 @@
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
 </pre></td><td class="code"><pre><span class="title">ln</span> -s /mnt/sdb1/packages /opt
 </pre></td></tr></table></figure>
-<a name="more"></a>
 
-* 然后编辑 /etc/opkg.conf 文件，添加一行如下
+<a id="more"></a>
 
+<ul>
+<li>然后编辑 /etc/opkg.conf 文件，添加一行如下</li>
+</ul>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
 </pre></td><td class="code"><pre><span class="title">dest</span> usb /opt
 </pre></td></tr></table></figure>
@@ -66,7 +794,7 @@ export <span class="constant">LD_LIBRARY_PATH</span>=<span class="variable">$LD_
 </pre></td><td class="code"><pre>ln -s /opt/etc/init<span class="variable">.d</span>/nginx /etc/init<span class="variable">.d</span>/nginx
 </pre></td></tr></table></figure>
 
-<p>更多详细：<a href="http://wiki.openwrt.org/doc/techref/opkg#mount.point"><a href="http://wiki.openwrt.org/doc/techref/opkg#mount.point">http://wiki.openwrt.org/doc/techref/opkg#mount.point</a></a></p>
+<p>更多详细：<a href="http://wiki.openwrt.org/doc/techref/opkg#mount.point" target="_blank"><a href="http://wiki.openwrt.org/doc/techref/opkg#mount.point">http://wiki.openwrt.org/doc/techref/opkg#mount.point</a></a></p>
 ]]></content>
     <category scheme="http://blog.jkey.lu/tags/openwrt/" term="openwrt"/>
   </entry>
@@ -77,7 +805,7 @@ export <span class="constant">LD_LIBRARY_PATH</span>=<span class="variable">$LD_
     <published>2013-04-21T07:32:09.000Z</published>
     <updated>2013-04-21T08:17:08.000Z</updated>
     <content type="html"><![CDATA[<h1>简介</h1>
-<p>这篇是讲关于 python 代码风格的一些约定，主要用于 python 中标准库的代码风格的约定。关于 <a href="http://www.python.org/dev/peps/pep-0008/">pep 8</a> 这份文档网上也有很多翻译，但是为了自己便于记忆，大致的翻译记录一下。所以，对照原文可能是不完整的。</p>
+<p>这篇是讲关于 python 代码风格的一些约定，主要用于 python 中标准库的代码风格的约定。关于 <a href="http://www.python.org/dev/peps/pep-0008/" target="_blank">pep 8</a> 这份文档网上也有很多翻译，但是为了自己便于记忆，大致的翻译记录一下。所以，对照原文可能是不完整的。</p>
 <h1>A Foolish Consistency is the Hobgoblin of Little Minds</h1>
 <p>总之一句话，就是保持代码的一致性。</p>
 <h1>代码排版</h1>
@@ -88,7 +816,7 @@ export <span class="constant">LD_LIBRARY_PATH</span>=<span class="variable">$LD_
 <li><p>如果和旧代码不一致，还是改为与旧代码相同的缩减方式。</p>
 </li>
 </ul>
-<a name="more"></a>
+<a id="more"></a>
 
 <p>Yes:</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
@@ -180,7 +908,7 @@ foo = long_function_name(var_one, var_two,
                  <span class="title">color</span>='<span class="title">black</span>', <span class="title">emphasis</span>=<span class="title">None</span>, <span class="title">highlight</span>=0):
         <span class="title">if</span> (<span class="title">width</span> == 0 <span class="title">and</span> <span class="title">height</span> == 0 <span class="title">and</span>
             <span class="title">color</span> == '<span class="title">red</span>' <span class="title">and</span> <span class="title">emphasis</span> == '<span class="title">strong</span>' <span class="title">or</span>
-            <span class="title">highlight</span> &<span class="title">gt</span>; 100):
+            <span class="title">highlight</span> &gt; 100):
             <span class="title">raise</span> <span class="title">ValueError</span>("<span class="title">sorry</span>, <span class="title">you</span> <span class="title">lose</span>")
         <span class="title">if</span> <span class="title">width</span> == 0 <span class="title">and</span> <span class="title">height</span> == 0 <span class="title">and</span> (<span class="title">color</span> == '<span class="title">red</span>' <span class="title">or</span>
                                            <span class="title">emphasis</span> <span class="title">is</span> <span class="title">None</span>):
@@ -199,80 +927,118 @@ foo = long_function_name(var_one, var_two,
 <li><p>可以用额外的空行分割一组相关的函数。</p>
 </li>
 </ul>
-<h2>编码 (<a href="http://www.python.org/dev/peps/pep-0263">PEP 263</a>)</h2>
-<p>python 核心代码应该使用 ASCII 或 Latin-1 编码。python 3.0 以上使用 UTF-8，更多请看 <a href="http://www.python.org/dev/peps/pep-3120">PEP 3120</a></p>
+<h2>编码 (<a href="http://www.python.org/dev/peps/pep-0263" target="_blank">PEP 263</a>)</h2>
+<p>python 核心代码应该使用 ASCII 或 Latin-1 编码。python 3.0 以上使用 UTF-8，更多请看 <a href="http://www.python.org/dev/peps/pep-3120" target="_blank">PEP 3120</a></p>
 <h2>导入</h2>
 <ul>
-<li><p>通常在单独的行导入</p>
-<pre><code>  <span class="type">Yes</span>: <span class="import"><span class="keyword">import</span> os</span>
-       <span class="import"><span class="keyword">import</span> sys</span>
+<li>通常在单独的行导入</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+</pre></td><td class="code"><pre>    <span class="type">Yes</span>: <span class="import"><span class="keyword">import</span> os</span>
+         <span class="import"><span class="keyword">import</span> sys</span>
 
-  <span class="type">No</span>:  <span class="import"><span class="keyword">import</span> sys, os</span>
-</code></pre>
-</li>
-<li><p>以下请看是没问题的：</p>
-<pre><code>  from subprocess <span class="import"><span class="keyword">import</span> Popen, PIPE</span>
-</code></pre>
-</li>
+    <span class="type">No</span>:  <span class="import"><span class="keyword">import</span> sys, os</span>
+</pre></td></tr></table></figure>
+
+<ul>
+<li>以下请看是没问题的：</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>    from subprocess <span class="import"><span class="keyword">import</span> Popen, PIPE</span>
+</pre></td></tr></table></figure>
+
+<ul>
 <li><p>导入通常被放在文件的顶部，在模块注释和文档字符串之后，在模块的全局变量和常量之前。</p>
 <p>  导入应该按照下面顺序分组排放：</p>
 <pre><code>  1. 标准库的导入
   2. 相关的第三方包的导入
-  3. 本地应用/库的特定导入
-</code></pre>
+  3. 本地应用/库的特定导入</code></pre>
 <p>  并且用一行空行分隔每个分组。</p>
 <p>  把任何相关 __all__ 说明的放在导入之后。</p>
 </li>
 <li><p>对于所有导入都是用据对路径。</p>
 </li>
 <li><p>从一个包含类的模块中导入类时，通常可以写成这样：</p>
-<pre><code>  from my<span class="class"><span class="keyword">class</span> <span class="title">import</span> <span class="title">MyClass</span></span>
-  from foo.bar.your<span class="class"><span class="keyword">class</span> <span class="title">import</span> <span class="title">YourClass</span></span>
-</code></pre>
-<p>  如果这样写导致了本地名字冲突，那么就这样写：</p>
-<pre><code>  <span class="import"><span class="keyword">import</span> myclass</span>
-  <span class="import"><span class="keyword">import</span> foo.bar.yourclass</span>
-</code></pre>
-<p>  并且使用 &quot;myclass.MyClass&quot; 和 &quot;foo.bar.yourclass.YourClass&quot;.</p>
 </li>
 </ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre>    from my<span class="class"><span class="keyword">class</span> <span class="title">import</span> <span class="title">MyClass</span></span>
+    from foo.bar.your<span class="class"><span class="keyword">class</span> <span class="title">import</span> <span class="title">YourClass</span></span>
+</pre></td></tr></table></figure>
+
+<pre><code>如果这样写导致了本地名字冲突，那么就这样写：</code></pre>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre>    <span class="import"><span class="keyword">import</span> myclass</span>
+    <span class="import"><span class="keyword">import</span> foo.bar.yourclass</span>
+</pre></td></tr></table></figure>
+
+<pre><code>并且使用 &quot;myclass.MyClass&quot; 和 &quot;foo.bar.yourclass.YourClass&quot;.</code></pre>
 <h1>表达式和语句中的空格</h1>
 <h2>不能忍受的事</h2>
 <p><strong>避免</strong>在下述情况中使用无关的空格：</p>
 <ul>
-<li><p>紧挨着圆括号，方括号或大括号里空格</p>
-<pre><code>  <span class="tag">Yes</span>: <span class="tag">spam</span>(<span class="tag">ham</span><span class="attr_selector">[1]</span>, <span class="rules">{<span class="rule"><span class="attribute">eggs</span>:<span class="value"> <span class="number">2</span>}</span></span></span>)
-  <span class="tag">No</span>:  <span class="tag">spam</span>( <span class="tag">ham</span><span class="attr_selector">[ 1 ]</span>, <span class="rules">{ <span class="rule"><span class="attribute">eggs</span>:<span class="value"> <span class="number">2</span> }</span></span></span> )
-</code></pre>
-</li>
-<li><p>在逗号，分号或冒号前有空格</p>
-<pre><code>  Yes: <span class="keyword">if</span> x == <span class="number">4</span>: <span class="built_in">print</span> x, y; x, y = y, x
-  No:  <span class="keyword">if</span> x == <span class="number">4</span> : <span class="built_in">print</span> x , y ; x , y = y , x
-</code></pre>
-</li>
-<li><p>在函数调用的左括号前有空格</p>
-<pre><code>  <span class="attribute">Yes</span>: <span class="string">spam(1)</span>
-  <span class="attribute">No</span>: <span class="string"> spam (1)</span>
-</code></pre>
-</li>
-<li><p>在索引的多括号前有空格</p>
-<pre><code>  <span class="attribute">Yes</span>: <span class="string">dict['key'] = list[index]</span>
-  <span class="attribute">No</span>: <span class="string"> dict ['key'] = list [index]</span>
-</code></pre>
-</li>
+<li>紧挨着圆括号，方括号或大括号里空格</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre>    <span class="tag">Yes</span>: <span class="tag">spam</span>(<span class="tag">ham</span><span class="attr_selector">[1]</span>, <span class="rules">{<span class="rule"><span class="attribute">eggs</span>:<span class="value"> <span class="number">2</span>}</span></span></span>)
+    <span class="tag">No</span>:  <span class="tag">spam</span>( <span class="tag">ham</span><span class="attr_selector">[ 1 ]</span>, <span class="rules">{ <span class="rule"><span class="attribute">eggs</span>:<span class="value"> <span class="number">2</span> }</span></span></span> )
+</pre></td></tr></table></figure>
+
+<ul>
+<li>在逗号，分号或冒号前有空格</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre>    Yes: <span class="keyword">if</span> x == <span class="number">4</span>: <span class="built_in">print</span> x, y; x, y = y, x
+    No:  <span class="keyword">if</span> x == <span class="number">4</span> : <span class="built_in">print</span> x , y ; x , y = y , x
+</pre></td></tr></table></figure>
+
+<ul>
+<li>在函数调用的左括号前有空格</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre>    <span class="attribute">Yes</span>: <span class="string">spam(1)</span>
+    <span class="attribute">No</span>: <span class="string"> spam (1)</span>
+</pre></td></tr></table></figure>
+
+<ul>
+<li>在索引的多括号前有空格</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre>    <span class="attribute">Yes</span>: <span class="string">dict['key'] = list[index]</span>
+    <span class="attribute">No</span>: <span class="string"> dict ['key'] = list [index]</span>
+</pre></td></tr></table></figure>
+
+<ul>
 <li><p>在等号前加多余的空格</p>
 <p>  Yes:</p>
-<pre><code>  <span class="title">x</span> = <span class="number">1</span>
-  y = <span class="number">2</span>
-  long_variable = <span class="number">3</span>
-</code></pre>
-<p>  No:</p>
-<pre><code>  <span class="title">x</span>             = <span class="number">1</span>
-  y             = <span class="number">2</span>
-  long_variable = <span class="number">3</span>
-</code></pre>
 </li>
 </ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+</pre></td><td class="code"><pre>    <span class="title">x</span> = <span class="number">1</span>
+    y = <span class="number">2</span>
+    long_variable = <span class="number">3</span>
+</pre></td></tr></table></figure>
+
+<pre><code><span class="attribute">No:</code></pre>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+</pre></td><td class="code"><pre>    <span class="title">x</span>             = <span class="number">1</span>
+    y             = <span class="number">2</span>
+    long_variable = <span class="number">3</span>
+</pre></td></tr></table></figure>
+
 <h2>其他推荐</h2>
 <h1>注释</h1>
 <h2>Block Comments</h2>
@@ -303,14 +1069,14 @@ foo = long_function_name(var_one, var_two,
     <published>2013-04-18T13:42:06.000Z</published>
     <updated>2013-04-21T07:27:00.000Z</updated>
     <content type="html"><![CDATA[<h2>安装系统</h2>
-<p>下载 Arch Linux ARM 系统镜像：<a href="http://www.raspberrypi.org/downloads"><a href="http://www.raspberrypi.org/downloads">http://www.raspberrypi.org/downloads</a></a></p>
+<p>下载 Arch Linux ARM 系统镜像：<a href="http://www.raspberrypi.org/downloads" target="_blank"><a href="http://www.raspberrypi.org/downloads">http://www.raspberrypi.org/downloads</a></a></p>
 <p>解压出 .img 文件，然后使用以下命令把镜像写入 SD 卡中</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
 </pre></td><td class="code"><pre><span class="title">dd</span> <span class="keyword">if</span>=archlinux-hf-<span class="number">2013</span>-<span class="number">02</span>-<span class="number">11.</span>img <span class="keyword">of</span>=/dev/sdb bs=<span class="number">1</span>M
 </pre></td></tr></table></figure>
 
-<p>如果是 window 系统，可以下载 <a href="http://sourceforge.net/projects/win32diskimager/">Win32DiskImager</a> 来把镜像写入 SD 卡。</p>
-<a name="more"></a>
+<p>如果是 window 系统，可以下载 <a href="http://sourceforge.net/projects/win32diskimager/" target="_blank">Win32DiskImager</a> 来把镜像写入 SD 卡。</p>
+<a id="more"></a>
 
 <h2>设置内存</h2>
 <p>由于主要把我的树莓派当作服务器用，所以没必要分配太多的 VIDEO RAM，可以设置/boot/config.txt：</p>
@@ -328,7 +1094,7 @@ foo = long_function_name(var_one, var_two,
 <span class="preprocessor">#cma_offline_start=16</span>
 </pre></td></tr></table></figure>
 
-<p>更多关于 config.txt 文件的配置信息查看 <a href="http://elinux.org/RPiconfig"><a href="http://elinux.org/RPiconfig">http://elinux.org/RPiconfig</a></a></p>
+<p>更多关于 config.txt 文件的配置信息查看 <a href="http://elinux.org/RPiconfig" target="_blank"><a href="http://elinux.org/RPiconfig">http://elinux.org/RPiconfig</a></a></p>
 <h2>调整分区大小</h2>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
@@ -341,7 +1107,7 @@ reboot
 </pre></td><td class="code"><pre><span class="title">resize2fs</span> /dev/mmcblk0p2
 </pre></td></tr></table></figure>
 
-<p>更多关于<a href="http://elinux.org/RPi_Resize_Flash_Partitions#Manually_resizing_the_SD_card_on_Raspberry_Pi">调整分区大小</a></p>
+<p>更多关于<a href="http://elinux.org/RPi_Resize_Flash_Partitions#Manually_resizing_the_SD_card_on_Raspberry_Pi" target="_blank">调整分区大小</a></p>
 <h2>系统设置</h2>
 <ul>
 <li>设置时区</li>
@@ -350,7 +1116,7 @@ reboot
 </pre></td><td class="code"><pre>timedatectl <span class="operator"><span class="keyword">set</span>-timezone Asia/Shanghai
 </pre></td></tr></table></figure>
 
-<p>更多关于<a href="https://wiki.archlinux.org/index.php/Time#Time_Zone">时区设置</a></p>
+<p>更多关于<a href="https://wiki.archlinux.org/index.php/Time#Time_Zone" target="_blank">时区设置</a></p>
 <ul>
 <li>设置 Hostname</li>
 </ul>
@@ -358,7 +1124,7 @@ reboot
 </pre></td><td class="code"><pre>hostnamectl <span class="operator"><span class="keyword">set</span>-hostname rpi
 </pre></td></tr></table></figure>
 
-<p>更多关于 <a href="https://wiki.archlinux.org/index.php/Network_Configuration#Set_the_hostname">Hostname</a></p>
+<p>更多关于 <a href="https://wiki.archlinux.org/index.php/Network_Configuration#Set_the_hostname" target="_blank">Hostname</a></p>
 <ul>
 <li>更新系统</li>
 </ul>
@@ -378,7 +1144,7 @@ reboot
 </pre></td><td class="code"><pre>%wheel <span class="keyword">ALL</span>=(<span class="keyword">ALL</span>) <span class="keyword">ALL</span>
 </pre></td></tr></table></figure>
 
-<p>更多关于 <a href="https://wiki.archlinux.org/index.php/Sudo">Sudo</a></p>
+<p>更多关于 <a href="https://wiki.archlinux.org/index.php/Sudo" target="_blank">Sudo</a></p>
 <ul>
 <li>添加用户</li>
 </ul>
@@ -388,7 +1154,7 @@ reboot
 <span class="comment">passwd</span> <span class="comment">jkey
 </pre></td></tr></table></figure>
 
-<p>更多关于<a href="https://wiki.archlinux.org/index.php/Users_and_Groups#User_groups">用户和组</a></p>
+<p>更多关于<a href="https://wiki.archlinux.org/index.php/Users_and_Groups#User_groups" target="_blank">用户和组</a></p>
 <ul>
 <li>配置 SSH</li>
 </ul>
@@ -404,7 +1170,9 @@ PasswordAuthentication <span class="built_in">no</span>
 <p>锁住 root 用户</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
 </pre></td><td class="code"><pre><span class="title">passwd</span> -l root
-</pre></td></tr></table></figure>]]></content>
+</pre></td></tr></table></figure>
+
+]]></content>
   </entry>
   <entry>
     <title type="html"><![CDATA[制作一个 python egg]]></title>
@@ -414,7 +1182,7 @@ PasswordAuthentication <span class="built_in">no</span>
     <updated>2013-04-14T14:19:22.000Z</updated>
     <content type="html"><![CDATA[<p>最近用 Python 写了一个公共的库，然后我想让它能够像平常使用 pip 安装第三方库一样方便的安装。然后就去研究了一下 python 是如何打包的，更确切的说是适合用于 pip 安装的打包方式。</p>
 <p>首先创建一个项目文件夹，这个项目文件夹的结构如下：</p>
-<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -422,23 +1190,23 @@ PasswordAuthentication <span class="built_in">no</span>
 6
 </pre></td><td class="code"><pre>helloworld/
     helloworld/
-        __init__.py
-        foo.py
-    setup.py
-    README.md
+        __init__<span class="variable">.py</span>
+        foo<span class="variable">.py</span>
+    setup<span class="variable">.py</span>
+    README<span class="variable">.md</span>
 </pre></td></tr></table></figure>
 
-<a name="more"></a>
+<a id="more"></a>
 
 <p>在 foo.py 中顶一个简单的函数</p>
-<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 </pre></td><td class="code"><pre><span class="function"><span class="keyword">def</span> <span class="title">sayHello</span><span class="params">()</span>:</span>
     <span class="keyword">print</span> <span class="string">'Hello World!'</span>
 </pre></td></tr></table></figure>
 
 <p>然后就是 setup.py 文件，他是创建 egg 的配置文件</p>
-<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -452,26 +1220,26 @@ PasswordAuthentication <span class="built_in">no</span>
 12
 13
 14
-</pre></td><td class="code"><pre><span class="keyword">import</span> distutils.core
+</pre></td><td class="code"><pre>import distutils.core
 
-version = <span class="string">'0.1'</span>
+version = <span class="comment">'0.1'</span>
 
 distutils.core.setup(
-    name=<span class="string">'helloworld'</span>,
+    name=<span class="comment">'helloworld',</span>
     version=version,
-    packages=[<span class="string">'helloworld'</span>],
-    author=<span class="string">'jKey Lu'</span>,
-    author_email=<span class="string">'i@jkey.lu'</span>,
-    url=<span class="string">'https://blog.jkey.lu/2013/04/11/create-python-egg/'</span>,
-    license=<span class="string">'http://opensource.org/licenses/mit-license.php'</span>,
-    description=<span class="string">'Create Python Egg'</span>
+    packages=[<span class="comment">'helloworld'],</span>
+    author=<span class="comment">'jKey Lu',</span>
+    author_email=<span class="comment">'i@jkey.lu',</span>
+    url=<span class="comment">'https://blog.jkey.lu/2013/04/11/create-python-egg/',</span>
+    license=<span class="comment">'http://opensource.org/licenses/mit-license.php',</span>
+    description=<span class="comment">'Create Python Egg'</span>
     )
 </pre></td></tr></table></figure>
 
-<p>更多关于 distutils.core.setup 中的参数可以看这里：<a href="http://docs.python.org/2/distutils/setupscript.html#additional-meta-data">Additional meta-data</a></p>
+<p>更多关于 distutils.core.setup 中的参数可以看这里：<a href="http://docs.python.org/2/distutils/setupscript.html#additional-meta-data" target="_blank">Additional meta-data</a></p>
 <p>接下来就是我们最终想要的，就是打包了，其实这是最简单的一条命令</p>
-<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre>python setup.py sdist
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="title">python</span> setup.py sdist
 </pre></td></tr></table></figure>
 
 <p>上面命令回车后，看看我们的项目文件夹有何变化</p>
@@ -479,7 +1247,7 @@ distutils.core.setup(
 <li>多了一个 dist/ 文件夹，里面 helloworld-0.1.zip 就是我们生成的包</li>
 <li>多了个 MANIFEST 文件，这是打包这个命令自动生成的。你会发现文件里列出的文件名称和打包进 helloworld-0.1.zip 中的文件是一样的</li>
 </ol>
-<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -490,41 +1258,41 @@ distutils.core.setup(
 9
 </pre></td><td class="code"><pre>helloworld/
     helloworld/
-        __inti__.py
-        foo.py
+        __inti__<span class="variable">.py</span>
+        foo<span class="variable">.py</span>
     dist/
-        helloworld-<span class="number">0.1</span>.zip
+        helloworld-<span class="number">0.1</span><span class="variable">.zip</span>
     MANIFEST
-    setup.py
-    README.md
+    setup<span class="variable">.py</span>
+    README<span class="variable">.md</span>
 </pre></td></tr></table></figure>
 
 <p>接下来我们用 pip 安装刚刚打包完成的包</p>
-<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre>pip install dist/helloworld-<span class="number">0.1</span>.zip
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="title">pip</span> install dist/helloworld-<span class="number">0</span>.<span class="number">1</span>.zip
 </pre></td></tr></table></figure>
 
 <p>在 IDEL 中验证一下刚安装的包是否成功，很显然是成功了</p>
-<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
-</pre></td><td class="code"><pre><span class="keyword">from</span> helloworld.foo <span class="keyword">import</span> sayHello
-sayHello() <span class="comment"># Hello World!</span>
+</pre></td><td class="code"><pre><span class="title">from</span> helloworld.foo <span class="import"><span class="keyword">import</span> sayHello</span>
+<span class="title">sayHello</span>() # <span class="type">Hello</span> <span class="type">World</span>!
 </pre></td></tr></table></figure>
 
 <p>写到这里差不多该结束，等等，发现 helloworld-0.1.zip 中没有 README.md 文件，想打包的时候一起包含进去咋办？</p>
-<p>在项目文件夹中添加 MANIFEST.in 文件，是不是和打包命令自动生成的 MANIFEST 文件有点像，多了个文件扩展名，其实 MANIFEST.in 是 MANIFEST 的模板。关于这个文件的详细信息可以看着里 <a href="http://docs.python.org/2/distutils/sourcedist.html#the-manifest-in-template">The MANIFEST.in template</a></p>
+<p>在项目文件夹中添加 MANIFEST.in 文件，是不是和打包命令自动生成的 MANIFEST 文件有点像，多了个文件扩展名，其实 MANIFEST.in 是 MANIFEST 的模板。关于这个文件的详细信息可以看着里 <a href="http://docs.python.org/2/distutils/sourcedist.html#the-manifest-in-template" target="_blank">The MANIFEST.in template</a></p>
 <p>下面是 MANIFEST.in 中的内容</p>
-<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre>include README.md
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="preprocessor"><span class="keyword">include</span> README.md
 </pre></td></tr></table></figure>
 
 <p>重新打包一下，helloworld-0.1.zip 中就包含 README.md 文件了。</p>
 <p>可能你会注意到我打包后生成的文件是 zip 压缩包，这是因为我在 windows 上大的包，如果在 linux 上打包，默认生成的是 tar.gz 的压缩包。问题：如果想在 windows 上也生成 tar.gz 的包该如何？</p>
-<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre>python setup.py sdist --formats=gztar
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="comment">python</span> <span class="comment">setup</span>.<span class="comment">py</span> <span class="comment">sdist</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">formats=gztar
 </pre></td></tr></table></figure>
 
-<p>更多关于生成的格式看这里 <a href="http://docs.python.org/2/distutils/sourcedist.html#creating-a-source-distribution">Create a Source Distribution</a></p>
+<p>更多关于生成的格式看这里 <a href="http://docs.python.org/2/distutils/sourcedist.html#creating-a-source-distribution" target="_blank">Create a Source Distribution</a></p>
 ]]></content>
     <category scheme="http://blog.jkey.lu/tags/python/" term="python"/>
   </entry>
@@ -537,7 +1305,7 @@ sayHello() <span class="comment"># Hello World!</span>
     <content type="html"><![CDATA[<p>简单的说 Configurable 就是让继承自它的子类的构造函数具有工厂函数一样的行为。意思是，只要一个类继承自 Configurable, 那么在这个类在实例化时，构造函数就像工厂一样来选择一个这个类的子类来实例化。</p>
 <p>通常如果要继承 Configurable 接口，那么首先要实现 <code>configurable_base(cls)</code> 和 <code>configurable_default(cls)</code> 这两个静态方法。</p>
 <p>在 tornado 中有三个类是继承自 Configurable 的，分别是 AsyncHttpClient, IOLoop 和 Resolver。</p>
-<a name="more"></a>
+<a id="more"></a>
 
 <p>下面是 Configurable 类的主要代码：</p>
 <figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
@@ -644,7 +1412,7 @@ sayHello() <span class="comment"># Hello World!</span>
 
 <p>这才明白为什么 tornado 应用在 main 最后调用 <code>tornado.ioloop.IOLoop.instance().start()</code> 就可以了选择和平台相关的 IOLoop 实现了。</p>
 <p>下面就是 IOLoop 中的 <code>configurable_default(cls)</code> 定义</p>
-<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -657,20 +1425,22 @@ sayHello() <span class="comment"># Hello World!</span>
 11
 12
 13
-</pre></td><td class="code"><pre><span class="class"><span class="keyword">class</span> <span class="title">IOLoop</span><span class="params">(Configurable)</span>:</span>
+</pre></td><td class="code"><pre><span class="class"><span class="keyword">class</span> <span class="title">IOLoop</span>(<span class="title">Configurable</span>):
 
-    <span class="decorator">@classmethod</span>
-    <span class="function"><span class="keyword">def</span> <span class="title">configurable_default</span><span class="params">(cls)</span>:</span>
-        <span class="keyword">if</span> hasattr(select, <span class="string">"epoll"</span>):
-            <span class="keyword">from</span> tornado.platform.epoll <span class="keyword">import</span> EPollIOLoop
-            <span class="keyword">return</span> EPollIOLoop
-        <span class="keyword">if</span> hasattr(select, <span class="string">"kqueue"</span>):
-            <span class="comment"># Python 2.6+ on BSD or Mac</span>
-            <span class="keyword">from</span> tornado.platform.kqueue <span class="keyword">import</span> KQueueIOLoop
-            <span class="keyword">return</span> KQueueIOLoop
-        <span class="keyword">from</span> tornado.platform.select <span class="keyword">import</span> SelectIOLoop
-        <span class="keyword">return</span> SelectIOLoop
-</pre></td></tr></table></figure>]]></content>
+    @<span class="title">classmethod</span>
+    <span class="title">def</span> <span class="title">configurable_default</span>(<span class="title">cls</span>):
+        <span class="title">if</span> <span class="title">hasattr</span>(<span class="title">select</span>, "<span class="title">epoll</span>"):
+            <span class="title">from</span> <span class="title">tornado</span>.<span class="title">platform</span>.<span class="title">epoll</span> <span class="title">import</span> <span class="title">EPollIOLoop</span>
+            <span class="title">return</span> <span class="title">EPollIOLoop</span>
+        <span class="title">if</span> <span class="title">hasattr</span>(<span class="title">select</span>, "<span class="title">kqueue</span>"):
+            # <span class="title">Python</span> 2.6+ <span class="title">on</span> <span class="title">BSD</span> <span class="title">or</span> <span class="title">Mac</span>
+            <span class="title">from</span> <span class="title">tornado</span>.<span class="title">platform</span>.<span class="title">kqueue</span> <span class="title">import</span> <span class="title">KQueueIOLoop</span>
+            <span class="title">return</span> <span class="title">KQueueIOLoop</span>
+        <span class="title">from</span> <span class="title">tornado</span>.<span class="title">platform</span>.<span class="title">select</span> <span class="title">import</span> <span class="title">SelectIOLoop</span>
+        <span class="title">return</span> <span class="title">SelectIOLoop</span>
+</pre></td></tr></table></figure>
+
+]]></content>
     <category scheme="http://blog.jkey.lu/tags/tornado/" term="tornado"/>
   </entry>
   <entry>
@@ -681,10 +1451,10 @@ sayHello() <span class="comment"># Hello World!</span>
     <updated>2013-03-30T07:15:54.000Z</updated>
     <content type="html"><![CDATA[<p>这几天看了一下 Linux 上的 socket 编程，把主要几个 socket 编程用到的函数研究了一下，并记录下来备忘。</p>
 <h2>socket()</h2>
-<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
-</pre></td><td class="code"><pre><span class="comment">#include &lt;sys/socket.h&gt;</span>
-int socket(int domain, int type, int protocol);
+</pre></td><td class="code"><pre><span class="preprocessor">#include &lt;sys/socket.h&gt;</span>
+<span class="keyword">int</span> socket(<span class="keyword">int</span> domain, <span class="keyword">int</span> type, <span class="keyword">int</span> protocol);
 </pre></td></tr></table></figure>
 
 <ul>
@@ -701,14 +1471,14 @@ int socket(int domain, int type, int protocol);
 </li>
 </ul>
 <p>调用 socket() 函数后，成功会返回文件描述符，失败则返回 -1。</p>
-<a name="more"></a>
+<a id="more"></a>
 
 <h2>bind()</h2>
-<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 3
-</pre></td><td class="code"><pre><span class="comment">#include &lt;sys/socket.h&gt;</span>
-int bind(int socket, const struct sockaddr *address,
+</pre></td><td class="code"><pre><span class="preprocessor">#include &lt;sys/socket.h&gt;</span>
+<span class="keyword">int</span> bind(<span class="keyword">int</span> socket, <span class="keyword">const</span> <span class="keyword">struct</span> sockaddr *address,
         socklen_t address_len);
 </pre></td></tr></table></figure>
 
@@ -722,10 +1492,10 @@ int bind(int socket, const struct sockaddr *address,
 </li>
 </ul>
 <h2>listen()</h2>
-<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 </pre></td><td class="code"><pre><span class="comment">#include &lt;sys/socket.h&gt;</span>
-int listen(int socket, int backlog);
+<span class="keyword">int</span> <span class="keyword">listen</span>(<span class="keyword">int</span> <span class="keyword">socket</span>, <span class="keyword">int</span> backlog);
 </pre></td></tr></table></figure>
 
 <p>当 socket 和一个地址绑定后，调用 listen() 函数开始监听连接请求。但是，这只能在有可靠数据流保证时使用，如 SOCK_STREAM, SOCK_SEQPACKET 。</p>
@@ -737,12 +1507,12 @@ int listen(int socket, int backlog);
 </ul>
 <p>如果成功监听返回 0，否则返回 -1 。</p>
 <h2>accept()</h2>
-<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 3
 </pre></td><td class="code"><pre><span class="comment">#include &lt;sys/socket.h&gt;</span>
-int accept(int socket, struct sockaddr *restrict address,
-        socklen_t *restrict address_len);
+<span class="keyword">int</span> <span class="keyword">accept</span>(<span class="keyword">int</span> <span class="keyword">socket</span>, struct sockaddr <span class="variable">*restrict</span> address,
+        socklen_t <span class="variable">*restrict</span> address_len);
 </pre></td></tr></table></figure>
 
 <p>当应用程序监听来自其他主机的面对数据流的连接时，通过事件（比如Unix select()系统调用）通知它。必须用 accept()函数初始化连接。 Accept() 为每个连接创立新的套接字并从监听队列中移除这个连接。它使用如下参数：</p>
@@ -757,11 +1527,11 @@ int accept(int socket, struct sockaddr *restrict address,
 <p>返回新的套接字描述符，出错返回-1。进一步的通信必须通过这个套接字。</p>
 <p>Datagram 套接字不要求用accept()处理，因为接收方可能用监听套接字立即处理这个请求。</p>
 <h2>connect()</h2>
-<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 3
-</pre></td><td class="code"><pre><span class="comment">#include &lt;sys/socket.h&gt;</span>
-int connect(int socket, const struct sockaddr *address,
+</pre></td><td class="code"><pre><span class="preprocessor">#include &lt;sys/socket.h&gt;</span>
+<span class="keyword">int</span> connect(<span class="keyword">int</span> socket, <span class="keyword">const</span> <span class="keyword">struct</span> sockaddr *address,
         socklen_t address_len);
 </pre></td></tr></table></figure>
 
@@ -771,8 +1541,10 @@ int connect(int socket, const struct sockaddr *address,
 <p><em>client.c 文件</em></p>
 <script src="https://gist.github.com/jkeylu/5275687.js?file=client.c"></script>
 
+
 <p><em>server.c 文件</em></p>
-<script src="https://gist.github.com/jkeylu/5275687.js?file=server.c"></script>]]></content>
+<script src="https://gist.github.com/jkeylu/5275687.js?file=server.c"></script>
+]]></content>
     <category scheme="http://blog.jkey.lu/tags/socket/" term="socket"/>
   </entry>
   <entry>
@@ -830,7 +1602,7 @@ Hello World!
 </pre></td></tr></table></figure>
 
 <p>从上面运行后结果看出，装饰器就是一个能够返回可调用对象（函数）的可调用对象（函数）。</p>
-<a name="more"></a>
+<a id="more"></a>
 
 <h3>具有封闭作用域的装饰器</h3>
 <figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
@@ -892,10 +1664,10 @@ x = 2, y = 3
 </pre></td></tr></table></figure>
 
 <p>可以看出第一次调用 <code>foo(1, 2)</code> 时，相当于</p>
-<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 </pre></td><td class="code"><pre>foo = decorator(foo)
-foo(<span class="number">1</span>, <span class="number">2</span>)
+<span class="function"><span class="title">foo</span><span class="params">(<span class="number">1</span>, <span class="number">2</span>)</span>
 </pre></td></tr></table></figure>
 
 <p>第二次调用 <code>foo(2, 3)</code> 时 <em>foo</em> 已经为 <em>decorator(foo)</em> 的返回值了</p>
@@ -1048,7 +1820,7 @@ int2 = partial(int, base=<span class="number">2</span>)
 
 <h3>update_wrapper(wrapper, wrapped[, assigned][, updated])</h3>
 <p>看这个函数的源代码发现，它就是把被封装的函数的 <strong>module</strong>, <strong>name</strong>, <strong>doc</strong> 和 <strong>dict</strong> 复制到封装的函数中去，源码如下，很简单的几句：</p>
-<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -1075,7 +1847,7 @@ WRAPPER_UPDATES = (<span class="string">'__dict__'</span>,)
 <p>具体如何用我们可以往下看一下。</p>
 <h3>wraps(wrapped[, assigned][, updated])</h3>
 <p>wraps() 函数把用 partial() 把 update_wrapper() 给封装了一下。</p>
-<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -1090,7 +1862,7 @@ WRAPPER_UPDATES = (<span class="string">'__dict__'</span>,)
 </pre></td></tr></table></figure>
 
 <p>好，接下来看一下是如何使用的，这才恍然大悟，一直在很多开源项目的代码中看到如下使用。</p>
-<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -1134,16 +1906,18 @@ Called example function
 """</span>
 <span class="keyword">print</span> example.__name__ <span class="comment"># 'example'</span>
 <span class="keyword">print</span> example.__doc__ <span class="comment"># '这里是文档注释'</span>
-</pre></td></tr></table></figure>]]></content>
+</pre></td></tr></table></figure>
+
+]]></content>
     <category scheme="http://blog.jkey.lu/tags/python/" term="python"/>
   </entry>
   <entry>
     <title type="html"><![CDATA[Backbone.js 中的 model 是什么？]]></title>
-    <link href="http://blog.jkey.lu/2013/03/03/what-is-a-model-in-backbone/"/>
-    <id>http://blog.jkey.lu/2013/03/03/what-is-a-model-in-backbone/</id>
+    <link href="http://blog.jkey.lu/2013/03/03/2013-03-03-what-is-a-model-in-backbone/"/>
+    <id>http://blog.jkey.lu/2013/03/03/2013-03-03-what-is-a-model-in-backbone/</id>
     <published>2013-03-03T05:55:58.000Z</published>
     <updated>2013-03-03T13:40:18.000Z</updated>
-    <content type="html"><![CDATA[<p>根据维基百科上对 <a href="http://zh.wikipedia.org/wiki/MVC">MVC</a> 的定义，我们很难搞懂 model 到底是个什么东西。Backbone.js 的作者对 model 在 backbone.js 中的定义如下。</p>
+    <content type="html"><![CDATA[<p>根据维基百科上对 <a href="http://zh.wikipedia.org/wiki/MVC" target="_blank">MVC</a> 的定义，我们很难搞懂 model 到底是个什么东西。Backbone.js 的作者对 model 在 backbone.js 中的定义如下。</p>
 <blockquote>
 <p>Models are the heart of any JavaScript application, containing the interactive data as well as a large part of the logic surrounding it: conversions, validations, computed properties, and access control.</p>
 </blockquote>
@@ -1161,7 +1935,7 @@ Called example function
 </pre></td></tr></table></figure>
 
 <p>所以 <em>initialize()</em> 会在初始化 model 为一个新的实例时被触发（models, collections 和 views 都是一样的）。当然你可以在写你的 model 时不写初始化函数，但是你会发现你会很平凡的使用它。</p>
-<a name="more"></a>
+<a id="more"></a>
 
 <h2>设置属性</h2>
 <p>然后我们想在实例化一个 model 时传递一些参数给它。</p>
@@ -1215,7 +1989,7 @@ person.set({name: <span class="string">'Thomas'</span>, age: <span class="number
 </pre></td></tr></table></figure>
 
 <h2>设置 model 的默认值</h2>
-<p>有时候你想实例化 model 后就有默认值。其实，这也很简单，只要在你定义 model 时设置名字为 &#39;defaults&#39; 的属性。</p>
+<p>有时候你想实例化 model 后就有默认值。其实，这也很简单，只要在你定义 model 时设置名字为 ‘defaults’ 的属性。</p>
 <figure class="highlight lang-javascript"><table><tr><td class="gutter"><pre>1
 2
 3
@@ -1327,7 +2101,7 @@ person.set({name: <span class="string">'Stewie Griffin'</span>}); <span class="c
 <p>可以看到我们可以为个别属性单独绑定事件监听者，或者直接 <code>this.on(&#39;change&#39;, function (model) {});</code> 来监听所有属性改变的事件。</p>
 <h2>与服务器交互</h2>
 <p>Models 是用来描述服务器端返回的数据和你对 RESTful URL 发送数据时的操作。</p>
-<p>models 中属性 <code>id</code> 应该与数据库中映射的<a href="http://zh.wikipedia.org/wiki/%E5%85%B3%E7%B3%BB%E9%94%AE#.E4.BB.A3.E7.90.86.E9.8D.B5">代理键</a>相对应，一般我们都直接用主键，可以快速索引到我们要的数据。</p>
+<p>models 中属性 <code>id</code> 应该与数据库中映射的<a href="http://zh.wikipedia.org/wiki/%E5%85%B3%E7%B3%BB%E9%94%AE#.E4.BB.A3.E7.90.86.E9.8D.B5" target="_blank">代理键</a>相对应，一般我们都直接用主键，可以快速索引到我们要的数据。</p>
 <p>假设我们的 mysql 数据库上有一张 <code>Users</code> 表，这张表中有三个字段，分别为 <code>id</code>, <code>name</code>, <code>email</code>。</p>
 <p>并且服务器端已经实现了能够为我们提供数据的 RESTful URL, 地址为 <code>/user</code> 的 。</p>
 <p>我们的 model 定义应该如下：</p>
@@ -1394,7 +2168,7 @@ user.save(userDetails, {
 </pre></td></tr></table></figure>
 
 <p>我们数据库表中就有了一行数据:</p>
-<p>1, &#39;Thomas&#39;, &#39;thomasalwyndavis@gmail.com&#39;</p>
+<p>1, ‘Thomas’, ‘thomasalwyndavis@gmail.com’</p>
 <h3>获取一个 model 实例</h3>
 <p>现在我们数据表中就有了一条 user 的数据，我们就能够从服务器上获取了。从上面的例子中我们知道我们数据库中有一条 <code>id</code> 为 1 的数据行。</p>
 <p>如果用 <code>id</code> 来实例化一个 model, Backbone.js 会自动请求 <code>urlRoot + &#39;/id&#39;</code>（遵循 RESTful 约定）。</p>
@@ -1616,14 +2390,13 @@ bill.set({name: <span class="string">'Bill Jones'</span>});
 </pre></td></tr></table></figure>
 
 <h2>关于本文</h2>
-<p>为了学习 Backbone.js，网上找到了 <a href="http://backbonetutorials.com/"><a href="http://backbonetutorials.com/">http://backbonetutorials.com/</a></a> 这个网站。所以，边翻译边学，记录下来也是为了加深记忆。</p>
+<p>为了学习 Backbone.js，网上找到了 <a href="http://backbonetutorials.com/" target="_blank"><a href="http://backbonetutorials.com/">http://backbonetutorials.com/</a></a> 这个网站。所以，边翻译边学，记录下来也是为了加深记忆。</p>
 <h2>相关链接</h2>
-<p><a href="http://backbonetutorials.com/what-is-a-model/">What is a model?</a></p>
-<p><a href="http://backbonejs.org/#Model">Backbone.Model</a></p>
-<p>基于版本：<a href="https://github.com/thomasdavis/backbonetutorials/tree/9e4aba0af8b56538e6cdda034770c4971a43c181">9e4aba0af8</a></p>
+<p><a href="http://backbonetutorials.com/what-is-a-model/" target="_blank">What is a model?</a></p>
+<p><a href="http://backbonejs.org/#Model" target="_blank">Backbone.Model</a></p>
+<p>基于版本：<a href="https://github.com/thomasdavis/backbonetutorials/tree/9e4aba0af8b56538e6cdda034770c4971a43c181" target="_blank">9e4aba0af8</a></p>
 ]]></content>
     <category scheme="http://blog.jkey.lu/tags/backbone/" term="backbone"/>
-    <category scheme="http://blog.jkey.lu/categories/backbone-tutorials/" term="backbone-tutorials"/>
   </entry>
   <entry>
     <title type="html"><![CDATA[python 中 *args 和 **kwargs]]></title>
@@ -1644,7 +2417,7 @@ bill.set({name: <span class="string">'Bill Jones'</span>});
 foo(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>) <span class="comment"># (1, 2, 3)</span>
 </pre></td></tr></table></figure>
 
-<a name="more"></a>
+<a id="more"></a>
 
 <h2>2. 关键字参数：通过参数名进行匹配</h2>
 <p>调用的函数可以定义哪一个函数参数接受这个值，好吧，还是看代码把。</p>
@@ -1740,7 +2513,9 @@ foo(<span class="number">0</span>, *p1, **p2) <span class="comment"># (0, 1, 2, 
     print(a, args, kwargs)
 
 bar(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, b=<span class="number">4</span>, c=<span class="number">5</span>) <span class="comment"># (1, (2, 3), {'c': 5, 'b': 4})</span>
-</pre></td></tr></table></figure>]]></content>
+</pre></td></tr></table></figure>
+
+]]></content>
     <category scheme="http://blog.jkey.lu/tags/python/" term="python"/>
   </entry>
   <entry>
@@ -1753,70 +2528,80 @@ bar(<span class="number">1</span>, <span class="number">2</span>, <span class="n
 <p>先说一下我安装 pptp 的环境是 buyvm 上 128m 的 vps，安装了 ubuntu 系统。</p>
 <ol>
 <li><p>首先到 /dev/ 和 /dev/net/ 下确认是否有 ppp 和 tun 两个设备</p>
-<pre><code> <span class="regexp">/dev/</span>ppp
- <span class="regexp">/dev/net/</span>tun
-</code></pre>
+ <figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre><span class="regexp">/dev/</span>ppp
+<span class="regexp">/dev/net/</span>tun
+</pre></td></tr></table></figure>
 </li>
 <li><p>安装 pptpd</p>
-<pre><code> apt-<span class="keyword">get</span> install pptpd
-</code></pre>
- <a name="more"></a>
+<p> <figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>apt-<span class="keyword">get</span> install pptpd
+</pre></td></tr></table></figure></p>
+ <a id="more"></a>
 </li>
 <li><p>编辑 /etc/pptpd.conf 文件</p>
-<pre><code> <span class="title">vim</span> /etc/pptpd.conf
-</code></pre>
-<p> 去掉一下几句前面的 # 号</p>
-<pre><code> <span class="title">option</span> /etc/ppp/pptpd-options
- localip <span class="number">192.168.0.1</span>
- remoteip <span class="number">192.168.0.234</span>-<span class="number">238</span>,<span class="number">192.168.0.245</span>
-</code></pre>
+ <figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="title">vim</span> /etc/pptpd.conf
+</pre></td></tr></table></figure><br> 去掉一下几句前面的 # 号<br><br> <figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+</pre></td><td class="code"><pre><span class="title">option</span> /etc/ppp/pptpd-options
+localip <span class="number">192.168.0.1</span>
+remoteip <span class="number">192.168.0.234</span>-<span class="number">238</span>,<span class="number">192.168.0.245</span>
+</pre></td></tr></table></figure>
 </li>
 <li><p>编辑 /etc/ppp/pptpd-options 文件，设置 DNS</p>
-<pre><code> <span class="title">vim</span> /etc/ppp/pptpd-options
-</code></pre>
-<p> 找到 ms-dns 去掉 # 号，并修改 DNS 地址</p>
-<pre><code> ms-dns 8.8.8.8
- ms-dns 8.8.4.4
-</code></pre>
+ <figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="title">vim</span> /etc/ppp/pptpd-options
+</pre></td></tr></table></figure><br> 找到 ms-dns 去掉 # 号，并修改 DNS 地址<br><br> <figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre><span class="title">ms</span>-dns <span class="number">8.8</span><span class="number">.8</span><span class="number">.8</span>
+<span class="title">ms</span>-dns <span class="number">8.8</span><span class="number">.4</span><span class="number">.4</span>
+</pre></td></tr></table></figure>
 </li>
 <li><p>编辑 /etc/ppp/chap-secrets ，加入用户</p>
-<pre><code> 用户名 pptpd 密码 *
-</code></pre>
-<p> 解释一下：分别用你自己想要的用户名和密码去替换‘用户名’ 和 ‘密码’，你当然可以添加 n 个，每行一个。</p>
+<p> <figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>用户名 pptpd 密码 *
+</pre></td></tr></table></figure><br> 解释一下：分别用你自己想要的用户名和密码去替换‘用户名’ 和 ‘密码’，你当然可以添加 n 个，每行一个。</p>
 <p> 以上设置完后基本上可以在 windows 上新建 vpn 连接后可以连接了，只是以上的设置只能访问服务器资源，而不能访问这台服务器以外的资源。所以，我们在进行配置。</p>
 </li>
 <li><p>编辑 /etc/sysctl.conf 文件，找到以下行，去掉 # 号注释符号</p>
-<pre><code> net<span class="variable">.ipv4</span><span class="variable">.ip_forward</span>=<span class="number">1</span>
-</code></pre>
-<p> 然后在运行以下命令使配置生效</p>
-<pre><code> <span class="title">sysctl</span> -p
-</code></pre>
+ <figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>net<span class="variable">.ipv4</span><span class="variable">.ip_forward</span>=<span class="number">1</span>
+</pre></td></tr></table></figure><br> 然后在运行以下命令使配置生效<br><br> <figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="title">sysctl</span> -p
+</pre></td></tr></table></figure>
 </li>
 <li><p>安装 iptables</p>
-<pre><code> apt-<span class="keyword">get</span> install iptables
-</code></pre>
+ <figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>apt-<span class="keyword">get</span> install iptables
+</pre></td></tr></table></figure>
 </li>
 <li><p>向 nat 表中添加一条规则：</p>
-<pre><code> <span class="comment">iptables</span> <span class="literal">-</span><span class="comment">t</span> <span class="comment">nat</span> <span class="literal">-</span><span class="comment">A</span> <span class="comment">POSTROUTING</span> <span class="literal">-</span><span class="comment">s</span> <span class="comment">192</span>.<span class="comment">168</span>.<span class="comment">0</span>.<span class="comment">0/24</span> <span class="literal">-</span><span class="comment">o</span> <span class="comment">venet0</span> <span class="literal">-</span><span class="comment">j</span> <span class="comment">MASQUERADE</span>
- <span class="comment">//venet0是物理网卡，用</span> <span class="comment">ifconfig</span> <span class="comment">查看
-</code></pre>
-<p> 如果执行这条命令后提示</p>
-<pre><code> iptables: No chain/target/match <span class="keyword">by</span> <span class="keyword">that</span> <span class="property">name</span>.
-</code></pre>
-<p> 那么改为以下命令重新执行：</p>
-<pre><code> <span class="comment">iptables</span> <span class="literal">-</span><span class="comment">t</span> <span class="comment">nat</span> <span class="literal">-</span><span class="comment">A</span> <span class="comment">POSTROUTING</span> <span class="literal">-</span><span class="comment">s</span> <span class="comment">192</span>.<span class="comment">168</span>.<span class="comment">0</span>.<span class="comment">0/24</span> <span class="literal">-</span><span class="comment">o</span> <span class="comment">venet0</span> <span class="literal">-</span><span class="comment">j</span> <span class="comment">SNAT</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">to</span>-<span class="comment">source</span> <span class="comment">xxx</span>.<span class="comment">xxx</span>.<span class="comment">xxx</span>.<span class="comment">xxx
-</code></pre>
-<p> 最后的 xxx.xxx.xxx.xxx 是你 vps 的 ip 地址。</p>
+<p> <figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre><span class="comment">iptables</span> <span class="literal">-</span><span class="comment">t</span> <span class="comment">nat</span> <span class="literal">-</span><span class="comment">A</span> <span class="comment">POSTROUTING</span> <span class="literal">-</span><span class="comment">s</span> <span class="comment">192</span>.<span class="comment">168</span>.<span class="comment">0</span>.<span class="comment">0/24</span> <span class="literal">-</span><span class="comment">o</span> <span class="comment">venet0</span> <span class="literal">-</span><span class="comment">j</span> <span class="comment">MASQUERADE</span>
+<span class="comment">//venet0是物理网卡，用</span> <span class="comment">ifconfig</span> <span class="comment">查看
+</pre></td></tr></table></figure><br> 如果执行这条命令后提示</p>
+<p> <figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>iptables: No chain/target/match <span class="keyword">by</span> <span class="keyword">that</span> <span class="property">name</span>.
+</pre></td></tr></table></figure><br> 那么改为以下命令重新执行：</p>
+<p> <figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="comment">iptables</span> <span class="literal">-</span><span class="comment">t</span> <span class="comment">nat</span> <span class="literal">-</span><span class="comment">A</span> <span class="comment">POSTROUTING</span> <span class="literal">-</span><span class="comment">s</span> <span class="comment">192</span>.<span class="comment">168</span>.<span class="comment">0</span>.<span class="comment">0/24</span> <span class="literal">-</span><span class="comment">o</span> <span class="comment">venet0</span> <span class="literal">-</span><span class="comment">j</span> <span class="comment">SNAT</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">to</span>-<span class="comment">source</span> <span class="comment">xxx</span>.<span class="comment">xxx</span>.<span class="comment">xxx</span>.<span class="comment">xxx
+</pre></td></tr></table></figure><br> 最后的 xxx.xxx.xxx.xxx 是你 vps 的 ip 地址。</p>
 </li>
 <li><p>虽然现在设置好了 iptables 但是下次重启时会被清除，所以我们需要把它保存下来</p>
-<pre><code> iptables-save &gt; <span class="regexp">/etc/iptables</span>-rules
-</code></pre>
-<p> 然后修改 /etc/network/interfaces 文件，找到 venet0 的结点，添加 pre-up 那一行：</p>
-<pre><code> auto venet0
- iface venet0 inet static
- pre-up iptables-restore <span class="tag">&lt; /<span class="attribute">etc</span>/<span class="attribute">iptables-rules</span>
-</code></pre>
-<p> 这样重启后会自动加载之前设置好的 iptables 规则。</p>
+<p> <figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>iptables-save &gt; <span class="regexp">/etc/iptables</span>-rules
+</pre></td></tr></table></figure><br> 然后修改 /etc/network/interfaces 文件，找到 venet0 的结点，添加 pre-up 那一行：</p>
+<p> <figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+</pre></td><td class="code"><pre><span class="title">auto</span> venet0
+<span class="title">iface</span> venet0 inet static
+<span class="title">pre</span>-up iptables-restore &lt; /etc/iptables-rules
+</pre></td></tr></table></figure><br> 这样重启后会自动加载之前设置好的 iptables 规则。</p>
 <p> 但是有可能每次重启后 interfaces 都会被重写还原,那么上面方法就失效了。</p>
 <p> 而我用的方法是在 /etc/rc.local 文件中添加一行 <code>iptables-restore /etc/iptables-rules</code></p>
 <p> 当然你也可以在每次重启后手动执行 <code>iptables-restore /etc/iptables-rules</code></p>
@@ -1825,11 +2610,11 @@ bar(<span class="number">1</span>, <span class="number">2</span>, <span class="n
 </ol>
 <p>参考文章：</p>
 <ol>
-<li><p><a href="http://wiki.wowubuntu.com/linux/openvz-archlinux-pptp-vpn">OpenVZ VPS 上架设 PPTP VPN</a></p>
+<li><p><a href="http://wiki.wowubuntu.com/linux/openvz-archlinux-pptp-vpn" target="_blank">OpenVZ VPS 上架设 PPTP VPN</a></p>
 </li>
-<li><p><a href="http://qiaodahai.com/personal/article/2010/debian-ubuntu-setup-pptp-vpn.htm">Debian/Ubuntu快速搭建PPTP VPN</a></p>
+<li><p><a href="http://qiaodahai.com/personal/article/2010/debian-ubuntu-setup-pptp-vpn.htm" target="_blank">Debian/Ubuntu快速搭建PPTP VPN</a></p>
 </li>
-<li><p><a href="http://pityonline.info/?p=1054">Install and Configure OpenVPN</a></p>
+<li><p><a href="http://pityonline.info/?p=1054" target="_blank">Install and Configure OpenVPN</a></p>
 </li>
 </ol>
 ]]></content>
@@ -1853,7 +2638,7 @@ bar(<span class="number">1</span>, <span class="number">2</span>, <span class="n
     <id>http://blog.jkey.lu/2013/01/09/hello-world/</id>
     <published>2013-01-08T16:18:21.000Z</published>
     <updated>2013-02-16T15:46:34.000Z</updated>
-    <content type="html"><![CDATA[<p>Welcome to <a href="http://zespia.tw/hexo">Hexo</a>! This is your very first post. Check <a href="http://zespia.tw/hexo/docs">documentation</a> to learn how to use.</p>
+    <content type="html"><![CDATA[<p>Welcome to <a href="http://zespia.tw/hexo" target="_blank">Hexo</a>! This is your very first post. Check <a href="http://zespia.tw/hexo/docs" target="_blank">documentation</a> to learn how to use.</p>
 ]]></content>
   </entry>
 </feed>

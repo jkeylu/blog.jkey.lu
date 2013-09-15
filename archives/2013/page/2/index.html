@@ -20,7 +20,6 @@
   <link rel="alternate" href="/atom.xml" title="jKey Blog" type="application/atom+xml">
   <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
   <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
   
 <script type="text/javascript">
   var _gaq = _gaq || [];
@@ -65,7 +64,102 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2013-03-15T15:11:49.000Z"><a href="/2013/03/15/python-decorator-and-functools-module/">Mar 15, 2013</a></time>
+        <time datetime="2013-03-31T01:34:47.000Z"><a href="/2013/03/31/tornado-configurable-interface/">3月 31, 2013</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2013/03/31/tornado-configurable-interface/">tornado util 模块中的 Configurable 类</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>简单的说 Configurable 就是让继承自它的子类的构造函数具有工厂函数一样的行为。意思是，只要一个类继承自 Configurable, 那么在这个类在实例化时，构造函数就像工厂一样来选择一个这个类的子类来实例化。</p>
+<p>通常如果要继承 Configurable 接口，那么首先要实现 <code>configurable_base(cls)</code> 和 <code>configurable_default(cls)</code> 这两个静态方法。</p>
+<p>在 tornado 中有三个类是继承自 Configurable 的，分别是 AsyncHttpClient, IOLoop 和 Resolver。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2013/03/31/tornado-configurable-interface/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2013-03-22T15:42:19.000Z"><a href="/2013/03/22/linux-c-socket/">3月 22, 2013</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2013/03/22/linux-c-socket/">Linux 上 C 语言的 socket 编程</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>这几天看了一下 Linux 上的 socket 编程，把主要几个 socket 编程用到的函数研究了一下，并记录下来备忘。</p>
+<h2>socket()</h2>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre><span class="preprocessor">#include &lt;sys/socket.h&gt;</span>
+<span class="keyword">int</span> socket(<span class="keyword">int</span> domain, <span class="keyword">int</span> type, <span class="keyword">int</span> protocol);
+</pre></td></tr></table></figure>
+
+<ul>
+<li><p><strong>domain</strong> 指定 socket 的通信协议集(AF_UNIX 和 AF_INET 等)</p>
+<p>  AF_UNIX (与 AF_LOCAL 和 AF_FILE 相同) 只能够用于单一的 *nix 的系统上，使用 AF_UNIX 会在系统上创建一个 socket 文件，不同进程通过读写这个文件来实现通信。</p>
+<p>  AF_INET 则是用于网络的，所以可以允许远程主机之间的通信。</p>
+<p>  更多协议可以看 <bits/socket.h></p>
+</li>
+<li><p><strong>type</strong> 指定 socket 的类型(SOCK_STREAM 和 SOCK_DGRAM 等)</p>
+<p>  SOCK_STREAM 表明使用 TCP 协议，这就意味着会提供按顺序的、可靠、双向、面向连接的比特流。</p>
+<p>  SOCK_DGRAM 表明使用 UDP 协议，这就意味着会提供定长的、不可靠、无连接的通信。</p>
+</li>
+<li><p><strong>protocol</strong> 指定实际使用的传输协议。最常见的就是 IPPROTO_TCP, IPPROTO_SCTP, IPPROTO_UDP, IPPROTO_DCCP。这些协议都在 <netinet/in.h> 中有详细说明。如果该项为 0 的话，即根据选定的domain和type选择使用缺省协议。</p>
+</li>
+</ul>
+<p>调用 socket() 函数后，成功会返回文件描述符，失败则返回 -1。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2013/03/22/linux-c-socket/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2013-03-15T15:11:49.000Z"><a href="/2013/03/15/python-decorator-and-functools-module/">3月 15, 2013</a></time>
       
       
   
@@ -149,17 +243,17 @@ Hello World!
     <header>
       
         <div class="icon"></div>
-        <time datetime="2013-03-03T05:55:58.000Z"><a href="/2013/03/03/what-is-a-model-in-backbone/">Mar 3, 2013</a></time>
+        <time datetime="2013-03-03T05:55:58.000Z"><a href="/2013/03/03/2013-03-03-what-is-a-model-in-backbone/">3月 3, 2013</a></time>
       
       
   
-    <h1 class="title"><a href="/2013/03/03/what-is-a-model-in-backbone/">Backbone.js 中的 model 是什么？</a></h1>
+    <h1 class="title"><a href="/2013/03/03/2013-03-03-what-is-a-model-in-backbone/">Backbone.js 中的 model 是什么？</a></h1>
   
 
     </header>
     <div class="entry">
       
-        <p>根据维基百科上对 <a href="http://zh.wikipedia.org/wiki/MVC">MVC</a> 的定义，我们很难搞懂 model 到底是个什么东西。Backbone.js 的作者对 model 在 backbone.js 中的定义如下。</p>
+        <p>根据维基百科上对 <a href="http://zh.wikipedia.org/wiki/MVC" target="_blank">MVC</a> 的定义，我们很难搞懂 model 到底是个什么东西。Backbone.js 的作者对 model 在 backbone.js 中的定义如下。</p>
 <blockquote>
 <p>Models are the heart of any JavaScript application, containing the interactive data as well as a large part of the logic surrounding it: conversions, validations, computed properties, and access control.</p>
 </blockquote>
@@ -184,7 +278,7 @@ Hello World!
       
         
           <div class="alignleft">
-            <a href="/2013/03/03/what-is-a-model-in-backbone/#more" class="more-link">Read More</a>
+            <a href="/2013/03/03/2013-03-03-what-is-a-model-in-backbone/#more" class="more-link">Read More</a>
           </div>
         
         
@@ -202,7 +296,7 @@ Hello World!
     <header>
       
         <div class="icon"></div>
-        <time datetime="2013-02-24T04:56:35.000Z"><a href="/2013/02/24/python-args-and-kwargs/">Feb 24, 2013</a></time>
+        <time datetime="2013-02-24T04:56:35.000Z"><a href="/2013/02/24/python-args-and-kwargs/">2月 24, 2013</a></time>
       
       
   
@@ -250,7 +344,7 @@ foo(<span class="number">1</span>, <span class="number">2</span>, <span class="n
     <header>
       
         <div class="icon"></div>
-        <time datetime="2013-02-15T13:55:35.000Z"><a href="/2013/02/15/install-pptp-on-ubuntu/">Feb 15, 2013</a></time>
+        <time datetime="2013-02-15T13:55:35.000Z"><a href="/2013/02/15/install-pptp-on-ubuntu/">2月 15, 2013</a></time>
       
       
   
@@ -264,13 +358,16 @@ foo(<span class="number">1</span>, <span class="number">2</span>, <span class="n
 <p>先说一下我安装 pptp 的环境是 buyvm 上 128m 的 vps，安装了 ubuntu 系统。</p>
 <ol>
 <li><p>首先到 /dev/ 和 /dev/net/ 下确认是否有 ppp 和 tun 两个设备</p>
-<pre><code> <span class="regexp">/dev/</span>ppp
- <span class="regexp">/dev/net/</span>tun
-</code></pre>
+ <figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre><span class="regexp">/dev/</span>ppp
+<span class="regexp">/dev/net/</span>tun
+</pre></td></tr></table></figure>
 </li>
 <li><p>安装 pptpd</p>
-<pre><code> apt-<span class="keyword">get</span> install pptpd
-</code></pre>
+<p> <figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>apt-<span class="keyword">get</span> install pptpd
+</pre></td></tr></table></figure></p>
  
       
     </div>
@@ -290,87 +387,13 @@ foo(<span class="number">1</span>, <span class="number">2</span>, <span class="n
 
 
   
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2013-02-02T11:58:10.000Z"><a href="/2013/02/02/began-to-lose-control/">Feb 2, 2013</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2013/02/02/began-to-lose-control/">感觉最近不能掌控自己了</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>最近感觉自己很累，每天想僵尸一样的生活。确切的说现在的生活就像把自己的大脑放进一具僵尸的身体里，虽然能够清楚的看清周围，但是身体已经完全不受大脑控制了。每天做着意义不大的机械运动，渐渐的身体疲惫了，身体对大脑说“我累了，我要停下来休息一下”，大脑说“刹车已经坏很久了，你现在做的运动完全靠的是惯性，我已经失去了控制”。</p>
-<p>去年买了两本书《拖延心理学》和《拆掉思维的墙》，两本书都没有看完，现在烂在那里。两本都只看了一般，初看感觉这本书就是完全在写我的。看了一半没有看完恰恰有印证了这一点，从书中的案例中我看到了自己，知道自己为什么导致了不受自己掌控的原因，但是就是无法改变自己。</p>
-<p>就像《拖延心理学》中讲的那样，拖延者每每在经历一次拖延的折磨后，都会毅然决然的下定决心从此不再踏入那个拖延怪圈一步。你发誓，下一次你一定早一点开始，控制好自己……</p>
-<p>而我接下来做的也就是毅然决然的下定决心……</p>
-<p>去年买了很多书都还没看完，自己的几个 idea 还没实现，空气是免费的。</p>
-
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2013/02/02/began-to-lose-control/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-  
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2013-01-08T16:18:21.000Z"><a href="/2013/01/09/hello-world/">Jan 9, 2013</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2013/01/09/hello-world/">Hello World</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>Welcome to <a href="http://zespia.tw/hexo">Hexo</a>! This is your very first post. Check <a href="http://zespia.tw/hexo/docs">documentation</a> to learn how to use.</p>
-
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2013/01/09/hello-world/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-  
 
   <nav id="pagination">
   
     <a href="/archives/2013/" class="alignleft prev">上一页</a>
   
+  
+    <a href="/archives/2013/page/3/" class="alignright next">下一页</a>
   
   <div class="clearfix"></div>
 </nav>
@@ -384,15 +407,6 @@ foo(<span class="number">1</span>, <span class="number">2</span>, <span class="n
 </div>
 
   
-<div class="widget tag">
-  <h3 class="title">分类</h3>
-  <ul class="entry">
-  
-    <li><a href="/categories/backbone-tutorials/">backbone-tutorials</a><small>1</small></li>
-  
-  </ul>
-</div>
-
 
   
 <div class="widget tag">
@@ -400,6 +414,8 @@ foo(<span class="number">1</span>, <span class="number">2</span>, <span class="n
   <ul class="entry">
   
     <li><a href="/tags/backbone/">backbone</a><small>1</small></li>
+  
+    <li><a href="/tags/nodejs/">nodejs</a><small>1</small></li>
   
     <li><a href="/tags/openwrt/">openwrt</a><small>1</small></li>
   
@@ -421,7 +437,8 @@ foo(<span class="number">1</span>, <span class="number">2</span>, <span class="n
   
 </div>
 <div class="clearfix"></div></footer>
-  <script src="/js/jquery.imagesloaded.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
 <script src="/js/gallery.js"></script>
 
 

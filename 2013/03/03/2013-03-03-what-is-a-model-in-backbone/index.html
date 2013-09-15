@@ -39,7 +39,6 @@ var Person = Backbone.Model.extend({
   <link rel="alternate" href="/atom.xml" title="jKey Blog" type="application/atom+xml">
   <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
   <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
   
 <script type="text/javascript">
   var _gaq = _gaq || [];
@@ -79,7 +78,7 @@ var Person = Backbone.Model.extend({
     <header>
       
         <div class="icon"></div>
-        <time datetime="2013-03-03T05:55:58.000Z"><a href="/2013/03/03/what-is-a-model-in-backbone/">Mar 3, 2013</a></time>
+        <time datetime="2013-03-03T05:55:58.000Z"><a href="/2013/03/03/2013-03-03-what-is-a-model-in-backbone/">3月 3, 2013</a></time>
       
       
   
@@ -89,7 +88,7 @@ var Person = Backbone.Model.extend({
     </header>
     <div class="entry">
       
-        <p>根据维基百科上对 <a href="http://zh.wikipedia.org/wiki/MVC">MVC</a> 的定义，我们很难搞懂 model 到底是个什么东西。Backbone.js 的作者对 model 在 backbone.js 中的定义如下。</p>
+        <p>根据维基百科上对 <a href="http://zh.wikipedia.org/wiki/MVC" target="_blank">MVC</a> 的定义，我们很难搞懂 model 到底是个什么东西。Backbone.js 的作者对 model 在 backbone.js 中的定义如下。</p>
 <blockquote>
 <p>Models are the heart of any JavaScript application, containing the interactive data as well as a large part of the logic surrounding it: conversions, validations, computed properties, and access control.</p>
 </blockquote>
@@ -107,7 +106,7 @@ var Person = Backbone.Model.extend({
 </pre></td></tr></table></figure>
 
 <p>所以 <em>initialize()</em> 会在初始化 model 为一个新的实例时被触发（models, collections 和 views 都是一样的）。当然你可以在写你的 model 时不写初始化函数，但是你会发现你会很平凡的使用它。</p>
-<a name="more"></a>
+<a id="more"></a>
 
 <h2>设置属性</h2>
 <p>然后我们想在实例化一个 model 时传递一些参数给它。</p>
@@ -161,7 +160,7 @@ person.set({name: <span class="string">'Thomas'</span>, age: <span class="number
 </pre></td></tr></table></figure>
 
 <h2>设置 model 的默认值</h2>
-<p>有时候你想实例化 model 后就有默认值。其实，这也很简单，只要在你定义 model 时设置名字为 &#39;defaults&#39; 的属性。</p>
+<p>有时候你想实例化 model 后就有默认值。其实，这也很简单，只要在你定义 model 时设置名字为 ‘defaults’ 的属性。</p>
 <figure class="highlight lang-javascript"><table><tr><td class="gutter"><pre>1
 2
 3
@@ -273,7 +272,7 @@ person.set({name: <span class="string">'Stewie Griffin'</span>}); <span class="c
 <p>可以看到我们可以为个别属性单独绑定事件监听者，或者直接 <code>this.on(&#39;change&#39;, function (model) {});</code> 来监听所有属性改变的事件。</p>
 <h2>与服务器交互</h2>
 <p>Models 是用来描述服务器端返回的数据和你对 RESTful URL 发送数据时的操作。</p>
-<p>models 中属性 <code>id</code> 应该与数据库中映射的<a href="http://zh.wikipedia.org/wiki/%E5%85%B3%E7%B3%BB%E9%94%AE#.E4.BB.A3.E7.90.86.E9.8D.B5">代理键</a>相对应，一般我们都直接用主键，可以快速索引到我们要的数据。</p>
+<p>models 中属性 <code>id</code> 应该与数据库中映射的<a href="http://zh.wikipedia.org/wiki/%E5%85%B3%E7%B3%BB%E9%94%AE#.E4.BB.A3.E7.90.86.E9.8D.B5" target="_blank">代理键</a>相对应，一般我们都直接用主键，可以快速索引到我们要的数据。</p>
 <p>假设我们的 mysql 数据库上有一张 <code>Users</code> 表，这张表中有三个字段，分别为 <code>id</code>, <code>name</code>, <code>email</code>。</p>
 <p>并且服务器端已经实现了能够为我们提供数据的 RESTful URL, 地址为 <code>/user</code> 的 。</p>
 <p>我们的 model 定义应该如下：</p>
@@ -340,7 +339,7 @@ user.save(userDetails, {
 </pre></td></tr></table></figure>
 
 <p>我们数据库表中就有了一行数据:</p>
-<p>1, &#39;Thomas&#39;, &#39;thomasalwyndavis@gmail.com&#39;</p>
+<p>1, ‘Thomas’, ‘thomasalwyndavis@gmail.com’</p>
 <h3>获取一个 model 实例</h3>
 <p>现在我们数据表中就有了一条 user 的数据，我们就能够从服务器上获取了。从上面的例子中我们知道我们数据库中有一条 <code>id</code> 为 1 的数据行。</p>
 <p>如果用 <code>id</code> 来实例化一个 model, Backbone.js 会自动请求 <code>urlRoot + &#39;/id&#39;</code>（遵循 RESTful 约定）。</p>
@@ -562,22 +561,17 @@ bill.set({name: <span class="string">'Bill Jones'</span>});
 </pre></td></tr></table></figure>
 
 <h2>关于本文</h2>
-<p>为了学习 Backbone.js，网上找到了 <a href="http://backbonetutorials.com/"><a href="http://backbonetutorials.com/">http://backbonetutorials.com/</a></a> 这个网站。所以，边翻译边学，记录下来也是为了加深记忆。</p>
+<p>为了学习 Backbone.js，网上找到了 <a href="http://backbonetutorials.com/" target="_blank"><a href="http://backbonetutorials.com/">http://backbonetutorials.com/</a></a> 这个网站。所以，边翻译边学，记录下来也是为了加深记忆。</p>
 <h2>相关链接</h2>
-<p><a href="http://backbonetutorials.com/what-is-a-model/">What is a model?</a></p>
-<p><a href="http://backbonejs.org/#Model">Backbone.Model</a></p>
-<p>基于版本：<a href="https://github.com/thomasdavis/backbonetutorials/tree/9e4aba0af8b56538e6cdda034770c4971a43c181">9e4aba0af8</a></p>
+<p><a href="http://backbonetutorials.com/what-is-a-model/" target="_blank">What is a model?</a></p>
+<p><a href="http://backbonejs.org/#Model" target="_blank">Backbone.Model</a></p>
+<p>基于版本：<a href="https://github.com/thomasdavis/backbonetutorials/tree/9e4aba0af8b56538e6cdda034770c4971a43c181" target="_blank">9e4aba0af8</a></p>
 
       
     </div>
     <footer>
       
         
-  
-  <div class="categories">
-    <a href="/categories/backbone-tutorials/">backbone-tutorials</a>
-  </div>
-
         
   
   <div class="tags">
@@ -610,15 +604,6 @@ bill.set({name: <span class="string">'Bill Jones'</span>});
 </div>
 
   
-<div class="widget tag">
-  <h3 class="title">分类</h3>
-  <ul class="entry">
-  
-    <li><a href="/categories/backbone-tutorials/">backbone-tutorials</a><small>1</small></li>
-  
-  </ul>
-</div>
-
 
   
 <div class="widget tag">
@@ -626,6 +611,8 @@ bill.set({name: <span class="string">'Bill Jones'</span>});
   <ul class="entry">
   
     <li><a href="/tags/backbone/">backbone</a><small>1</small></li>
+  
+    <li><a href="/tags/nodejs/">nodejs</a><small>1</small></li>
   
     <li><a href="/tags/openwrt/">openwrt</a><small>1</small></li>
   
@@ -647,7 +634,8 @@ bill.set({name: <span class="string">'Bill Jones'</span>});
   
 </div>
 <div class="clearfix"></div></footer>
-  <script src="/js/jquery.imagesloaded.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
 <script src="/js/gallery.js"></script>
 
 

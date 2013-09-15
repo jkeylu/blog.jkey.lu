@@ -1,0 +1,865 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Nodejs Addons | jKey Blog</title>
+  <meta name="author" content="jKey Lu">
+  
+  <meta name="description" content="有时候仅仅用 javascript 并不能够实现我们想要的功能，比如说我最近买了一块 nokia 5110 的显示屏，想连在我的树莓派上显示一些有用的信息。而这块显示屏是 spi 接口的，树莓派上也是有 SPI 接口。但是我要对 SPI 接口写入信息传到显示屏上，就必须要用 c++ 来写，不是很方便。所以我就想写一个 nodejs 的 addon，最后可以实现 javascript 来与 SPI 总线进行通信。
+所以，就要学习如何写一个 nodejs 的 addon，这篇文章完全参考 http://nodejs.org/api/addons.html
+下面所有例子的代码可以从 https://github.com/rvagg/node-addon-examples 下载到。
+Hello world
+我们要写一个简单的模块，这个模块的 javascript 代码实现如下，目标是把他转换为 c++ 实现的 Addon。
+1
+exports.hello = function () { return 'world'; };
+
+
+首先创建 hello.cc，内容如下：
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+#include &lt;node.h&gt;
+#include &lt;v8.h&gt;
+
+using namespace v8;
+
+/**
+ * &quot;Method&quot; 的名字可以任取，可以换成 &quot;Hello&quot;
+ * 来对应 exports 的名称
+ */
+Handle&lt;Value&gt; Method(const Arguments&amp; args) {
+  HandleScope scope;
+  return scope.Close(String::New(&quot;world&quot;));
+}
+
+void Init(Handle&lt;Object&gt; exports) {
+  exports-&gt;Set(String::NewSymbol(&quot;hello&quot;),
+    FunctionTemplate::New(Method)-&gt;GetFunction());
+}
+
+NODE_MODULE(hello, Init)
+
+
+所有的 Node addons 必须输出一个初始化函数：
+1
+2
+void Initialize(Handle&lt;Object&gt; exports);
+NODE_MODULE(module_name, Initialize)">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Nodejs Addons"/>
+  <meta property="og:site_name" content="jKey Blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="jKey Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-16294460-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">jKey Blog</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2013-07-05T14:02:07.000Z"><a href="/2013/07/05/nodejs-addons/">7月 5, 2013</a></time>
+      
+      
+  
+    <h1 class="title">Nodejs Addons</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>有时候仅仅用 javascript 并不能够实现我们想要的功能，比如说我最近买了一块 nokia 5110 的显示屏，想连在我的树莓派上显示一些有用的信息。而这块显示屏是 spi 接口的，树莓派上也是有 SPI 接口。但是我要对 SPI 接口写入信息传到显示屏上，就必须要用 c++ 来写，不是很方便。所以我就想写一个 nodejs 的 addon，最后可以实现 javascript 来与 SPI 总线进行通信。</p>
+<p>所以，就要学习如何写一个 nodejs 的 addon，这篇文章完全参考 <a href="http://nodejs.org/api/addons.html" target="_blank"><a href="http://nodejs.org/api/addons.html">http://nodejs.org/api/addons.html</a></a></p>
+<p>下面所有例子的代码可以从 <a href="https://github.com/rvagg/node-addon-examples" target="_blank"><a href="https://github.com/rvagg/node-addon-examples">https://github.com/rvagg/node-addon-examples</a></a> 下载到。</p>
+<h2>Hello world</h2>
+<p>我们要写一个简单的模块，这个模块的 javascript 代码实现如下，目标是把他转换为 c++ 实现的 Addon。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="transposed_variable">exports.</span>hello = <span class="function"><span class="keyword">function</span> <span class="params">()</span> { <span class="title">return</span> '<span class="title">world</span>'; };</span>
+</pre></td></tr></table></figure>
+
+<p>首先创建 <code>hello.cc</code>，内容如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+</pre></td><td class="code"><pre><span class="preprocessor">#include &lt;node.h&gt;</span>
+<span class="preprocessor">#include &lt;v8.h&gt;</span>
+
+<span class="keyword">using</span> <span class="class"><span class="keyword">namespace</span> <span class="title">v8</span>;
+
+/**
+ * "<span class="title">Method</span>" 的名字可以任取，可以换成 "<span class="title">Hello</span>"
+ * 来对应 <span class="title">exports</span> 的名称
+ */
+<span class="title">Handle</span>&lt;<span class="title">Value</span>&gt; <span class="title">Method</span>(<span class="title">const</span> <span class="title">Arguments</span>& <span class="title">args</span>) {</span>
+  HandleScope scope;
+  <span class="keyword">return</span> scope.Close(String::New(<span class="string">"world"</span>));
+}
+
+<span class="keyword">void</span> Init(Handle&lt;<span class="built_in">Object</span>&gt; exports) {
+  exports-&gt;Set(String::NewSymbol(<span class="string">"hello"</span>),
+    FunctionTemplate::New(Method)-&gt;GetFunction());
+}
+
+NODE_MODULE(hello, Init)
+</pre></td></tr></table></figure>
+
+<p>所有的 Node addons 必须输出一个初始化函数：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre>void Initialize(Handle<span class="tag">&lt;<span class="title">Object</span>&gt;</span> exports);
+NODE_MODULE(module_name, Initialize)
+</pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<p>注意 <code>NODE_MODULE</code> 后面是没有分号的，因为他是一个宏 (see <a href="https://github.com/joyent/node/blob/master/src/node.h" target="_blank">node.h</a>)</p>
+<p><code>module_name</code> 需要和最终生成的二进制文件相同（不包括 .node 后缀）</p>
+<p>为了把上面的 <code>hello.cc</code> 编译成 <code>hello.node</code> 二进制文件，我们要创建一个 <code>binding.gyp</code> 文件，它是用来描述你编译模块用到的配置，格式是 JSON 风格的。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="code"><pre>{
+  "<span class="attribute">targets</span>": <span class="value">[
+    {
+      "<span class="attribute">target_name</span>": <span class="value"><span class="string">"hello"</span></span>,
+      "<span class="attribute">sources</span>": <span class="value">[ <span class="string">"hello.cc"</span> ]
+    }</span>
+  ]
+}</span>
+</pre></td></tr></table></figure>
+
+<p>真正编译成二进制文件我们需要 <a href="https://github.com/TooTallNate/node-gyp" target="_blank">node-gyp</a> 工具。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="title">npm</span> install -g node-gyp
+</pre></td></tr></table></figure>
+
+<p>安装好 node-gyp 后，先要生成与当前平台相关的项目生成文件。运行下面命令</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="title">node</span>-gyp configure
+</pre></td></tr></table></figure>
+
+<p>然后你会发现在我的的项目文件夹中多出了一个 <code>build/</code> 文件夹，里面包含了 <code>Makefile</code> (linux 平台) 或 <code>vcxproj</code> (windows 平台) 文件。</p>
+<p>然后运行</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="title">node</span>-gyp build
+</pre></td></tr></table></figure>
+
+<p>编译完成后，可以在 <code>build/Release/</code> 下看到 <code>hello.node</code> 文件。</p>
+<p>然后测试一下这个模块，创建 <code>hello.js</code> 文件，内容如下。执行 <code>node hello.js</code> 后看看是否会输出正确的结果。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre><span class="keyword">var</span> addon = <span class="keyword">require</span>(<span class="string">'./build/Release/hello'</span>);
+console.log(addon.hello()); <span class="comment">// 'world'</span>
+</pre></td></tr></table></figure>
+
+<h2>Addon patterns</h2>
+<p>下面是一些 addon patterns 的例子。可以通过查阅 <a href="http://izs.me/v8-docs/main.html" target="_blank">v8 reference</a> 和 <a href="http://code.google.com/apis/v8/embed.html" target="_blank">Embedder&#39;s Guide</a> 获得更多帮助。</p>
+<h3>Function arguments</h3>
+<p>javascript 实现：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+</pre></td><td class="code"><pre>exports.add = <span class="function"><span class="keyword">function</span> <span class="params">(a, b)</span> {</span>
+  <span class="keyword">if</span> (arguments.length &lt; <span class="number">2</span>) {
+    <span class="keyword">throw</span> <span class="keyword">new</span> Error(<span class="string">'Wrong number of arguments'</span>);
+    <span class="keyword">return</span>;
+  }
+
+  <span class="function"><span class="keyword">function</span> <span class="title">isNum</span><span class="params">(s)</span> {</span>
+    <span class="keyword">if</span> (s!=<span class="literal">null</span> && s!=<span class="string">''</span>) {
+      <span class="keyword">return</span> !isNaN(s);
+    }
+    reutrn <span class="literal">false</span>;
+  }
+
+  <span class="keyword">if</span> (!isNum(a) || !isNum(b)) {
+    <span class="keyword">throw</span> <span class="keyword">new</span> Error(<span class="string">'Wrong arguments'</span>);
+    <span class="keyword">return</span>;
+  }
+
+  <span class="keyword">return</span> a + b;
+};
+</pre></td></tr></table></figure>
+
+<p>c++ 实现：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+</pre></td><td class="code"><pre><span class="preprocessor">#define BUILDING_NODE_EXTENSION</span>
+<span class="preprocessor">#include &lt;node.h&gt;</span>
+
+<span class="keyword">using</span> <span class="class"><span class="keyword">namespace</span> <span class="title">v8</span>;
+
+<span class="title">Handle</span>&lt;<span class="title">Value</span>&gt; <span class="title">Add</span>(<span class="title">const</span> <span class="title">Arguments</span>& <span class="title">args</span>) {</span>
+  HandleScope scope;
+
+  if (args.Length() &lt; <span class="number">2</span>) {
+    ThrowException(Exception::TypeError(String::New(<span class="string">"Wrong number of arguments"</span>)));
+    <span class="keyword">return</span> scope.Close(Undefined());
+  }
+
+  if (!args[<span class="number">0</span>]-&gt;IsNumber() || !args[<span class="number">1</span>]-&gt;IsNumber()) {
+    Throwexception(Exception::TypeError(String::New(<span class="string">"Wrong arguments"</span>)));
+    <span class="keyword">return</span> scope.Close(Undefined());
+  }
+
+  Local&lt;Number&gt; num = Number::New(args[<span class="number">0</span>]-&gt;NumberValue() +
+      args[<span class="number">1</span>]-&gt;NumberValue());
+  <span class="keyword">return</span> scope.Close(num);
+}
+
+<span class="keyword">void</span> Init(Handle&lt;<span class="built_in">Object</span>&gt; exports) {
+  exports-&gt;Set(String::NewSymbol(<span class="string">"add"</span>),
+      FunctionTemplate::New(Add)-&gt;GetFunction());
+}
+
+NODE_MODULE(addon, Init)
+</pre></td></tr></table></figure>
+
+<p>测试：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre>var addon = require(<span class="comment">'./build/Release/addon');</span>
+console.<span class="built_in">log</span>(<span class="comment">'This should be eight: ', addon.add(3, 8));</span>
+</pre></td></tr></table></figure>
+
+<h3>Callbacks</h3>
+<p>javascript 实现：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+</pre></td><td class="code"><pre><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> <span class="params">(cb)</span></span> {
+  cb(<span class="string">'hello world'</span>);
+};
+</pre></td></tr></table></figure>
+
+<p>c++ 实现：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+</pre></td><td class="code"><pre>#define BUILDING_NODE_EXTENSION
+#include <span class="tag">&lt;<span class="title">node.h</span>&gt;</span>
+
+using namespace v8;
+
+Handle<span class="tag">&lt;<span class="title">Value</span>&gt;</span> RunCallback(const Arguments& args) {
+  HandleScope scope;
+
+  Local<span class="tag">&lt;<span class="title">Function</span>&gt;</span> cb = Local<span class="tag">&lt;<span class="title">Function</span>&gt;</span>::Cast(args[0]);
+  const unsigned argc = 1;
+  Local<span class="tag">&lt;<span class="title">Value</span>&gt;</span> argv[argc] = { Local<span class="tag">&lt;<span class="title">Value</span>&gt;</span>::New(String::New("hello world")) };
+  cb-&gt;Call(Context::GetCurrent()-&gt;Global(), argc, argv);
+
+  return scope.Close(Undefined());
+}
+
+Void Init(Handle<span class="tag">&lt;<span class="title">Object</span>&gt;</span> exports, Handle<span class="tag">&lt;<span class="title">Object</span>&gt;</span> module) {
+  module-&gt;Set(String::NewSymbol("exports"),
+    FunctionTemplate::New(RunCallback)-&gt;GetFunction());
+}
+
+NODE_MODULE(addon, Init)
+</pre></td></tr></table></figure>
+
+<p>注意这个例子中 <code>Init()</code> 接收了两个参数，因为模块要直接暴露函数，和 javascript 一样。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">function</span> <span class="title">hello</span> <span class="params">()</span> <span class="comment">{}</span>
+
+<span class="title">moudle</span>.<span class="title">exports</span>.<span class="title">hello</span> = <span class="title">hello</span>;</span> <span class="comment">// 通过模块的一个属性来暴露函数</span>
+
+module.<span class="keyword">exports</span> = hello; <span class="comment">// 暴露一个函数</span>
+</pre></td></tr></table></figure>
+
+<p>测试：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+</pre></td><td class="code"><pre><span class="keyword">var</span> addon = <span class="keyword">require</span>(<span class="string">'./build/Release/addon'</span>);
+
+addon(<span class="function"><span class="keyword">function</span> <span class="params">(msg)</span> {</span>
+  console.log(msg); <span class="comment">// 'hello world'</span>
+});
+</pre></td></tr></table></figure>
+
+<h3>Object factory</h3>
+<p>javascript 实现：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+</pre></td><td class="code"><pre><span class="transposed_variable">module.</span>exports = <span class="function"><span class="keyword">function</span> <span class="params">(msg)</span> {</span>
+  var obj = <span class="cell">{}</span>;
+  <span class="transposed_variable">obj.</span>msg = msg;
+  <span class="keyword">return</span> obj;
+};
+</pre></td></tr></table></figure>
+
+<p>c++ 实现：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+</pre></td><td class="code"><pre><span class="preprocessor">#define BUILDING_NODE_EXTENSION</span>
+<span class="preprocessor">#include &lt;node.h&gt;</span>
+
+<span class="keyword">using</span> <span class="class"><span class="keyword">namespace</span> <span class="title">v8</span>;
+
+<span class="title">Handle</span>&lt;<span class="title">Value</span>&gt; <span class="title">CreateObject</span>(<span class="title">const</span> <span class="title">Arguments</span>& <span class="title">args</span>) {</span>
+  HandleScope scope;
+
+  Local&lt;<span class="built_in">Object</span>&gt; obj = <span class="built_in">Object</span>::New();
+  obj-&gt;Set(String::NewSymbol(<span class="string">"msg"</span>), args[<span class="number">0</span>]-&gt;ToString());
+
+  <span class="keyword">return</span> scope.Close(obj);
+}
+
+<span class="keyword">void</span> Init(Handle&lt;<span class="built_in">Object</span>&gt; exports, Handle&lt;<span class="built_in">Object</span>&gt; module) {
+  module-&gt;Set(String::NewSymbol(<span class="string">"exports"</span>),
+      FunctionTemplate::New(CreateObject)-&gt;GetFunction());
+}
+
+NODE_MODULE(addon, Init)
+</pre></td></tr></table></figure>
+
+<p>测试：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+</pre></td><td class="code"><pre><span class="keyword">var</span> addon = <span class="keyword">require</span>(<span class="string">'./build/Release/addon'</span>);
+
+<span class="keyword">var</span> obj1 = addon(<span class="string">'hello'</span>);
+<span class="keyword">var</span> obj2 = addon(<span class="string">'world'</span>);
+console.log(obj1.msg + <span class="string">' '</span> + obj2.msg); <span class="comment">// 'hello world'</span>
+</pre></td></tr></table></figure>
+
+<h3>Function factory</h3>
+<p>javascript 实现：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+</pre></td><td class="code"><pre><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> <span class="params">()</span></span> {
+  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="params">()</span></span> {
+    <span class="keyword">return</span> <span class="string">'hello world'</span>;
+  };
+};
+</pre></td></tr></table></figure>
+
+<p>c++ 实现：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+</pre></td><td class="code"><pre><span class="preprocessor">#define BUILDING_NODE_EXTENSION</span>
+<span class="preprocessor">#include &lt;node.h&gt;</span>
+
+<span class="keyword">using</span> <span class="class"><span class="keyword">namespace</span> <span class="title">v8</span>;
+
+<span class="title">Handle</span>&lt;<span class="title">Value</span>&gt; <span class="title">MyFunction</span>(<span class="title">const</span> <span class="title">Arguments</span>& <span class="title">args</span>) {</span>
+  HandleScope scope;
+  <span class="keyword">return</span> scope.Close(String::New(<span class="string">"hello world"</span>));
+}
+
+Handle&lt;Value&gt; CreateFunction(<span class="keyword">const</span> Arguments& args) {
+  HandleScope scope;
+
+  Local&lt;FunctionTemplate&gt; tpl = FunctionTemplate::New(MyFunction); <span class="comment">// 把 MyFunction 转换为对象实例</span>
+  Local&lt;Function&gt; fn = tpl-&gt;GetFunction();
+  fn-&gt;SetName(String::NewSymbol(<span class="string">"theFunction"</span>)); <span class="comment">// 省略这句，变成匿名函数</span>
+
+  <span class="keyword">return</span> scope.Close(fn);
+}
+
+<span class="keyword">void</span> Init(Handle&lt;<span class="built_in">Object</span>&gt; exports, Handle&lt;<span class="built_in">Object</span>&gt; moduel) {
+  module-&gt;Set(String::NewSymbol(<span class="string">"exports"</span>),
+      FunctionTemplate::New(Createobject)-&gt;GetFunction());
+}
+
+NODE_MODULE(addon, Init)
+</pre></td></tr></table></figure>
+
+<p>测试：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+</pre></td><td class="code"><pre>var addon = require(<span class="string">'./build/Release/addon'</span>);
+
+var <span class="function"><span class="keyword">fn</span> = <span class="title">addon</span>(</span>);
+console.<span class="keyword">log</span>(<span class="keyword">fn</span>()); <span class="comment">// 'hello world'</span>
+</pre></td></tr></table></figure>
+
+<h3>Wrapping C++ objects</h3>
+<p>javascript 实现：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="code"><pre><span class="function"><span class="keyword">function</span> <span class="title">MyObject</span><span class="params">(count)</span> {</span>
+  <span class="transposed_variable">this.</span>counter_ = count;
+}
+
+<span class="transposed_variable">MyObject.</span><span class="transposed_variable">prototype.</span>plusOne = <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+  <span class="transposed_variable">this.</span>counter_ += <span class="number">1</span>;
+  <span class="keyword">return</span> <span class="transposed_variable">this.</span>counter_;
+};
+</pre></td></tr></table></figure>
+
+<p>c++ 实现：</p>
+<p><code>addon.cc</code> 文件：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="code"><pre><span class="preprocessor">#define BUILDING_NODE_EXTENSION</span>
+<span class="preprocessor">#include &lt;node.h&gt;</span>
+<span class="preprocessor">#include "myobject.h"</span>
+
+<span class="keyword">using</span> <span class="class"><span class="keyword">namespace</span> <span class="title">v8</span>;
+
+<span class="title">void</span> <span class="title">InitAll</span>(<span class="title">Handle</span>&lt;<span class="title">Object</span>&gt; <span class="title">exports</span>) {</span>
+  MyObject::Init(exports);
+}
+
+NODE_MODULE(addon, InitAll)
+</pre></td></tr></table></figure>
+
+<p><code>myobject.h</code> 文件</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+</pre></td><td class="code"><pre><span class="preprocessor">#ifndef MYOBJECT_H</span>
+<span class="preprocessor">#define MYOBJECT_H</span>
+
+<span class="preprocessor">#include &lt;node.h&gt;</span>
+
+<span class="class"><span class="keyword">class</span> <span class="title">MyObject</span> : <span class="title">public</span> <span class="title">node</span>::<span class="title">ObjectWrap</span> {</span>
+  <span class="keyword">public</span>:
+    <span class="keyword">static</span> <span class="keyword">void</span> Init(v8::Handle&lt;v8::<span class="built_in">Object</span>&gt; exports);
+
+  <span class="keyword">private</span>:
+    MyObject();
+    ~MyObject();
+
+    <span class="keyword">static</span> v8::Handle&lt;v8::Value&gt; New(<span class="keyword">const</span> v8::Arguments& args);
+    <span class="keyword">static</span> v8::Handle&lt;v8::Value&gt; PlusOne(<span class="keyword">const</span> v8::Arguments& args);
+
+    <span class="keyword">double</span> counter_;
+};
+
+<span class="preprocessor">#endif</span>
+</pre></td></tr></table></figure>
+
+<p><code>myobject.cc</code> 文件：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+</pre></td><td class="code"><pre><span class="comment">#define BUILDING_NODE_EXTENSION</span>
+<span class="comment">#include &lt;node.h&gt;</span>
+<span class="comment">#include "myobject.h"</span>
+
+using namespace v8;
+
+MyObject::MYObject() {}
+MyObject::~MYObject() {}
+
+void MyObject::Init(Handle&lt;Object&gt; exports) {
+  Local&lt;FunctionTemplate&gt; tpl = FunctionTemplate::New(New);
+  tpl-&gt;SetClassName(String::NewSymbol(<span class="string">"MyObject"</span>));
+  tpl-&gt;InstanceTemplate()-&gt;SetInternalField(<span class="number">1</span>);
+
+  tpl-&gt;PrototypeTemplate()-&gt;Set(String::NewSymbol(<span class="string">"plusOne"</span>),
+      FunctionTemplate::New(PlusOne)-&gt;GetFunction());
+
+  Persistent&lt;Function&gt; constructor = Persistent&lt;Function&gt;::New(tpl-&gt;GetFunction());
+  exports-&gt;Set(String::NewSymbol(<span class="string">"MyObject"</span>), constructor);
+}
+
+Handle&lt;Value&gt; MyObject::New(const Arguments& args) {
+  HandleScope scope;
+
+  MyObject* obj = new MyObject();
+  obj-&gt;counter_ = args[<span class="number">0</span>]-&gt;IsUndefined() ? <span class="number">0</span> : args[<span class="number">0</span>]-&gt;NumberValue();
+  obj-&gt;Wrap(args.This());
+
+  <span class="keyword">return</span> args.This();
+}
+
+Handle&lt;Value&gt; MyObject::PlusOne(const Arguments& args) {
+  HandleScope scope;
+
+  MyObject* obj = ObjectWrap::Unwrap&lt;MyObject&gt;(args.This());
+  obj-&gt;counter_ += <span class="number">1</span>;
+
+  <span class="keyword">return</span> scope.Close(Number::New(obj-&gt;counter_));
+}
+</pre></td></tr></table></figure>
+
+<p>测试：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+</pre></td><td class="code"><pre><span class="keyword">var</span> addon = <span class="keyword">require</span>(<span class="string">'./build/Release/addon'</span>);
+
+<span class="keyword">var</span> obj = <span class="keyword">new</span> addon.MyObject(<span class="number">10</span>);
+console.log(obj.plusOne()); <span class="comment">// 11</span>
+console.log(obj.plusOne()); <span class="comment">// 12</span>
+console.log(obj.plusOne()); <span class="comment">// 13</span>
+</pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer>
+      
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/nodejs/">nodejs</a>
+  </div>
+
+        
+
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">留言</h1>
+  <div class="ds-thread">
+    <noscript>Please enable JavaScript to view the comments powered by DuoShuo.</noscript>
+  </div>
+</section>
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:blog.jkey.lu">
+  </form>
+</div>
+
+  
+
+  
+<div class="widget tag">
+  <h3 class="title">标签</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/backbone/">backbone</a><small>1</small></li>
+  
+    <li><a href="/tags/nodejs/">nodejs</a><small>1</small></li>
+  
+    <li><a href="/tags/openwrt/">openwrt</a><small>1</small></li>
+  
+    <li><a href="/tags/python/">python</a><small>4</small></li>
+  
+    <li><a href="/tags/socket/">socket</a><small>1</small></li>
+  
+    <li><a href="/tags/tornado/">tornado</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2013 jKey Lu
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"blogjkeylu"};
+
+(function() {
+  var ds = document.createElement('script');
+  ds.type = 'text/javascript';ds.async = true;
+  ds.src = 'http://static.duoshuo.com/embed.js';
+  ds.charset = 'UTF-8';
+  (document.getElementsByTagName('head')[0] 
+  || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

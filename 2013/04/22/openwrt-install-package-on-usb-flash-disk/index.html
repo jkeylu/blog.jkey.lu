@@ -37,7 +37,6 @@ ln -s /mnt/sdb1/packages /opt">
   <link rel="alternate" href="/atom.xml" title="jKey Blog" type="application/atom+xml">
   <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
   <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
   
 <script type="text/javascript">
   var _gaq = _gaq || [];
@@ -77,7 +76,7 @@ ln -s /mnt/sdb1/packages /opt">
     <header>
       
         <div class="icon"></div>
-        <time datetime="2013-04-22T12:47:24.000Z"><a href="/2013/04/22/openwrt-install-package-on-usb-flash-disk/">Apr 22, 2013</a></time>
+        <time datetime="2013-04-22T12:47:24.000Z"><a href="/2013/04/22/openwrt-install-package-on-usb-flash-disk/">4月 22, 2013</a></time>
       
       
   
@@ -104,10 +103,12 @@ ln -s /mnt/sdb1/packages /opt">
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
 </pre></td><td class="code"><pre><span class="title">ln</span> -s /mnt/sdb1/packages /opt
 </pre></td></tr></table></figure>
-<a name="more"></a>
 
-* 然后编辑 /etc/opkg.conf 文件，添加一行如下
+<a id="more"></a>
 
+<ul>
+<li>然后编辑 /etc/opkg.conf 文件，添加一行如下</li>
+</ul>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
 </pre></td><td class="code"><pre><span class="title">dest</span> usb /opt
 </pre></td></tr></table></figure>
@@ -137,7 +138,7 @@ export <span class="constant">LD_LIBRARY_PATH</span>=<span class="variable">$LD_
 </pre></td><td class="code"><pre>ln -s /opt/etc/init<span class="variable">.d</span>/nginx /etc/init<span class="variable">.d</span>/nginx
 </pre></td></tr></table></figure>
 
-<p>更多详细：<a href="http://wiki.openwrt.org/doc/techref/opkg#mount.point"><a href="http://wiki.openwrt.org/doc/techref/opkg#mount.point">http://wiki.openwrt.org/doc/techref/opkg#mount.point</a></a></p>
+<p>更多详细：<a href="http://wiki.openwrt.org/doc/techref/opkg#mount.point" target="_blank"><a href="http://wiki.openwrt.org/doc/techref/opkg#mount.point">http://wiki.openwrt.org/doc/techref/opkg#mount.point</a></a></p>
 
       
     </div>
@@ -176,15 +177,6 @@ export <span class="constant">LD_LIBRARY_PATH</span>=<span class="variable">$LD_
 </div>
 
   
-<div class="widget tag">
-  <h3 class="title">分类</h3>
-  <ul class="entry">
-  
-    <li><a href="/categories/backbone-tutorials/">backbone-tutorials</a><small>1</small></li>
-  
-  </ul>
-</div>
-
 
   
 <div class="widget tag">
@@ -192,6 +184,8 @@ export <span class="constant">LD_LIBRARY_PATH</span>=<span class="variable">$LD_
   <ul class="entry">
   
     <li><a href="/tags/backbone/">backbone</a><small>1</small></li>
+  
+    <li><a href="/tags/nodejs/">nodejs</a><small>1</small></li>
   
     <li><a href="/tags/openwrt/">openwrt</a><small>1</small></li>
   
@@ -213,7 +207,8 @@ export <span class="constant">LD_LIBRARY_PATH</span>=<span class="variable">$LD_
   
 </div>
 <div class="clearfix"></div></footer>
-  <script src="/js/jquery.imagesloaded.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
 <script src="/js/gallery.js"></script>
 
 

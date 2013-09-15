@@ -20,7 +20,6 @@
   <link rel="alternate" href="/atom.xml" title="jKey Blog" type="application/atom+xml">
   <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
   <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
   
 <script type="text/javascript">
   var _gaq = _gaq || [];
@@ -65,7 +64,7 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2013-04-21T07:32:09.000Z"><a href="/2013/04/21/pep-8/">Apr 21, 2013</a></time>
+        <time datetime="2013-04-21T07:32:09.000Z"><a href="/2013/04/21/pep-8/">4月 21, 2013</a></time>
       
       
   
@@ -76,7 +75,7 @@
     <div class="entry">
       
         <h1>简介</h1>
-<p>这篇是讲关于 python 代码风格的一些约定，主要用于 python 中标准库的代码风格的约定。关于 <a href="http://www.python.org/dev/peps/pep-0008/">pep 8</a> 这份文档网上也有很多翻译，但是为了自己便于记忆，大致的翻译记录一下。所以，对照原文可能是不完整的。</p>
+<p>这篇是讲关于 python 代码风格的一些约定，主要用于 python 中标准库的代码风格的约定。关于 <a href="http://www.python.org/dev/peps/pep-0008/" target="_blank">pep 8</a> 这份文档网上也有很多翻译，但是为了自己便于记忆，大致的翻译记录一下。所以，对照原文可能是不完整的。</p>
 <h1>A Foolish Consistency is the Hobgoblin of Little Minds</h1>
 <p>总之一句话，就是保持代码的一致性。</p>
 <h1>代码排版</h1>
@@ -112,7 +111,7 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2013-04-11T14:06:51.000Z"><a href="/2013/04/11/create-python-egg/">Apr 11, 2013</a></time>
+        <time datetime="2013-04-11T14:06:51.000Z"><a href="/2013/04/11/create-python-egg/">4月 11, 2013</a></time>
       
       
   
@@ -124,7 +123,7 @@
       
         <p>最近用 Python 写了一个公共的库，然后我想让它能够像平常使用 pip 安装第三方库一样方便的安装。然后就去研究了一下 python 是如何打包的，更确切的说是适合用于 pip 安装的打包方式。</p>
 <p>首先创建一个项目文件夹，这个项目文件夹的结构如下：</p>
-<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -132,10 +131,10 @@
 6
 </pre></td><td class="code"><pre>helloworld/
     helloworld/
-        __init__.py
-        foo.py
-    setup.py
-    README.md
+        __init__<span class="variable">.py</span>
+        foo<span class="variable">.py</span>
+    setup<span class="variable">.py</span>
+    README<span class="variable">.md</span>
 </pre></td></tr></table></figure>
 
 
@@ -163,7 +162,7 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2013-03-15T15:11:49.000Z"><a href="/2013/03/15/python-decorator-and-functools-module/">Mar 15, 2013</a></time>
+        <time datetime="2013-03-15T15:11:49.000Z"><a href="/2013/03/15/python-decorator-and-functools-module/">3月 15, 2013</a></time>
       
       
   
@@ -247,7 +246,7 @@ Hello World!
     <header>
       
         <div class="icon"></div>
-        <time datetime="2013-02-24T04:56:35.000Z"><a href="/2013/02/24/python-args-and-kwargs/">Feb 24, 2013</a></time>
+        <time datetime="2013-02-24T04:56:35.000Z"><a href="/2013/02/24/python-args-and-kwargs/">2月 24, 2013</a></time>
       
       
   
@@ -305,15 +304,6 @@ foo(<span class="number">1</span>, <span class="number">2</span>, <span class="n
 </div>
 
   
-<div class="widget tag">
-  <h3 class="title">分类</h3>
-  <ul class="entry">
-  
-    <li><a href="/categories/backbone-tutorials/">backbone-tutorials</a><small>1</small></li>
-  
-  </ul>
-</div>
-
 
   
 <div class="widget tag">
@@ -321,6 +311,8 @@ foo(<span class="number">1</span>, <span class="number">2</span>, <span class="n
   <ul class="entry">
   
     <li><a href="/tags/backbone/">backbone</a><small>1</small></li>
+  
+    <li><a href="/tags/nodejs/">nodejs</a><small>1</small></li>
   
     <li><a href="/tags/openwrt/">openwrt</a><small>1</small></li>
   
@@ -342,7 +334,8 @@ foo(<span class="number">1</span>, <span class="number">2</span>, <span class="n
   
 </div>
 <div class="clearfix"></div></footer>
-  <script src="/js/jquery.imagesloaded.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
 <script src="/js/gallery.js"></script>
 
 

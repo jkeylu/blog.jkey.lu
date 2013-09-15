@@ -20,7 +20,6 @@
   <link rel="alternate" href="/atom.xml" title="jKey Blog" type="application/atom+xml">
   <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
   <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
   
 <script type="text/javascript">
   var _gaq = _gaq || [];
@@ -65,7 +64,159 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2013-04-22T12:47:24.000Z"><a href="/2013/04/22/openwrt-install-package-on-usb-flash-disk/">Apr 22, 2013</a></time>
+        <time datetime="2013-09-15T08:17:15.000Z"><a href="/2013/09/15/vim-mapping-and-mode/">9月 15, 2013</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2013/09/15/vim-mapping-and-mode/">vim 快捷键映射和模式</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>以前在 vim 中映射快捷键时，不是网上看被人怎么写然后拷贝回来，要么直接用 ‘map’ 来映射，根本搞不懂 ‘map’, ‘noremap’, ‘nmap’, ‘vmap’ … 之间的区别到底是什么。</p>
+<p>今天，上网 Google 了下，不过先要从 vim 的几种模式说起。</p>
+<h2>vim 中有六种基本模式:</h2>
+<ol>
+<li><p>普通模式 (Normal-mode)</p>
+<p> 一般，启动编辑器之后就处于普通模式，除非你设置了 ‘insertmode’。也称为命令 (command) 模式。</p>
+</li>
+<li><p>可视模式 (Visual-mode)</p>
+<p> 可视模式与普通模式相似，只是光标移动会扩展高亮的区域。而其它非移动命令会作用于高亮的区域。在普通模式下，可以通过 v 或 V 或 CTRL-V 进入。如果没有关闭 ‘showmode’ 选项，窗口底部会出现 “—VISUAL—” 字样。</p>
+</li>
+<li><p>选择模式 (Select-mode)</p>
+<p> 选择模式与 Windows 下其它编辑器的选择模式很像。选中字符后，键入一个可显示字符会删掉所有被选择的字符，并进入插入模式。一般，可以在普通模式下按 gh 进入，或在 gvim 中用鼠标拖选区域。窗口底部会出现 “—SELECT—” 字样。</p>
+</li>
+<li><p>插入模式 (Insert-mode)</p>
+<p> 插入模式下你键入的内容会插入到缓冲区。一般，在普通模式下按 i 或 a 进入插入模式。窗口底部会出现 “—INSERT—” 字样。</p>
+</li>
+<li><p>命令行模式 (Cmdline-mode)</p>
+<p> 命令行模式可以在窗口底部输入一行命令。可以用 “:” 执行命令，用 “?” 和 “/” 来查找。</p>
+</li>
+<li><p>Ex 模式 (Ex-mode)</p>
+<p> 与命令行模式类似，只是执行完一条命令后，会继续停留在 Ex 模式。在普通模式下，按 Q 进入 Ex 模式。</p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2013/09/15/vim-mapping-and-mode/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2013-07-05T14:02:07.000Z"><a href="/2013/07/05/nodejs-addons/">7月 5, 2013</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2013/07/05/nodejs-addons/">Nodejs Addons</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>有时候仅仅用 javascript 并不能够实现我们想要的功能，比如说我最近买了一块 nokia 5110 的显示屏，想连在我的树莓派上显示一些有用的信息。而这块显示屏是 spi 接口的，树莓派上也是有 SPI 接口。但是我要对 SPI 接口写入信息传到显示屏上，就必须要用 c++ 来写，不是很方便。所以我就想写一个 nodejs 的 addon，最后可以实现 javascript 来与 SPI 总线进行通信。</p>
+<p>所以，就要学习如何写一个 nodejs 的 addon，这篇文章完全参考 <a href="http://nodejs.org/api/addons.html" target="_blank"><a href="http://nodejs.org/api/addons.html">http://nodejs.org/api/addons.html</a></a></p>
+<p>下面所有例子的代码可以从 <a href="https://github.com/rvagg/node-addon-examples" target="_blank"><a href="https://github.com/rvagg/node-addon-examples">https://github.com/rvagg/node-addon-examples</a></a> 下载到。</p>
+<h2>Hello world</h2>
+<p>我们要写一个简单的模块，这个模块的 javascript 代码实现如下，目标是把他转换为 c++ 实现的 Addon。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="transposed_variable">exports.</span>hello = <span class="function"><span class="keyword">function</span> <span class="params">()</span> { <span class="title">return</span> '<span class="title">world</span>'; };</span>
+</pre></td></tr></table></figure>
+
+<p>首先创建 <code>hello.cc</code>，内容如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+</pre></td><td class="code"><pre><span class="preprocessor">#include &lt;node.h&gt;</span>
+<span class="preprocessor">#include &lt;v8.h&gt;</span>
+
+<span class="keyword">using</span> <span class="class"><span class="keyword">namespace</span> <span class="title">v8</span>;
+
+/**
+ * "<span class="title">Method</span>" 的名字可以任取，可以换成 "<span class="title">Hello</span>"
+ * 来对应 <span class="title">exports</span> 的名称
+ */
+<span class="title">Handle</span>&lt;<span class="title">Value</span>&gt; <span class="title">Method</span>(<span class="title">const</span> <span class="title">Arguments</span>& <span class="title">args</span>) {</span>
+  HandleScope scope;
+  <span class="keyword">return</span> scope.Close(String::New(<span class="string">"world"</span>));
+}
+
+<span class="keyword">void</span> Init(Handle&lt;<span class="built_in">Object</span>&gt; exports) {
+  exports-&gt;Set(String::NewSymbol(<span class="string">"hello"</span>),
+    FunctionTemplate::New(Method)-&gt;GetFunction());
+}
+
+NODE_MODULE(hello, Init)
+</pre></td></tr></table></figure>
+
+<p>所有的 Node addons 必须输出一个初始化函数：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+</pre></td><td class="code"><pre>void Initialize(Handle<span class="tag">&lt;<span class="title">Object</span>&gt;</span> exports);
+NODE_MODULE(module_name, Initialize)
+</pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2013/07/05/nodejs-addons/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2013-04-22T12:47:24.000Z"><a href="/2013/04/22/openwrt-install-package-on-usb-flash-disk/">4月 22, 2013</a></time>
       
       
   
@@ -93,6 +244,7 @@
 </pre></td><td class="code"><pre><span class="title">ln</span> -s /mnt/sdb1/packages /opt
 </pre></td></tr></table></figure>
 
+
       
     </div>
     <footer>
@@ -117,7 +269,7 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2013-04-21T07:32:09.000Z"><a href="/2013/04/21/pep-8/">Apr 21, 2013</a></time>
+        <time datetime="2013-04-21T07:32:09.000Z"><a href="/2013/04/21/pep-8/">4月 21, 2013</a></time>
       
       
   
@@ -128,7 +280,7 @@
     <div class="entry">
       
         <h1>简介</h1>
-<p>这篇是讲关于 python 代码风格的一些约定，主要用于 python 中标准库的代码风格的约定。关于 <a href="http://www.python.org/dev/peps/pep-0008/">pep 8</a> 这份文档网上也有很多翻译，但是为了自己便于记忆，大致的翻译记录一下。所以，对照原文可能是不完整的。</p>
+<p>这篇是讲关于 python 代码风格的一些约定，主要用于 python 中标准库的代码风格的约定。关于 <a href="http://www.python.org/dev/peps/pep-0008/" target="_blank">pep 8</a> 这份文档网上也有很多翻译，但是为了自己便于记忆，大致的翻译记录一下。所以，对照原文可能是不完整的。</p>
 <h1>A Foolish Consistency is the Hobgoblin of Little Minds</h1>
 <p>总之一句话，就是保持代码的一致性。</p>
 <h1>代码排版</h1>
@@ -164,7 +316,7 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2013-04-18T13:42:06.000Z"><a href="/2013/04/18/configure-raspberry-pi/">Apr 18, 2013</a></time>
+        <time datetime="2013-04-18T13:42:06.000Z"><a href="/2013/04/18/configure-raspberry-pi/">4月 18, 2013</a></time>
       
       
   
@@ -175,13 +327,13 @@
     <div class="entry">
       
         <h2>安装系统</h2>
-<p>下载 Arch Linux ARM 系统镜像：<a href="http://www.raspberrypi.org/downloads"><a href="http://www.raspberrypi.org/downloads">http://www.raspberrypi.org/downloads</a></a></p>
+<p>下载 Arch Linux ARM 系统镜像：<a href="http://www.raspberrypi.org/downloads" target="_blank"><a href="http://www.raspberrypi.org/downloads">http://www.raspberrypi.org/downloads</a></a></p>
 <p>解压出 .img 文件，然后使用以下命令把镜像写入 SD 卡中</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
 </pre></td><td class="code"><pre><span class="title">dd</span> <span class="keyword">if</span>=archlinux-hf-<span class="number">2013</span>-<span class="number">02</span>-<span class="number">11.</span>img <span class="keyword">of</span>=/dev/sdb bs=<span class="number">1</span>M
 </pre></td></tr></table></figure>
 
-<p>如果是 window 系统，可以下载 <a href="http://sourceforge.net/projects/win32diskimager/">Win32DiskImager</a> 来把镜像写入 SD 卡。</p>
+<p>如果是 window 系统，可以下载 <a href="http://sourceforge.net/projects/win32diskimager/" target="_blank">Win32DiskImager</a> 来把镜像写入 SD 卡。</p>
 
       
     </div>
@@ -207,7 +359,7 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2013-04-11T14:06:51.000Z"><a href="/2013/04/11/create-python-egg/">Apr 11, 2013</a></time>
+        <time datetime="2013-04-11T14:06:51.000Z"><a href="/2013/04/11/create-python-egg/">4月 11, 2013</a></time>
       
       
   
@@ -219,7 +371,7 @@
       
         <p>最近用 Python 写了一个公共的库，然后我想让它能够像平常使用 pip 安装第三方库一样方便的安装。然后就去研究了一下 python 是如何打包的，更确切的说是适合用于 pip 安装的打包方式。</p>
 <p>首先创建一个项目文件夹，这个项目文件夹的结构如下：</p>
-<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 3
 4
@@ -227,10 +379,10 @@
 6
 </pre></td><td class="code"><pre>helloworld/
     helloworld/
-        __init__.py
-        foo.py
-    setup.py
-    README.md
+        __init__<span class="variable">.py</span>
+        foo<span class="variable">.py</span>
+    setup<span class="variable">.py</span>
+    README<span class="variable">.md</span>
 </pre></td></tr></table></figure>
 
 
@@ -241,101 +393,6 @@
         
           <div class="alignleft">
             <a href="/2013/04/11/create-python-egg/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-  
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2013-03-31T01:34:47.000Z"><a href="/2013/03/31/tornado-configurable-interface/">Mar 31, 2013</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2013/03/31/tornado-configurable-interface/">tornado util 模块中的 Configurable 类</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>简单的说 Configurable 就是让继承自它的子类的构造函数具有工厂函数一样的行为。意思是，只要一个类继承自 Configurable, 那么在这个类在实例化时，构造函数就像工厂一样来选择一个这个类的子类来实例化。</p>
-<p>通常如果要继承 Configurable 接口，那么首先要实现 <code>configurable_base(cls)</code> 和 <code>configurable_default(cls)</code> 这两个静态方法。</p>
-<p>在 tornado 中有三个类是继承自 Configurable 的，分别是 AsyncHttpClient, IOLoop 和 Resolver。</p>
-
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2013/03/31/tornado-configurable-interface/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-  
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2013-03-22T15:42:19.000Z"><a href="/2013/03/22/linux-c-socket/">Mar 22, 2013</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2013/03/22/linux-c-socket/">Linux 上 C 语言的 socket 编程</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>这几天看了一下 Linux 上的 socket 编程，把主要几个 socket 编程用到的函数研究了一下，并记录下来备忘。</p>
-<h2>socket()</h2>
-<figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
-2
-</pre></td><td class="code"><pre><span class="comment">#include &lt;sys/socket.h&gt;</span>
-int socket(int domain, int type, int protocol);
-</pre></td></tr></table></figure>
-
-<ul>
-<li><p><strong>domain</strong> 指定 socket 的通信协议集(AF_UNIX 和 AF_INET 等)</p>
-<p>  AF_UNIX (与 AF_LOCAL 和 AF_FILE 相同) 只能够用于单一的 *nix 的系统上，使用 AF_UNIX 会在系统上创建一个 socket 文件，不同进程通过读写这个文件来实现通信。</p>
-<p>  AF_INET 则是用于网络的，所以可以允许远程主机之间的通信。</p>
-<p>  更多协议可以看 <bits/socket.h></p>
-</li>
-<li><p><strong>type</strong> 指定 socket 的类型(SOCK_STREAM 和 SOCK_DGRAM 等)</p>
-<p>  SOCK_STREAM 表明使用 TCP 协议，这就意味着会提供按顺序的、可靠、双向、面向连接的比特流。</p>
-<p>  SOCK_DGRAM 表明使用 UDP 协议，这就意味着会提供定长的、不可靠、无连接的通信。</p>
-</li>
-<li><p><strong>protocol</strong> 指定实际使用的传输协议。最常见的就是 IPPROTO_TCP, IPPROTO_SCTP, IPPROTO_UDP, IPPROTO_DCCP。这些协议都在 <netinet/in.h> 中有详细说明。如果该项为 0 的话，即根据选定的domain和type选择使用缺省协议。</p>
-</li>
-</ul>
-<p>调用 socket() 函数后，成功会返回文件描述符，失败则返回 -1。</p>
-
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2013/03/22/linux-c-socket/#more" class="more-link">Read More</a>
           </div>
         
         
@@ -365,15 +422,6 @@ int socket(int domain, int type, int protocol);
 </div>
 
   
-<div class="widget tag">
-  <h3 class="title">分类</h3>
-  <ul class="entry">
-  
-    <li><a href="/categories/backbone-tutorials/">backbone-tutorials</a><small>1</small></li>
-  
-  </ul>
-</div>
-
 
   
 <div class="widget tag">
@@ -381,6 +429,8 @@ int socket(int domain, int type, int protocol);
   <ul class="entry">
   
     <li><a href="/tags/backbone/">backbone</a><small>1</small></li>
+  
+    <li><a href="/tags/nodejs/">nodejs</a><small>1</small></li>
   
     <li><a href="/tags/openwrt/">openwrt</a><small>1</small></li>
   
@@ -402,7 +452,8 @@ int socket(int domain, int type, int protocol);
   
 </div>
 <div class="clearfix"></div></footer>
-  <script src="/js/jquery.imagesloaded.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
 <script src="/js/gallery.js"></script>
 
 

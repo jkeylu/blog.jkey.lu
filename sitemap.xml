@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://blog.jkey.lu/2013/09/15/vim-mapping-and-mode/</loc>
+    <lastmod>2013-09-15T13:41:35.000Z</lastmod>
+  </url>
+  <url>
+    <loc>http://blog.jkey.lu/2013/07/05/nodejs-addons/</loc>
+    <lastmod>2013-07-06T05:50:51.000Z</lastmod>
+  </url>
+  <url>
     <loc>http://blog.jkey.lu/2013/04/22/openwrt-install-package-on-usb-flash-disk/</loc>
     <lastmod>2013-04-21T09:15:00.000Z</lastmod>
   </url>
@@ -37,7 +45,7 @@
     <lastmod>2013-03-03T15:07:13.000Z</lastmod>
   </url>
   <url>
-    <loc>http://blog.jkey.lu/2013/03/03/what-is-a-model-in-backbone/</loc>
+    <loc>http://blog.jkey.lu/2013/03/03/2013-03-03-what-is-a-model-in-backbone/</loc>
     <lastmod>2013-03-03T13:40:18.000Z</lastmod>
   </url>
   <url>
@@ -45,11 +53,11 @@
     <lastmod>2013-02-24T11:28:40.000Z</lastmod>
   </url>
   <url>
-    <loc>http://blog.jkey.lu/2013/01/09/hello-world/</loc>
+    <loc>http://blog.jkey.lu/2013/02/02/began-to-lose-control/</loc>
     <lastmod>2013-02-16T15:46:34.000Z</lastmod>
   </url>
   <url>
-    <loc>http://blog.jkey.lu/2013/02/02/began-to-lose-control/</loc>
+    <loc>http://blog.jkey.lu/2013/01/09/hello-world/</loc>
     <lastmod>2013-02-16T15:46:34.000Z</lastmod>
   </url>
 </urlset>

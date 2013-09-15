@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>backbone-tutorials | jKey Blog</title>
+  <title>归档：2013/9 | jKey Blog</title>
   <meta name="author" content="jKey Lu">
   
   
@@ -20,7 +20,6 @@
   <link rel="alternate" href="/atom.xml" title="jKey Blog" type="application/atom+xml">
   <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
   <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
   
 <script type="text/javascript">
   var _gaq = _gaq || [];
@@ -55,7 +54,7 @@
 <div class="clearfix"></div></header>
   <div id="content" class="inner">
     <div id="main-col" class="alignleft"><div id="wrapper">
-<h2 class="archive-title category">backbone-tutorials</h2>
+<h2 class="archive-title">2013/9</h2>
 
 
   
@@ -65,34 +64,39 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2013-03-03T05:55:58.000Z"><a href="/2013/03/03/what-is-a-model-in-backbone/">Mar 3, 2013</a></time>
+        <time datetime="2013-09-15T08:17:15.000Z"><a href="/2013/09/15/vim-mapping-and-mode/">9月 15, 2013</a></time>
       
       
   
-    <h1 class="title"><a href="/2013/03/03/what-is-a-model-in-backbone/">Backbone.js 中的 model 是什么？</a></h1>
+    <h1 class="title"><a href="/2013/09/15/vim-mapping-and-mode/">vim 快捷键映射和模式</a></h1>
   
 
     </header>
     <div class="entry">
       
-        <p>根据维基百科上对 <a href="http://zh.wikipedia.org/wiki/MVC">MVC</a> 的定义，我们很难搞懂 model 到底是个什么东西。Backbone.js 的作者对 model 在 backbone.js 中的定义如下。</p>
-<blockquote>
-<p>Models are the heart of any JavaScript application, containing the interactive data as well as a large part of the logic surrounding it: conversions, validations, computed properties, and access control.</p>
-</blockquote>
-<p>所以接下来让我们创建一个 model 来搞懂到底什么是 model。</p>
-<figure class="highlight lang-javascript"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-</pre></td><td class="code"><pre><span class="keyword">var</span> Person = Backbone.Model.extend({
-    initialize: <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
-        alert(<span class="string">'Welcome to this world'</span>);
-    }
-});
-</pre></td></tr></table></figure>
-
-<p>所以 <em>initialize()</em> 会在初始化 model 为一个新的实例时被触发（models, collections 和 views 都是一样的）。当然你可以在写你的 model 时不写初始化函数，但是你会发现你会很平凡的使用它。</p>
+        <p>以前在 vim 中映射快捷键时，不是网上看被人怎么写然后拷贝回来，要么直接用 ‘map’ 来映射，根本搞不懂 ‘map’, ‘noremap’, ‘nmap’, ‘vmap’ … 之间的区别到底是什么。</p>
+<p>今天，上网 Google 了下，不过先要从 vim 的几种模式说起。</p>
+<h2>vim 中有六种基本模式:</h2>
+<ol>
+<li><p>普通模式 (Normal-mode)</p>
+<p> 一般，启动编辑器之后就处于普通模式，除非你设置了 ‘insertmode’。也称为命令 (command) 模式。</p>
+</li>
+<li><p>可视模式 (Visual-mode)</p>
+<p> 可视模式与普通模式相似，只是光标移动会扩展高亮的区域。而其它非移动命令会作用于高亮的区域。在普通模式下，可以通过 v 或 V 或 CTRL-V 进入。如果没有关闭 ‘showmode’ 选项，窗口底部会出现 “—VISUAL—” 字样。</p>
+</li>
+<li><p>选择模式 (Select-mode)</p>
+<p> 选择模式与 Windows 下其它编辑器的选择模式很像。选中字符后，键入一个可显示字符会删掉所有被选择的字符，并进入插入模式。一般，可以在普通模式下按 gh 进入，或在 gvim 中用鼠标拖选区域。窗口底部会出现 “—SELECT—” 字样。</p>
+</li>
+<li><p>插入模式 (Insert-mode)</p>
+<p> 插入模式下你键入的内容会插入到缓冲区。一般，在普通模式下按 i 或 a 进入插入模式。窗口底部会出现 “—INSERT—” 字样。</p>
+</li>
+<li><p>命令行模式 (Cmdline-mode)</p>
+<p> 命令行模式可以在窗口底部输入一行命令。可以用 “:” 执行命令，用 “?” 和 “/” 来查找。</p>
+</li>
+<li><p>Ex 模式 (Ex-mode)</p>
+<p> 与命令行模式类似，只是执行完一条命令后，会继续停留在 Ex 模式。在普通模式下，按 Q 进入 Ex 模式。</p>
+</li>
+</ol>
 
       
     </div>
@@ -100,7 +104,7 @@
       
         
           <div class="alignleft">
-            <a href="/2013/03/03/what-is-a-model-in-backbone/#more" class="more-link">Read More</a>
+            <a href="/2013/09/15/vim-mapping-and-mode/#more" class="more-link">Read More</a>
           </div>
         
         
@@ -128,15 +132,6 @@
 </div>
 
   
-<div class="widget tag">
-  <h3 class="title">分类</h3>
-  <ul class="entry">
-  
-    <li><a href="/categories/backbone-tutorials/">backbone-tutorials</a><small>1</small></li>
-  
-  </ul>
-</div>
-
 
   
 <div class="widget tag">
@@ -144,6 +139,8 @@
   <ul class="entry">
   
     <li><a href="/tags/backbone/">backbone</a><small>1</small></li>
+  
+    <li><a href="/tags/nodejs/">nodejs</a><small>1</small></li>
   
     <li><a href="/tags/openwrt/">openwrt</a><small>1</small></li>
   
@@ -165,7 +162,8 @@
   
 </div>
 <div class="clearfix"></div></footer>
-  <script src="/js/jquery.imagesloaded.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
 <script src="/js/gallery.js"></script>
 
 
