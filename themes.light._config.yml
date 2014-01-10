@@ -22,11 +22,15 @@ addthis:
   google: true
   pinterest: true
 
-jiathis:
-  enable: false
-  uid:
-
 fancybox: true
 
 google_analytics: UA-16294460-1
 rss:
+
+comment_provider:
+# Facebook comment
+facebook:
+  appid: 123456789012345
+  comment_count: 5
+  comment_width: 840
+  comment_colorscheme: light

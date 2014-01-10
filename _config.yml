@@ -1,3 +1,7 @@
+# Hexo Configuration
+## Docs: http://zespia.tw/hexo/docs/configuration.html
+## Source: https://github.com/tommy351/hexo/
+
 # Site
 title: jKey Blog
 subtitle:
@@ -14,6 +18,10 @@ tag_dir: tags
 archive_dir: archives
 category_dir: categories
 #code_dir: downloads/code
+
+# Directory
+source_dir: source
+public_dir: public
 
 # Writing
 new_post_name: :year-:month-:day-:title.md
@@ -64,9 +72,6 @@ pagination_dir: page
 # Disqus
 disqus_shortname:
 
-# DuoShuo
-duoshuo_shortname: blogjkeylu
-
 # Extensions
 ## Plugins: https://github.com/tommy351/hexo/wiki/Plugins
 ## Themes: https://github.com/tommy351/hexo/wiki/Themes
@@ -75,6 +80,17 @@ plugins:
 - hexo-generator-sitemap
 theme: light
 exclude_generator:
+
+# Markdown
+## https://github.com/chjj/marked
+markdown:
+  gfm: true
+  pedantic: false
+  sanitize: false
+  tables: true
+  breaks: true
+  smartLists: true
+  smartypants: true
 
 # Deployment
 ## Docs: http://zespia.tw/hexo/docs/deploy.html
