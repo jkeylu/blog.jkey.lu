@@ -69,6 +69,18 @@ apt-get install pptpd">
   <div id="content" class="inner">
     <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
   
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
   <div class="post-content">
     <header>
       
@@ -89,8 +101,8 @@ apt-get install pptpd">
 <li><p>首先到 /dev/ 和 /dev/net/ 下确认是否有 ppp 和 tun 两个设备</p>
  <figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
-</pre></td><td class="code"><pre><span class="regexp">/dev/</span>ppp
-<span class="regexp">/dev/net/</span>tun
+</pre></td><td class="code"><pre>/dev/ppp
+/dev/<span class="winutils">net</span>/tun
 </pre></td></tr></table></figure>
 </li>
 <li><p>安装 pptpd</p>
@@ -112,11 +124,11 @@ remoteip <span class="number">192.168.0.234</span>-<span class="number">238</spa
 </li>
 <li><p>编辑 /etc/ppp/pptpd-options 文件，设置 DNS</p>
  <figure class="highlight"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre><span class="title">vim</span> /etc/ppp/pptpd-options
+</pre></td><td class="code"><pre><span class="comment">vim</span> <span class="comment">/etc/ppp/pptpd</span><span class="literal">-</span><span class="comment">options</span>
 </pre></td></tr></table></figure><br> 找到 ms-dns 去掉 # 号，并修改 DNS 地址<br><br> <figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
-</pre></td><td class="code"><pre><span class="title">ms</span>-dns <span class="number">8.8</span><span class="number">.8</span><span class="number">.8</span>
-<span class="title">ms</span>-dns <span class="number">8.8</span><span class="number">.4</span><span class="number">.4</span>
+</pre></td><td class="code"><pre><span class="comment">ms</span><span class="literal">-</span><span class="comment">dns</span> <span class="comment">8</span><span class="string">.</span><span class="comment">8</span><span class="string">.</span><span class="comment">8</span><span class="string">.</span><span class="comment">8</span>
+<span class="comment">ms</span><span class="literal">-</span><span class="comment">dns</span> <span class="comment">8</span><span class="string">.</span><span class="comment">8</span><span class="string">.</span><span class="comment">4</span><span class="string">.</span><span class="comment">4</span>
 </pre></td></tr></table></figure>
 </li>
 <li><p>编辑 /etc/ppp/chap-secrets ，加入用户</p>
@@ -127,9 +139,9 @@ remoteip <span class="number">192.168.0.234</span>-<span class="number">238</spa
 </li>
 <li><p>编辑 /etc/sysctl.conf 文件，找到以下行，去掉 # 号注释符号</p>
  <figure class="highlight"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre>net<span class="variable">.ipv4</span><span class="variable">.ip_forward</span>=<span class="number">1</span>
+</pre></td><td class="code"><pre>net<span class="preprocessor">.ipv</span>4<span class="preprocessor">.ip</span>_forward=<span class="number">1</span>
 </pre></td></tr></table></figure><br> 然后在运行以下命令使配置生效<br><br> <figure class="highlight"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre><span class="title">sysctl</span> -p
+</pre></td><td class="code"><pre><span class="comment">sysctl</span> <span class="literal">-</span><span class="comment">p</span>
 </pre></td></tr></table></figure>
 </li>
 <li><p>安装 iptables</p>
@@ -140,26 +152,26 @@ remoteip <span class="number">192.168.0.234</span>-<span class="number">238</spa
 <li><p>向 nat 表中添加一条规则：</p>
 <p> <figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
-</pre></td><td class="code"><pre><span class="comment">iptables</span> <span class="literal">-</span><span class="comment">t</span> <span class="comment">nat</span> <span class="literal">-</span><span class="comment">A</span> <span class="comment">POSTROUTING</span> <span class="literal">-</span><span class="comment">s</span> <span class="comment">192</span>.<span class="comment">168</span>.<span class="comment">0</span>.<span class="comment">0/24</span> <span class="literal">-</span><span class="comment">o</span> <span class="comment">venet0</span> <span class="literal">-</span><span class="comment">j</span> <span class="comment">MASQUERADE</span>
-<span class="comment">//venet0是物理网卡，用</span> <span class="comment">ifconfig</span> <span class="comment">查看
+</pre></td><td class="code"><pre>iptables <span class="attribute">-t</span> nat <span class="attribute">-A</span> POSTROUTING <span class="attribute">-s</span> <span class="number">192.168</span><span class="number">.0</span><span class="number">.0</span><span class="subst">/</span><span class="number">24</span> <span class="attribute">-o</span> venet0 <span class="attribute">-j</span> MASQUERADE
+<span class="comment">//venet0是物理网卡，用 ifconfig 查看</span>
 </pre></td></tr></table></figure><br> 如果执行这条命令后提示</p>
 <p> <figure class="highlight"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre>iptables: No chain/target/match <span class="keyword">by</span> <span class="keyword">that</span> <span class="property">name</span>.
+</pre></td><td class="code"><pre><span class="attribute">iptables</span>: <span class="string">No chain/target/match by that name.</span>
 </pre></td></tr></table></figure><br> 那么改为以下命令重新执行：</p>
 <p> <figure class="highlight"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre><span class="comment">iptables</span> <span class="literal">-</span><span class="comment">t</span> <span class="comment">nat</span> <span class="literal">-</span><span class="comment">A</span> <span class="comment">POSTROUTING</span> <span class="literal">-</span><span class="comment">s</span> <span class="comment">192</span>.<span class="comment">168</span>.<span class="comment">0</span>.<span class="comment">0/24</span> <span class="literal">-</span><span class="comment">o</span> <span class="comment">venet0</span> <span class="literal">-</span><span class="comment">j</span> <span class="comment">SNAT</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">to</span>-<span class="comment">source</span> <span class="comment">xxx</span>.<span class="comment">xxx</span>.<span class="comment">xxx</span>.<span class="comment">xxx
+</pre></td><td class="code"><pre><span class="comment">iptables</span> <span class="literal">-</span><span class="comment">t</span> <span class="comment">nat</span> <span class="literal">-</span><span class="comment">A</span> <span class="comment">POSTROUTING</span> <span class="literal">-</span><span class="comment">s</span> <span class="comment">192</span><span class="string">.</span><span class="comment">168</span><span class="string">.</span><span class="comment">0</span><span class="string">.</span><span class="comment">0/24</span> <span class="literal">-</span><span class="comment">o</span> <span class="comment">venet0</span> <span class="literal">-</span><span class="comment">j</span> <span class="comment">SNAT</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">to</span><span class="literal">-</span><span class="comment">source</span> <span class="comment">xxx</span><span class="string">.</span><span class="comment">xxx</span><span class="string">.</span><span class="comment">xxx</span><span class="string">.</span><span class="comment">xxx</span>
 </pre></td></tr></table></figure><br> 最后的 xxx.xxx.xxx.xxx 是你 vps 的 ip 地址。</p>
 </li>
 <li><p>虽然现在设置好了 iptables 但是下次重启时会被清除，所以我们需要把它保存下来</p>
 <p> <figure class="highlight"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre>iptables-save &gt; <span class="regexp">/etc/iptables</span>-rules
+</pre></td><td class="code"><pre><span class="comment">iptables</span><span class="literal">-</span><span class="comment">save</span> &gt; <span class="comment">/etc/iptables</span><span class="literal">-</span><span class="comment">rules</span>
 </pre></td></tr></table></figure><br> 然后修改 /etc/network/interfaces 文件，找到 venet0 的结点，添加 pre-up 那一行：</p>
 <p> <figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 3
-</pre></td><td class="code"><pre><span class="title">auto</span> venet0
-<span class="title">iface</span> venet0 inet static
-<span class="title">pre</span>-up iptables-restore &lt; /etc/iptables-rules
+</pre></td><td class="code"><pre><span class="comment">auto</span> <span class="comment">venet0</span>
+<span class="comment">iface</span> <span class="comment">venet0</span> <span class="comment">inet</span> <span class="comment">static</span>
+<span class="comment">pre</span><span class="literal">-</span><span class="comment">up</span> <span class="comment">iptables</span><span class="literal">-</span><span class="comment">restore</span> &lt; <span class="comment">/etc/iptables</span><span class="literal">-</span><span class="comment">rules</span>
 </pre></td></tr></table></figure><br> 这样重启后会自动加载之前设置好的 iptables 规则。</p>
 <p> 但是有可能每次重启后 interfaces 都会被重写还原,那么上面方法就失效了。</p>
 <p> 而我用的方法是在 /etc/rc.local 文件中添加一行 <code>iptables-restore /etc/iptables-rules</code></p>
@@ -184,8 +196,6 @@ remoteip <span class="number">192.168.0.234</span>-<span class="number">238</spa
         
         
         
-
-
       
       <div class="clearfix"></div>
     </footer>
@@ -195,9 +205,8 @@ remoteip <span class="number">192.168.0.234</span>-<span class="number">238</spa
 
 <section id="comment">
   <h1 class="title">留言</h1>
-  <div class="ds-thread">
-    <noscript>Please enable JavaScript to view the comments powered by DuoShuo.</noscript>
-  </div>
+
+  
 </section>
 </div></div>
     <aside id="sidebar" class="alignright">
@@ -217,6 +226,10 @@ remoteip <span class="number">192.168.0.234</span>-<span class="number">238</spa
   
     <li><a href="/tags/backbone/">backbone</a><small>1</small></li>
   
+    <li><a href="/tags/gentoo/">gentoo</a><small>1</small></li>
+  
+    <li><a href="/tags/linux/">linux</a><small>1</small></li>
+  
     <li><a href="/tags/nodejs/">nodejs</a><small>1</small></li>
   
     <li><a href="/tags/openwrt/">openwrt</a><small>1</small></li>
@@ -235,7 +248,7 @@ remoteip <span class="number">192.168.0.234</span>-<span class="number">238</spa
   </div>
   <footer id="footer" class="inner"><div class="alignleft">
   
-  &copy; 2013 jKey Lu
+  &copy; 2014 jKey Lu
   
 </div>
 <div class="clearfix"></div></footer>
@@ -243,19 +256,6 @@ remoteip <span class="number">192.168.0.234</span>-<span class="number">238</spa
 <script src="/js/jquery.imagesloaded.min.js"></script>
 <script src="/js/gallery.js"></script>
 
-
-<script type="text/javascript">
-var duoshuoQuery = {short_name:"blogjkeylu"};
-
-(function() {
-  var ds = document.createElement('script');
-  ds.type = 'text/javascript';ds.async = true;
-  ds.src = 'http://static.duoshuo.com/embed.js';
-  ds.charset = 'UTF-8';
-  (document.getElementsByTagName('head')[0] 
-  || document.getElementsByTagName('body')[0]).appendChild(ds);
-})();
-</script>
 
 
 

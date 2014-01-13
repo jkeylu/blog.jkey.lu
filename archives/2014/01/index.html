@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>归档：2013/7 | jKey Blog</title>
+  <title>归档：2014/1 | jKey Blog</title>
   <meta name="author" content="jKey Lu">
   
   
@@ -54,7 +54,7 @@
 <div class="clearfix"></div></header>
   <div id="content" class="inner">
     <div id="main-col" class="alignleft"><div id="wrapper">
-<h2 class="archive-title">2013/7</h2>
+<h2 class="archive-title">2014/1</h2>
 
 
   
@@ -76,75 +76,26 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2013-07-05T14:02:07.000Z"><a href="/2013/07/05/nodejs-addons/">7月 5, 2013</a></time>
+        <time datetime="2014-01-11T05:35:13.000Z"><a href="/2014/01/11/install-gentoo-linux/">1月 11, 2014</a></time>
       
       
   
-    <h1 class="title"><a href="/2013/07/05/nodejs-addons/">Nodejs Addons</a></h1>
+    <h1 class="title"><a href="/2014/01/11/install-gentoo-linux/">安装 Gentoo</a></h1>
   
 
     </header>
     <div class="entry">
       
-        <p>有时候仅仅用 javascript 并不能够实现我们想要的功能，比如说我最近买了一块 nokia 5110 的显示屏，想连在我的树莓派上显示一些有用的信息。而这块显示屏是 spi 接口的，树莓派上也是有 SPI 接口。但是我要对 SPI 接口写入信息传到显示屏上，就必须要用 c++ 来写，不是很方便。所以我就想写一个 nodejs 的 addon，最后可以实现 javascript 来与 SPI 总线进行通信。</p>
-<p>所以，就要学习如何写一个 nodejs 的 addon，这篇文章完全参考 <a href="http://nodejs.org/api/addons.html" target="_blank"><a href="http://nodejs.org/api/addons.html">http://nodejs.org/api/addons.html</a></a></p>
-<p>下面所有例子的代码可以从 <a href="https://github.com/rvagg/node-addon-examples" target="_blank"><a href="https://github.com/rvagg/node-addon-examples">https://github.com/rvagg/node-addon-examples</a></a> 下载到。</p>
-<h2 id="Hello_world">Hello world</h2>
-<p>我们要写一个简单的模块，这个模块的 javascript 代码实现如下，目标是把他转换为 c++ 实现的 Addon。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre><span class="transposed_variable">exports.</span>hello = <span class="function"><span class="keyword">function</span> <span class="params">()</span> { <span class="title">return</span> '<span class="title">world</span>'; };</span>
-</pre></td></tr></table></figure>
-
-<p>首先创建 <code>hello.cc</code>，内容如下：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre>1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-</pre></td><td class="code"><pre><span class="comment">#include &lt;node.h&gt;</span>
-<span class="comment">#include &lt;v8.h&gt;</span>
-
-using namespace v8;
-
-/**
- * <span class="string">"Method"</span> 的名字可以任取，可以换成 <span class="string">"Hello"</span>
- * 来对应 <span class="built_in">exports</span> 的名称
- */
-Handle&lt;Value&gt; Method(<span class="reserved">const</span> Arguments& args) {
-  HandleScope scope;
-  <span class="keyword">return</span> scope.Close(<span class="attribute">String</span>::New(<span class="string">"world"</span>));
-}
-
-<span class="reserved">void</span> Init(Handle&lt;Object&gt; <span class="built_in">exports</span>) {
-  <span class="built_in">exports</span><span class="function">-&gt;</span>Set(<span class="attribute">String</span>::NewSymbol(<span class="string">"hello"</span>),
-    <span class="attribute">FunctionTemplate</span>::New<span class="function"><span class="params">(Method)</span>-&gt;</span>GetFunction());
-}
-
-NODE_MODULE(hello, Init)
-</pre></td></tr></table></figure>
-
-<p>所有的 Node addons 必须输出一个初始化函数：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre>1
-2
-</pre></td><td class="code"><pre><span class="keyword">void</span> Initialize(Handle&lt;<span class="built_in">Object</span>&gt; exports);
-NODE_MODULE(module_name, Initialize)
-</pre></td></tr></table></figure>
-
+        <p>最近组了一台电脑想用做 nas，配置为</p>
+<ul>
+<li>奔腾G2100T</li>
+<li>华擎 B75M-ITX 主板</li>
+<li>DDR3 1600 2G 内存</li>
+<li>先马 230W 电源</li>
+<li>一块 64G SSD 加上另外三块从笔记本上拆下来的硬盘。</li>
+</ul>
+<p>原本 CPU 想用赛扬的，但是看中的一块淘宝上缺货了，所以用奔腾G2100T替代。所有都装好后进 BIOS 对 CPU 降低电压，稳定在 0.8V。装好 Gentoo 后，开机差不多在 37W 左右，编译的时候 45W 左右。虽然，对于当 nas 来用，37W 还是有点高的，但是，平时还可以在上面做其他的事，那么还是可以接受的。</p>
+<p>第一次用 Gentoo，根据 Gentoo 手册 <a href="http://www.gentoo.org/doc/en/handbook/handbook-amd64.xml?full=1" target="_blank"><a href="http://www.gentoo.org/doc/en/handbook/handbook-amd64.xml?full=1">http://www.gentoo.org/doc/en/handbook/handbook-amd64.xml?full=1</a></a> 一步一步安装的，下面是安装过程中遇到的一些问题。</p>
 
       
     </div>
@@ -152,7 +103,7 @@ NODE_MODULE(module_name, Initialize)
       
         
           <div class="alignleft">
-            <a href="/2013/07/05/nodejs-addons/#more" class="more-link">Read More</a>
+            <a href="/2014/01/11/install-gentoo-linux/#more" class="more-link">Read More</a>
           </div>
         
         

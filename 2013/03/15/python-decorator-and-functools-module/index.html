@@ -33,23 +33,23 @@
 19
 20
 def decorator(F): # 装饰器函数定义
-    print &quot;I'm decorator&quot;
+    print &quot;I&#39;m decorator&quot;
     return F
 
 @decorator
 def foo():
-    print 'Hello World!'
+    print &#39;Hello World!&#39;
 # 上面等价于 foo = decorator(foo)
 
 foo()
 &quot;&quot;&quot;
-I'm decorator
+I&#39;m decorator
 Hello World!
 &quot;&quot;&quot;
 
 decorator(foo)() # 所以这里的输出与 foo() 相同
 &quot;&quot;&quot;
-I'm decorator
+I&#39;m decorator
 Hello World!
 &quot;&quot;&quot;
 
@@ -105,6 +105,18 @@ Hello World!
   <div id="content" class="inner">
     <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
   
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
   <div class="post-content">
     <header>
       
@@ -119,12 +131,12 @@ Hello World!
     </header>
     <div class="entry">
       
-        <h2>什么是装饰器？</h2>
+        <h2 id="-4ec0-4e48-662f-88c5-9970-5668-ff1f-">什么是装饰器？</h2>
 <p>在 python 语言里第一次看到装饰器不免让人想到设计模式中的装饰模式——动态地给一个对象添加一些额外的职责，就增加功能来说，装饰模式比生成子类更为灵活。</p>
 <p>好吧，python 中的装饰器显然和装饰模式毫无关系。那 python 中的装饰器到底是什么呢？</p>
 <p>简而言之，装饰器提供了一种方法，在函数和类定义语句的末尾插入自动运行代码。python 中有两种装饰器：函数装饰器和类装饰器。</p>
-<h2>函数装饰器</h2>
-<h3>简单的装饰器例子：</h3>
+<h2 id="-51fd-6570-88c5-9970-5668-">函数装饰器</h2>
+<h3 id="-7b80-5355-7684-88c5-9970-5668-4f8b-5b50-ff1a-">简单的装饰器例子：</h3>
 <figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
 2
 3
@@ -170,7 +182,7 @@ Hello World!
 <p>从上面运行后结果看出，装饰器就是一个能够返回可调用对象（函数）的可调用对象（函数）。</p>
 <a id="more"></a>
 
-<h3>具有封闭作用域的装饰器</h3>
+<h3 id="-5177-6709-5c01-95ed-4f5c-7528-57df-7684-88c5-9970-5668-">具有封闭作用域的装饰器</h3>
 <figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
 2
 3
@@ -233,7 +245,7 @@ x = 2, y = 3
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 </pre></td><td class="code"><pre>foo = decorator(foo)
-<span class="function"><span class="title">foo</span><span class="params">(<span class="number">1</span>, <span class="number">2</span>)</span>
+<span class="function"><span class="title">foo</span><span class="params">(<span class="number">1</span>, <span class="number">2</span>)</span></span>
 </pre></td></tr></table></figure>
 
 <p>第二次调用 <code>foo(2, 3)</code> 时 <em>foo</em> 已经为 <em>decorator(foo)</em> 的返回值了</p>
@@ -298,7 +310,7 @@ x = 2, y = 3
 """</span>
 </pre></td></tr></table></figure>
 
-<h3>装饰器参数</h3>
+<h3 id="-88c5-9970-5668-53c2-6570-">装饰器参数</h3>
 <figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
 2
 3
@@ -347,9 +359,9 @@ Hello World!
 """</span>
 </pre></td></tr></table></figure>
 
-<h2>functools 模块</h2>
+<h2 id="functools_-6a21-5757-">functools 模块</h2>
 <p>functools 模块中有三个主要的函数 partial(), update_wrapper() 和 wraps(), 下面我们分别来看一下吧。</p>
-<h3>partial(func[,<em>args][, *</em>keywords])</h3>
+<h3 id="partial-28-func-5b-2c-3c-em-3e-args-5d-5b-2c-_-2a-3c-2f-em-3e-keywords-5d-29-">partial(func[,<em>args][, *</em>keywords])</h3>
 <p>看源码时发现这个函数不是用 python 写的，而是用 C 写的，但是帮助文档中给出了用 python 实现的代码，如下：</p>
 <figure class="highlight lang-python"><table><tr><td class="gutter"><pre>1
 2
@@ -384,7 +396,7 @@ int2 = partial(int, base=<span class="number">2</span>)
 <span class="keyword">print</span> int2(<span class="string">'101'</span>) <span class="comment"># 5</span>
 </pre></td></tr></table></figure>
 
-<h3>update_wrapper(wrapper, wrapped[, assigned][, updated])</h3>
+<h3 id="update_wrapper-28-wrapper-2c-_wrapped-5b-2c-_assigned-5d-5b-2c-_updated-5d-29-">update_wrapper(wrapper, wrapped[, assigned][, updated])</h3>
 <p>看这个函数的源代码发现，它就是把被封装的函数的 <strong>module</strong>, <strong>name</strong>, <strong>doc</strong> 和 <strong>dict</strong> 复制到封装的函数中去，源码如下，很简单的几句：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
@@ -411,7 +423,7 @@ WRAPPER_UPDATES = (<span class="string">'__dict__'</span>,)
 </pre></td></tr></table></figure>
 
 <p>具体如何用我们可以往下看一下。</p>
-<h3>wraps(wrapped[, assigned][, updated])</h3>
+<h3 id="wraps-28-wrapped-5b-2c-_assigned-5d-5b-2c-_updated-5d-29-">wraps(wrapped[, assigned][, updated])</h3>
 <p>wraps() 函数把用 partial() 把 update_wrapper() 给封装了一下。</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
@@ -487,8 +499,6 @@ Called example function
   </div>
 
         
-
-
       
       <div class="clearfix"></div>
     </footer>
@@ -498,9 +508,8 @@ Called example function
 
 <section id="comment">
   <h1 class="title">留言</h1>
-  <div class="ds-thread">
-    <noscript>Please enable JavaScript to view the comments powered by DuoShuo.</noscript>
-  </div>
+
+  
 </section>
 </div></div>
     <aside id="sidebar" class="alignright">
@@ -520,6 +529,10 @@ Called example function
   
     <li><a href="/tags/backbone/">backbone</a><small>1</small></li>
   
+    <li><a href="/tags/gentoo/">gentoo</a><small>1</small></li>
+  
+    <li><a href="/tags/linux/">linux</a><small>1</small></li>
+  
     <li><a href="/tags/nodejs/">nodejs</a><small>1</small></li>
   
     <li><a href="/tags/openwrt/">openwrt</a><small>1</small></li>
@@ -538,7 +551,7 @@ Called example function
   </div>
   <footer id="footer" class="inner"><div class="alignleft">
   
-  &copy; 2013 jKey Lu
+  &copy; 2014 jKey Lu
   
 </div>
 <div class="clearfix"></div></footer>
@@ -546,19 +559,6 @@ Called example function
 <script src="/js/jquery.imagesloaded.min.js"></script>
 <script src="/js/gallery.js"></script>
 
-
-<script type="text/javascript">
-var duoshuoQuery = {short_name:"blogjkeylu"};
-
-(function() {
-  var ds = document.createElement('script');
-  ds.type = 'text/javascript';ds.async = true;
-  ds.src = 'http://static.duoshuo.com/embed.js';
-  ds.charset = 'UTF-8';
-  (document.getElementsByTagName('head')[0] 
-  || document.getElementsByTagName('body')[0]).appendChild(ds);
-})();
-</script>
 
 
 

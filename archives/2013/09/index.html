@@ -60,6 +60,18 @@
   
     <article class="post">
   
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
   <div class="post-content">
     <header>
       
@@ -76,22 +88,22 @@
       
         <p>以前在 vim 中映射快捷键时，不是网上看被人怎么写然后拷贝回来，要么直接用 ‘map’ 来映射，根本搞不懂 ‘map’, ‘noremap’, ‘nmap’, ‘vmap’ … 之间的区别到底是什么。</p>
 <p>今天，上网 Google 了下，不过先要从 vim 的几种模式说起。</p>
-<h2>vim 中有六种基本模式:</h2>
+<h2 id="vim_-4e2d-6709-516d-79cd-57fa-672c-6a21-5f0f-3a-">vim 中有六种基本模式:</h2>
 <ol>
 <li><p>普通模式 (Normal-mode)</p>
 <p> 一般，启动编辑器之后就处于普通模式，除非你设置了 ‘insertmode’。也称为命令 (command) 模式。</p>
 </li>
 <li><p>可视模式 (Visual-mode)</p>
-<p> 可视模式与普通模式相似，只是光标移动会扩展高亮的区域。而其它非移动命令会作用于高亮的区域。在普通模式下，可以通过 v 或 V 或 CTRL-V 进入。如果没有关闭 ‘showmode’ 选项，窗口底部会出现 “—VISUAL—” 字样。</p>
+<p> 可视模式与普通模式相似，只是光标移动会扩展高亮的区域。而其它非移动命令会作用于高亮的区域。在普通模式下，可以通过 v 或 V 或 CTRL-V 进入。如果没有关闭 ‘showmode’ 选项，窗口底部会出现 “—VISUAL—“ 字样。</p>
 </li>
 <li><p>选择模式 (Select-mode)</p>
-<p> 选择模式与 Windows 下其它编辑器的选择模式很像。选中字符后，键入一个可显示字符会删掉所有被选择的字符，并进入插入模式。一般，可以在普通模式下按 gh 进入，或在 gvim 中用鼠标拖选区域。窗口底部会出现 “—SELECT—” 字样。</p>
+<p> 选择模式与 Windows 下其它编辑器的选择模式很像。选中字符后，键入一个可显示字符会删掉所有被选择的字符，并进入插入模式。一般，可以在普通模式下按 gh 进入，或在 gvim 中用鼠标拖选区域。窗口底部会出现 “—SELECT—“ 字样。</p>
 </li>
 <li><p>插入模式 (Insert-mode)</p>
-<p> 插入模式下你键入的内容会插入到缓冲区。一般，在普通模式下按 i 或 a 进入插入模式。窗口底部会出现 “—INSERT—” 字样。</p>
+<p> 插入模式下你键入的内容会插入到缓冲区。一般，在普通模式下按 i 或 a 进入插入模式。窗口底部会出现 “—INSERT—“ 字样。</p>
 </li>
 <li><p>命令行模式 (Cmdline-mode)</p>
-<p> 命令行模式可以在窗口底部输入一行命令。可以用 “:” 执行命令，用 “?” 和 “/” 来查找。</p>
+<p> 命令行模式可以在窗口底部输入一行命令。可以用 “:” 执行命令，用 “?” 和 “/“ 来查找。</p>
 </li>
 <li><p>Ex 模式 (Ex-mode)</p>
 <p> 与命令行模式类似，只是执行完一条命令后，会继续停留在 Ex 模式。在普通模式下，按 Q 进入 Ex 模式。</p>
@@ -140,6 +152,10 @@
   
     <li><a href="/tags/backbone/">backbone</a><small>1</small></li>
   
+    <li><a href="/tags/gentoo/">gentoo</a><small>1</small></li>
+  
+    <li><a href="/tags/linux/">linux</a><small>1</small></li>
+  
     <li><a href="/tags/nodejs/">nodejs</a><small>1</small></li>
   
     <li><a href="/tags/openwrt/">openwrt</a><small>1</small></li>
@@ -158,7 +174,7 @@
   </div>
   <footer id="footer" class="inner"><div class="alignleft">
   
-  &copy; 2013 jKey Lu
+  &copy; 2014 jKey Lu
   
 </div>
 <div class="clearfix"></div></footer>
@@ -166,19 +182,6 @@
 <script src="/js/jquery.imagesloaded.min.js"></script>
 <script src="/js/gallery.js"></script>
 
-
-<script type="text/javascript">
-var duoshuoQuery = {short_name:"blogjkeylu"};
-
-(function() {
-  var ds = document.createElement('script');
-  ds.type = 'text/javascript';ds.async = true;
-  ds.src = 'http://static.duoshuo.com/embed.js';
-  ds.charset = 'UTF-8';
-  (document.getElementsByTagName('head')[0] 
-  || document.getElementsByTagName('body')[0]).appendChild(ds);
-})();
-</script>
 
 
 

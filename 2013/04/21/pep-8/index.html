@@ -66,6 +66,18 @@ A Foolish Consistency is the Hobgoblin of Little Minds
   <div id="content" class="inner">
     <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
   
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
   <div class="post-content">
     <header>
       
@@ -80,12 +92,12 @@ A Foolish Consistency is the Hobgoblin of Little Minds
     </header>
     <div class="entry">
       
-        <h1>简介</h1>
+        <h1 id="-7b80-4ecb-">简介</h1>
 <p>这篇是讲关于 python 代码风格的一些约定，主要用于 python 中标准库的代码风格的约定。关于 <a href="http://www.python.org/dev/peps/pep-0008/" target="_blank">pep 8</a> 这份文档网上也有很多翻译，但是为了自己便于记忆，大致的翻译记录一下。所以，对照原文可能是不完整的。</p>
-<h1>A Foolish Consistency is the Hobgoblin of Little Minds</h1>
+<h1 id="A_Foolish_Consistency_is_the_Hobgoblin_of_Little_Minds">A Foolish Consistency is the Hobgoblin of Little Minds</h1>
 <p>总之一句话，就是保持代码的一致性。</p>
-<h1>代码排版</h1>
-<h2>缩进</h2>
+<h1 id="-4ee3-7801-6392-7248-">代码排版</h1>
+<h2 id="-7f29-8fdb-">缩进</h2>
 <ul>
 <li><p>每级缩进使用 4 个空格。</p>
 </li>
@@ -141,20 +153,20 @@ foo = long_function_name(var_one, var_two,
 2
 3
 4
-</pre></td><td class="code"><pre><span class="comment"># Extra indentation is not necessary.</span>
+</pre></td><td class="code"><pre><span class="preprocessor"># Extra indentation is not necessary.</span>
 <span class="title">foo</span> = long_function_name(
   var_one, var_two,
   var_three, var_four)
 </pre></td></tr></table></figure>
 
-<h2>制表符还是空格？</h2>
+<h2 id="-5236-8868-7b26-8fd8-662f-7a7a-683c-ff1f-">制表符还是空格？</h2>
 <ul>
 <li><p>永远不要混着一起用。</p>
 </li>
 <li><p>建议使用空格。在调用 python 命令行解释器时可以使用 -t 或 -tt 选项来检查代码中是否混用制表符和空格，前者发出警告，后者发出错误。</p>
 </li>
 </ul>
-<h2>每行最大长度</h2>
+<h2 id="-6bcf-884c-6700-5927-957f-5ea6-">每行最大长度</h2>
 <ul>
 <li><p>限制所有行最大字符数不超过 79 个字符。</p>
 </li>
@@ -191,10 +203,10 @@ foo = long_function_name(var_one, var_two,
             <span class="title">raise</span> <span class="title">ValueError</span>("<span class="title">I</span> <span class="title">don</span>'<span class="title">t</span> <span class="title">think</span> <span class="title">so</span> -- <span class="title">values</span> <span class="title">are</span> %<span class="title">s</span>, %<span class="title">s</span>" %
                              (<span class="title">width</span>, <span class="title">height</span>))
         <span class="title">Blob</span>.<span class="title">__init__</span>(<span class="title">self</span>, <span class="title">width</span>, <span class="title">height</span>,
-                      <span class="title">color</span>, <span class="title">emphasis</span>, <span class="title">highlight</span>)
+                      <span class="title">color</span>, <span class="title">emphasis</span>, <span class="title">highlight</span>)</span>
 </pre></td></tr></table></figure>
 
-<h2>空行</h2>
+<h2 id="-7a7a-884c-">空行</h2>
 <ul>
 <li><p>顶级函数和类定义用两行空行分割。</p>
 </li>
@@ -203,9 +215,9 @@ foo = long_function_name(var_one, var_two,
 <li><p>可以用额外的空行分割一组相关的函数。</p>
 </li>
 </ul>
-<h2>编码 (<a href="http://www.python.org/dev/peps/pep-0263" target="_blank">PEP 263</a>)</h2>
+<h2 id="-7f16-7801-_-28-3c-a_href-3d-22-http-3a-2f-2f-www-python-org-2f-dev-2f-peps-2f-pep-0263-22-3e-PEP_263-3c-2f-a-3e-29-">编码 (<a href="http://www.python.org/dev/peps/pep-0263" target="_blank">PEP 263</a>)</h2>
 <p>python 核心代码应该使用 ASCII 或 Latin-1 编码。python 3.0 以上使用 UTF-8，更多请看 <a href="http://www.python.org/dev/peps/pep-3120" target="_blank">PEP 3120</a></p>
-<h2>导入</h2>
+<h2 id="-5bfc-5165-">导入</h2>
 <ul>
 <li>通常在单独的行导入</li>
 </ul>
@@ -231,8 +243,8 @@ foo = long_function_name(var_one, var_two,
 <p>  导入应该按照下面顺序分组排放：</p>
 <pre><code>  1. 标准库的导入
   2. 相关的第三方包的导入
-  3. 本地应用/库的特定导入</code></pre>
-<p>  并且用一行空行分隔每个分组。</p>
+  3. 本地应用/库的特定导入
+</code></pre><p>  并且用一行空行分隔每个分组。</p>
 <p>  把任何相关 __all__ 说明的放在导入之后。</p>
 </li>
 <li><p>对于所有导入都是用据对路径。</p>
@@ -246,24 +258,24 @@ foo = long_function_name(var_one, var_two,
     from foo.bar.your<span class="class"><span class="keyword">class</span> <span class="title">import</span> <span class="title">YourClass</span></span>
 </pre></td></tr></table></figure>
 
-<pre><code>如果这样写导致了本地名字冲突，那么就这样写：</code></pre>
-<figure class="highlight"><table><tr><td class="gutter"><pre>1
+<pre><code>如果这样写导致了本地名字冲突，那么就这样写：
+</code></pre><figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 </pre></td><td class="code"><pre>    <span class="import"><span class="keyword">import</span> myclass</span>
     <span class="import"><span class="keyword">import</span> foo.bar.yourclass</span>
 </pre></td></tr></table></figure>
 
-<pre><code>并且使用 &quot;myclass.MyClass&quot; 和 &quot;foo.bar.yourclass.YourClass&quot;.</code></pre>
-<h1>表达式和语句中的空格</h1>
-<h2>不能忍受的事</h2>
+<pre><code>并且使用 &quot;myclass.MyClass&quot; 和 &quot;foo.bar.yourclass.YourClass&quot;.
+</code></pre><h1 id="-8868-8fbe-5f0f-548c-8bed-53e5-4e2d-7684-7a7a-683c-">表达式和语句中的空格</h1>
+<h2 id="-4e0d-80fd-5fcd-53d7-7684-4e8b-">不能忍受的事</h2>
 <p><strong>避免</strong>在下述情况中使用无关的空格：</p>
 <ul>
 <li>紧挨着圆括号，方括号或大括号里空格</li>
 </ul>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
-</pre></td><td class="code"><pre>    <span class="tag">Yes</span>: <span class="tag">spam</span>(<span class="tag">ham</span><span class="attr_selector">[1]</span>, <span class="rules">{<span class="rule"><span class="attribute">eggs</span>:<span class="value"> <span class="number">2</span>}</span></span></span>)
-    <span class="tag">No</span>:  <span class="tag">spam</span>( <span class="tag">ham</span><span class="attr_selector">[ 1 ]</span>, <span class="rules">{ <span class="rule"><span class="attribute">eggs</span>:<span class="value"> <span class="number">2</span> }</span></span></span> )
+</pre></td><td class="code"><pre>    <span class="tag">Yes</span>: <span class="tag">spam</span>(<span class="tag">ham</span><span class="attr_selector">[1]</span>, <span class="rules">{<span class="rule"><span class="attribute">eggs</span>:<span class="value"> <span class="number">2</span></span></span></span>})
+    <span class="tag">No</span>:  <span class="tag">spam</span>( <span class="tag">ham</span><span class="attr_selector">[ 1 ]</span>, <span class="rules">{ <span class="rule"><span class="attribute">eggs</span>:<span class="value"> <span class="number">2</span> </span></span></span>} )
 </pre></td></tr></table></figure>
 
 <ul>
@@ -271,8 +283,8 @@ foo = long_function_name(var_one, var_two,
 </ul>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
-</pre></td><td class="code"><pre>    Yes: <span class="keyword">if</span> x == <span class="number">4</span>: <span class="built_in">print</span> x, y; x, y = y, x
-    No:  <span class="keyword">if</span> x == <span class="number">4</span> : <span class="built_in">print</span> x , y ; x , y = y , x
+</pre></td><td class="code"><pre>    <span class="attribute">Yes</span>: <span class="keyword">if</span> x == <span class="number">4</span>: <span class="built_in">print</span> x, y; x, y = y, x
+    <span class="attribute">No</span>:  <span class="keyword">if</span> x == <span class="number">4</span> : <span class="built_in">print</span> x , y ; x , y = y , x
 </pre></td></tr></table></figure>
 
 <ul>
@@ -289,8 +301,8 @@ foo = long_function_name(var_one, var_two,
 </ul>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
-</pre></td><td class="code"><pre>    <span class="attribute">Yes</span>: <span class="string">dict['key'] = list[index]</span>
-    <span class="attribute">No</span>: <span class="string"> dict ['key'] = list [index]</span>
+</pre></td><td class="code"><pre>    Yes: dict<span class="matrix">[<span class="string">'key'</span>]</span> = <span class="built_in">list</span><span class="matrix">[index]</span>
+    No:  dict <span class="matrix">[<span class="string">'key'</span>]</span> = <span class="built_in">list</span> <span class="matrix">[index]</span>
 </pre></td></tr></table></figure>
 
 <ul>
@@ -306,8 +318,8 @@ foo = long_function_name(var_one, var_two,
     long_variable = <span class="number">3</span>
 </pre></td></tr></table></figure>
 
-<pre><code><span class="attribute">No:</code></pre>
-<figure class="highlight"><table><tr><td class="gutter"><pre>1
+<pre><code><span class="label">No:</span>
+</code></pre><figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 3
 </pre></td><td class="code"><pre>    <span class="title">x</span>             = <span class="number">1</span>
@@ -315,26 +327,26 @@ foo = long_function_name(var_one, var_two,
     long_variable = <span class="number">3</span>
 </pre></td></tr></table></figure>
 
-<h2>其他推荐</h2>
-<h1>注释</h1>
-<h2>Block Comments</h2>
-<h2>Inline Comments</h2>
-<h2>Documentation Strings</h2>
-<h1>Version Bookkeeping</h1>
-<h1>Naming Conventions</h1>
-<h2>Descriptive: Naming Styles</h2>
-<h2>Prescriptive: Naming Conventions</h2>
-<h3>Names to Avoid</h3>
-<h3>Package and Module Names</h3>
-<h3>Class Names</h3>
-<h3>Exception Names</h3>
-<h3>Global Variable Names</h3>
-<h3>Function Names</h3>
-<h3>Function and method arguments</h3>
-<h3>Method Names and Instance Variables</h3>
-<h3>Constants</h3>
-<h3>Designing for inheritance</h3>
-<h1>Programming Recommendations</h1>
+<h2 id="-5176-4ed6-63a8-8350-">其他推荐</h2>
+<h1 id="-6ce8-91ca-">注释</h1>
+<h2 id="Block_Comments">Block Comments</h2>
+<h2 id="Inline_Comments">Inline Comments</h2>
+<h2 id="Documentation_Strings">Documentation Strings</h2>
+<h1 id="Version_Bookkeeping">Version Bookkeeping</h1>
+<h1 id="Naming_Conventions">Naming Conventions</h1>
+<h2 id="Descriptive-3a-_Naming_Styles">Descriptive: Naming Styles</h2>
+<h2 id="Prescriptive-3a-_Naming_Conventions">Prescriptive: Naming Conventions</h2>
+<h3 id="Names_to_Avoid">Names to Avoid</h3>
+<h3 id="Package_and_Module_Names">Package and Module Names</h3>
+<h3 id="Class_Names">Class Names</h3>
+<h3 id="Exception_Names">Exception Names</h3>
+<h3 id="Global_Variable_Names">Global Variable Names</h3>
+<h3 id="Function_Names">Function Names</h3>
+<h3 id="Function_and_method_arguments">Function and method arguments</h3>
+<h3 id="Method_Names_and_Instance_Variables">Method Names and Instance Variables</h3>
+<h3 id="Constants">Constants</h3>
+<h3 id="Designing_for_inheritance">Designing for inheritance</h3>
+<h1 id="Programming_Recommendations">Programming Recommendations</h1>
 
       
     </div>
@@ -348,8 +360,6 @@ foo = long_function_name(var_one, var_two,
   </div>
 
         
-
-
       
       <div class="clearfix"></div>
     </footer>
@@ -359,9 +369,8 @@ foo = long_function_name(var_one, var_two,
 
 <section id="comment">
   <h1 class="title">留言</h1>
-  <div class="ds-thread">
-    <noscript>Please enable JavaScript to view the comments powered by DuoShuo.</noscript>
-  </div>
+
+  
 </section>
 </div></div>
     <aside id="sidebar" class="alignright">
@@ -381,6 +390,10 @@ foo = long_function_name(var_one, var_two,
   
     <li><a href="/tags/backbone/">backbone</a><small>1</small></li>
   
+    <li><a href="/tags/gentoo/">gentoo</a><small>1</small></li>
+  
+    <li><a href="/tags/linux/">linux</a><small>1</small></li>
+  
     <li><a href="/tags/nodejs/">nodejs</a><small>1</small></li>
   
     <li><a href="/tags/openwrt/">openwrt</a><small>1</small></li>
@@ -399,7 +412,7 @@ foo = long_function_name(var_one, var_two,
   </div>
   <footer id="footer" class="inner"><div class="alignleft">
   
-  &copy; 2013 jKey Lu
+  &copy; 2014 jKey Lu
   
 </div>
 <div class="clearfix"></div></footer>
@@ -407,19 +420,6 @@ foo = long_function_name(var_one, var_two,
 <script src="/js/jquery.imagesloaded.min.js"></script>
 <script src="/js/gallery.js"></script>
 
-
-<script type="text/javascript">
-var duoshuoQuery = {short_name:"blogjkeylu"};
-
-(function() {
-  var ds = document.createElement('script');
-  ds.type = 'text/javascript';ds.async = true;
-  ds.src = 'http://static.duoshuo.com/embed.js';
-  ds.charset = 'UTF-8';
-  (document.getElementsByTagName('head')[0] 
-  || document.getElementsByTagName('body')[0]).appendChild(ds);
-})();
-</script>
 
 
 

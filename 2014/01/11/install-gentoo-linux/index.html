@@ -1,0 +1,246 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>安装 Gentoo | jKey Blog</title>
+  <meta name="author" content="jKey Lu">
+  
+  <meta name="description" content="最近组了一台电脑想用做 nas，配置为
+
+奔腾G2100T
+华擎 B75M-ITX 主板
+DDR3 1600 2G 内存
+先马 230W 电源
+一块 64G SSD 加上另外三块从笔记本上拆下来的硬盘。
+
+原本 CPU 想用赛扬的，但是看中的一块淘宝上缺货了，所以用奔腾G2100T替代。所有都装好后进 BIOS 对 CPU 降低电压，稳定在 0.8V。装好 Gentoo 后，开机差不多在 37W 左右，编译的时候 45W 左右。虽然，对于当 nas 来用，37W 还是有点高的，但是，平时还可以在上面做其他的事，那么还是可以接受的。
+第一次用 Gentoo，根据 Gentoo 手册 http://www.gentoo.org/doc/en/handbook/handbook-amd64.xml?full=1 一步一步安装的，下面是安装过程中遇到的一些问题。">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="安装 Gentoo"/>
+  <meta property="og:site_name" content="jKey Blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="jKey Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-16294460-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">jKey Blog</a></h1>
+  <h2><a href="/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-01-11T05:35:13.000Z"><a href="/2014/01/11/install-gentoo-linux/">1月 11, 2014</a></time>
+      
+      
+  
+    <h1 class="title">安装 Gentoo</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>最近组了一台电脑想用做 nas，配置为</p>
+<ul>
+<li>奔腾G2100T</li>
+<li>华擎 B75M-ITX 主板</li>
+<li>DDR3 1600 2G 内存</li>
+<li>先马 230W 电源</li>
+<li>一块 64G SSD 加上另外三块从笔记本上拆下来的硬盘。</li>
+</ul>
+<p>原本 CPU 想用赛扬的，但是看中的一块淘宝上缺货了，所以用奔腾G2100T替代。所有都装好后进 BIOS 对 CPU 降低电压，稳定在 0.8V。装好 Gentoo 后，开机差不多在 37W 左右，编译的时候 45W 左右。虽然，对于当 nas 来用，37W 还是有点高的，但是，平时还可以在上面做其他的事，那么还是可以接受的。</p>
+<p>第一次用 Gentoo，根据 Gentoo 手册 <a href="http://www.gentoo.org/doc/en/handbook/handbook-amd64.xml?full=1" target="_blank"><a href="http://www.gentoo.org/doc/en/handbook/handbook-amd64.xml?full=1">http://www.gentoo.org/doc/en/handbook/handbook-amd64.xml?full=1</a></a> 一步一步安装的，下面是安装过程中遇到的一些问题。</p>
+<a id="more"></a>
+
+<h3 id="-7f16-8bd1-5185-6838-7684-4e00-4e9b-9009-9879-">编译内核的一些选项</h3>
+<p><a href="http://www.gentoo.org/doc/en/handbook/handbook-amd64.xml?full=1#book_part1_chap7" target="_blank"><a href="http://www.gentoo.org/doc/en/handbook/handbook-amd64.xml?full=1#book_part1_chap7">http://www.gentoo.org/doc/en/handbook/handbook-amd64.xml?full=1#book_part1_chap7</a></a></p>
+<p>网卡</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+</pre></td><td class="code"><pre><span class="comment">Device</span> <span class="comment">Drivers</span>  <span class="literal">-</span><span class="literal">-</span><span class="literal">-</span>&gt;
+  <span class="title">[</span><span class="comment">*</span><span class="title">]</span> <span class="comment">Network</span> <span class="comment">device</span> <span class="comment">support</span>  <span class="literal">-</span><span class="literal">-</span><span class="literal">-</span>&gt;
+    <span class="title">[</span><span class="comment">*</span><span class="title">]</span> <span class="comment">Ethernet</span> <span class="comment">driver</span> <span class="comment">support</span>  <span class="literal">-</span><span class="literal">-</span><span class="literal">-</span>&gt;
+      <span class="title">[</span><span class="comment">*</span><span class="title">]</span> <span class="comment">Realtek</span> <span class="comment">devices</span>
+      &lt;<span class="comment">*</span>&gt;   <span class="comment">Realtek</span> <span class="comment">8169</span> <span class="comment">gigabit</span> <span class="comment">ethernet</span> <span class="comment">support</span>
+</pre></td></tr></table></figure>
+
+<p>lm sensors</p>
+<p><a href="http://wiki.gentoo.org/wiki/Lm_sensors" target="_blank"><a href="http://wiki.gentoo.org/wiki/Lm_sensors">http://wiki.gentoo.org/wiki/Lm_sensors</a></a></p>
+<p>电源管理</p>
+<p><a href="http://wiki.gentoo.org/wiki/Power_management/Processor" target="_blank"><a href="http://wiki.gentoo.org/wiki/Power_management/Processor">http://wiki.gentoo.org/wiki/Power_management/Processor</a></a></p>
+<p>ntfs</p>
+<p><a href="https://wiki.gentoo.org/wiki/NTFS" target="_blank"><a href="https://wiki.gentoo.org/wiki/NTFS">https://wiki.gentoo.org/wiki/NTFS</a></a></p>
+<p>iptables</p>
+<p><a href="http://wiki.gentoo.org/wiki/Iptables" target="_blank"><a href="http://wiki.gentoo.org/wiki/Iptables">http://wiki.gentoo.org/wiki/Iptables</a></a></p>
+<p>ntp</p>
+<p><a href="https://wiki.gentoo.org/wiki/Ntp" target="_blank"><a href="https://wiki.gentoo.org/wiki/Ntp">https://wiki.gentoo.org/wiki/Ntp</a></a></p>
+<h3 id="-7f16-8bd1-_node-js_-662f-62a5-9519-">编译 node.js 是报错</h3>
+<figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>ImportError: This platform lacks a functioning sem_open <span class="class"><span class="keyword">implementation</span>, <span class="id">therefore</span>, <span class="id">the</span> <span class="id">required</span> <span class="id">synchronization</span> <span class="id">primitives</span> <span class="id">needed</span> <span class="id">will</span> <span class="id">not</span> <span class="id">function</span>, <span class="id">see</span> <span class="id">issue</span> 3770.</span>
+</pre></td></tr></table></figure>
+
+<p>解决方法: <a href="http://forums-lb.gentoo.org/viewtopic-t-976004.html" target="_blank"><a href="http://forums-lb.gentoo.org/viewtopic-t-976004.html">http://forums-lb.gentoo.org/viewtopic-t-976004.html</a></a></p>
+<ol>
+<li><p>Add this line to /etc/fstab EDITED: When using OpenRC, otherwise comment it out </p>
+ <figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="title">tmpfs</span>   /dev/shm    tmpfs   defaults        <span class="number">0</span>   <span class="number">0</span>
+</pre></td></tr></table></figure>
+</li>
+<li><p>Mount /dev/shm EDITED: When running OpenRC </p>
+ <figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="title">mount</span> /dev/shm
+</pre></td></tr></table></figure>
+</li>
+<li><p>Rebuild Python </p>
+ <figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre>emerge -qa <span class="keyword">python</span>:<span class="number">2.7</span> <span class="keyword">python</span>
+</pre></td></tr></table></figure>
+</li>
+<li><p>Rebulid all Python stuff </p>
+ <figure class="highlight"><table><tr><td class="gutter"><pre>1
+</pre></td><td class="code"><pre><span class="comment">python</span><span class="literal">-</span><span class="comment">updater</span>
+</pre></td></tr></table></figure>
+
+</li>
+</ol>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+  
+  <div class="tags">
+    <a href="/tags/linux/">linux</a>, <a href="/tags/gentoo/">gentoo</a>
+  </div>
+
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">留言</h1>
+
+  
+</section>
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:blog.jkey.lu">
+  </form>
+</div>
+
+  
+
+  
+<div class="widget tag">
+  <h3 class="title">标签</h3>
+  <ul class="entry">
+  
+    <li><a href="/tags/backbone/">backbone</a><small>1</small></li>
+  
+    <li><a href="/tags/gentoo/">gentoo</a><small>1</small></li>
+  
+    <li><a href="/tags/linux/">linux</a><small>1</small></li>
+  
+    <li><a href="/tags/nodejs/">nodejs</a><small>1</small></li>
+  
+    <li><a href="/tags/openwrt/">openwrt</a><small>1</small></li>
+  
+    <li><a href="/tags/python/">python</a><small>4</small></li>
+  
+    <li><a href="/tags/socket/">socket</a><small>1</small></li>
+  
+    <li><a href="/tags/tornado/">tornado</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2014 jKey Lu
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

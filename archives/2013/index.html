@@ -60,6 +60,18 @@
   
     <article class="post">
   
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
   <div class="post-content">
     <header>
       
@@ -76,22 +88,22 @@
       
         <p>以前在 vim 中映射快捷键时，不是网上看被人怎么写然后拷贝回来，要么直接用 ‘map’ 来映射，根本搞不懂 ‘map’, ‘noremap’, ‘nmap’, ‘vmap’ … 之间的区别到底是什么。</p>
 <p>今天，上网 Google 了下，不过先要从 vim 的几种模式说起。</p>
-<h2>vim 中有六种基本模式:</h2>
+<h2 id="vim_-4e2d-6709-516d-79cd-57fa-672c-6a21-5f0f-3a-">vim 中有六种基本模式:</h2>
 <ol>
 <li><p>普通模式 (Normal-mode)</p>
 <p> 一般，启动编辑器之后就处于普通模式，除非你设置了 ‘insertmode’。也称为命令 (command) 模式。</p>
 </li>
 <li><p>可视模式 (Visual-mode)</p>
-<p> 可视模式与普通模式相似，只是光标移动会扩展高亮的区域。而其它非移动命令会作用于高亮的区域。在普通模式下，可以通过 v 或 V 或 CTRL-V 进入。如果没有关闭 ‘showmode’ 选项，窗口底部会出现 “—VISUAL—” 字样。</p>
+<p> 可视模式与普通模式相似，只是光标移动会扩展高亮的区域。而其它非移动命令会作用于高亮的区域。在普通模式下，可以通过 v 或 V 或 CTRL-V 进入。如果没有关闭 ‘showmode’ 选项，窗口底部会出现 “—VISUAL—“ 字样。</p>
 </li>
 <li><p>选择模式 (Select-mode)</p>
-<p> 选择模式与 Windows 下其它编辑器的选择模式很像。选中字符后，键入一个可显示字符会删掉所有被选择的字符，并进入插入模式。一般，可以在普通模式下按 gh 进入，或在 gvim 中用鼠标拖选区域。窗口底部会出现 “—SELECT—” 字样。</p>
+<p> 选择模式与 Windows 下其它编辑器的选择模式很像。选中字符后，键入一个可显示字符会删掉所有被选择的字符，并进入插入模式。一般，可以在普通模式下按 gh 进入，或在 gvim 中用鼠标拖选区域。窗口底部会出现 “—SELECT—“ 字样。</p>
 </li>
 <li><p>插入模式 (Insert-mode)</p>
-<p> 插入模式下你键入的内容会插入到缓冲区。一般，在普通模式下按 i 或 a 进入插入模式。窗口底部会出现 “—INSERT—” 字样。</p>
+<p> 插入模式下你键入的内容会插入到缓冲区。一般，在普通模式下按 i 或 a 进入插入模式。窗口底部会出现 “—INSERT—“ 字样。</p>
 </li>
 <li><p>命令行模式 (Cmdline-mode)</p>
-<p> 命令行模式可以在窗口底部输入一行命令。可以用 “:” 执行命令，用 “?” 和 “/” 来查找。</p>
+<p> 命令行模式可以在窗口底部输入一行命令。可以用 “:” 执行命令，用 “?” 和 “/“ 来查找。</p>
 </li>
 <li><p>Ex 模式 (Ex-mode)</p>
 <p> 与命令行模式类似，只是执行完一条命令后，会继续停留在 Ex 模式。在普通模式下，按 Q 进入 Ex 模式。</p>
@@ -118,6 +130,18 @@
   
     <article class="post">
   
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
   <div class="post-content">
     <header>
       
@@ -135,7 +159,7 @@
         <p>有时候仅仅用 javascript 并不能够实现我们想要的功能，比如说我最近买了一块 nokia 5110 的显示屏，想连在我的树莓派上显示一些有用的信息。而这块显示屏是 spi 接口的，树莓派上也是有 SPI 接口。但是我要对 SPI 接口写入信息传到显示屏上，就必须要用 c++ 来写，不是很方便。所以我就想写一个 nodejs 的 addon，最后可以实现 javascript 来与 SPI 总线进行通信。</p>
 <p>所以，就要学习如何写一个 nodejs 的 addon，这篇文章完全参考 <a href="http://nodejs.org/api/addons.html" target="_blank"><a href="http://nodejs.org/api/addons.html">http://nodejs.org/api/addons.html</a></a></p>
 <p>下面所有例子的代码可以从 <a href="https://github.com/rvagg/node-addon-examples" target="_blank"><a href="https://github.com/rvagg/node-addon-examples">https://github.com/rvagg/node-addon-examples</a></a> 下载到。</p>
-<h2>Hello world</h2>
+<h2 id="Hello_world">Hello world</h2>
 <p>我们要写一个简单的模块，这个模块的 javascript 代码实现如下，目标是把他转换为 c++ 实现的 Addon。</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
 </pre></td><td class="code"><pre><span class="transposed_variable">exports.</span>hello = <span class="function"><span class="keyword">function</span> <span class="params">()</span> { <span class="title">return</span> '<span class="title">world</span>'; };</span>
@@ -162,23 +186,23 @@
 18
 19
 20
-</pre></td><td class="code"><pre><span class="preprocessor">#include &lt;node.h&gt;</span>
-<span class="preprocessor">#include &lt;v8.h&gt;</span>
+</pre></td><td class="code"><pre><span class="comment">#include &lt;node.h&gt;</span>
+<span class="comment">#include &lt;v8.h&gt;</span>
 
-<span class="keyword">using</span> <span class="class"><span class="keyword">namespace</span> <span class="title">v8</span>;
+using namespace v8;
 
 /**
- * "<span class="title">Method</span>" 的名字可以任取，可以换成 "<span class="title">Hello</span>"
- * 来对应 <span class="title">exports</span> 的名称
+ * <span class="string">"Method"</span> 的名字可以任取，可以换成 <span class="string">"Hello"</span>
+ * 来对应 <span class="built_in">exports</span> 的名称
  */
-<span class="title">Handle</span>&lt;<span class="title">Value</span>&gt; <span class="title">Method</span>(<span class="title">const</span> <span class="title">Arguments</span>& <span class="title">args</span>) {</span>
+Handle&lt;Value&gt; Method(<span class="reserved">const</span> Arguments& args) {
   HandleScope scope;
-  <span class="keyword">return</span> scope.Close(String::New(<span class="string">"world"</span>));
+  <span class="keyword">return</span> scope.Close(<span class="attribute">String</span>::New(<span class="string">"world"</span>));
 }
 
-<span class="keyword">void</span> Init(Handle&lt;<span class="built_in">Object</span>&gt; exports) {
-  exports-&gt;Set(String::NewSymbol(<span class="string">"hello"</span>),
-    FunctionTemplate::New(Method)-&gt;GetFunction());
+<span class="reserved">void</span> Init(Handle&lt;Object&gt; <span class="built_in">exports</span>) {
+  <span class="built_in">exports</span><span class="function">-&gt;</span>Set(<span class="attribute">String</span>::NewSymbol(<span class="string">"hello"</span>),
+    <span class="attribute">FunctionTemplate</span>::New<span class="function"><span class="params">(Method)</span>-&gt;</span>GetFunction());
 }
 
 NODE_MODULE(hello, Init)
@@ -187,7 +211,7 @@ NODE_MODULE(hello, Init)
 <p>所有的 Node addons 必须输出一个初始化函数：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
-</pre></td><td class="code"><pre>void Initialize(Handle<span class="tag">&lt;<span class="title">Object</span>&gt;</span> exports);
+</pre></td><td class="code"><pre><span class="keyword">void</span> Initialize(Handle&lt;<span class="built_in">Object</span>&gt; exports);
 NODE_MODULE(module_name, Initialize)
 </pre></td></tr></table></figure>
 
@@ -211,6 +235,18 @@ NODE_MODULE(module_name, Initialize)
 
   
     <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
   
   <div class="post-content">
     <header>
@@ -241,7 +277,7 @@ NODE_MODULE(module_name, Initialize)
 <li>创建 /opt 软连接</li>
 </ul>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre><span class="title">ln</span> -s /mnt/sdb1/packages /opt
+</pre></td><td class="code"><pre>ln <span class="operator">-s</span> /mnt/sdb1/packages /opt
 </pre></td></tr></table></figure>
 
 
@@ -265,6 +301,18 @@ NODE_MODULE(module_name, Initialize)
   
     <article class="post">
   
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
   <div class="post-content">
     <header>
       
@@ -279,12 +327,12 @@ NODE_MODULE(module_name, Initialize)
     </header>
     <div class="entry">
       
-        <h1>简介</h1>
+        <h1 id="-7b80-4ecb-">简介</h1>
 <p>这篇是讲关于 python 代码风格的一些约定，主要用于 python 中标准库的代码风格的约定。关于 <a href="http://www.python.org/dev/peps/pep-0008/" target="_blank">pep 8</a> 这份文档网上也有很多翻译，但是为了自己便于记忆，大致的翻译记录一下。所以，对照原文可能是不完整的。</p>
-<h1>A Foolish Consistency is the Hobgoblin of Little Minds</h1>
+<h1 id="A_Foolish_Consistency_is_the_Hobgoblin_of_Little_Minds">A Foolish Consistency is the Hobgoblin of Little Minds</h1>
 <p>总之一句话，就是保持代码的一致性。</p>
-<h1>代码排版</h1>
-<h2>缩进</h2>
+<h1 id="-4ee3-7801-6392-7248-">代码排版</h1>
+<h2 id="-7f29-8fdb-">缩进</h2>
 <ul>
 <li><p>每级缩进使用 4 个空格。</p>
 </li>
@@ -312,6 +360,18 @@ NODE_MODULE(module_name, Initialize)
   
     <article class="post">
   
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
   <div class="post-content">
     <header>
       
@@ -326,11 +386,11 @@ NODE_MODULE(module_name, Initialize)
     </header>
     <div class="entry">
       
-        <h2>安装系统</h2>
+        <h2 id="-5b89-88c5-7cfb-7edf-">安装系统</h2>
 <p>下载 Arch Linux ARM 系统镜像：<a href="http://www.raspberrypi.org/downloads" target="_blank"><a href="http://www.raspberrypi.org/downloads">http://www.raspberrypi.org/downloads</a></a></p>
 <p>解压出 .img 文件，然后使用以下命令把镜像写入 SD 卡中</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre><span class="title">dd</span> <span class="keyword">if</span>=archlinux-hf-<span class="number">2013</span>-<span class="number">02</span>-<span class="number">11.</span>img <span class="keyword">of</span>=/dev/sdb bs=<span class="number">1</span>M
+</pre></td><td class="code"><pre><span class="comment">dd</span> <span class="comment">if=archlinux</span><span class="literal">-</span><span class="comment">hf</span><span class="literal">-</span><span class="comment">2013</span><span class="literal">-</span><span class="comment">02</span><span class="literal">-</span><span class="comment">11</span><span class="string">.</span><span class="comment">img</span> <span class="comment">of=/dev/sdb</span> <span class="comment">bs=1M</span>
 </pre></td></tr></table></figure>
 
 <p>如果是 window 系统，可以下载 <a href="http://sourceforge.net/projects/win32diskimager/" target="_blank">Win32DiskImager</a> 来把镜像写入 SD 卡。</p>
@@ -354,6 +414,18 @@ NODE_MODULE(module_name, Initialize)
 
   
     <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
   
   <div class="post-content">
     <header>
@@ -379,10 +451,10 @@ NODE_MODULE(module_name, Initialize)
 6
 </pre></td><td class="code"><pre>helloworld/
     helloworld/
-        __init__<span class="variable">.py</span>
-        foo<span class="variable">.py</span>
-    setup<span class="variable">.py</span>
-    README<span class="variable">.md</span>
+        __init__<span class="preprocessor">.py</span>
+        foo<span class="preprocessor">.py</span>
+    setup<span class="preprocessor">.py</span>
+    README<span class="preprocessor">.md</span>
 </pre></td></tr></table></figure>
 
 
@@ -430,6 +502,10 @@ NODE_MODULE(module_name, Initialize)
   
     <li><a href="/tags/backbone/">backbone</a><small>1</small></li>
   
+    <li><a href="/tags/gentoo/">gentoo</a><small>1</small></li>
+  
+    <li><a href="/tags/linux/">linux</a><small>1</small></li>
+  
     <li><a href="/tags/nodejs/">nodejs</a><small>1</small></li>
   
     <li><a href="/tags/openwrt/">openwrt</a><small>1</small></li>
@@ -448,7 +524,7 @@ NODE_MODULE(module_name, Initialize)
   </div>
   <footer id="footer" class="inner"><div class="alignleft">
   
-  &copy; 2013 jKey Lu
+  &copy; 2014 jKey Lu
   
 </div>
 <div class="clearfix"></div></footer>
@@ -456,19 +532,6 @@ NODE_MODULE(module_name, Initialize)
 <script src="/js/jquery.imagesloaded.min.js"></script>
 <script src="/js/gallery.js"></script>
 
-
-<script type="text/javascript">
-var duoshuoQuery = {short_name:"blogjkeylu"};
-
-(function() {
-  var ds = document.createElement('script');
-  ds.type = 'text/javascript';ds.async = true;
-  ds.src = 'http://static.duoshuo.com/embed.js';
-  ds.charset = 'UTF-8';
-  (document.getElementsByTagName('head')[0] 
-  || document.getElementsByTagName('body')[0]).appendChild(ds);
-})();
-</script>
 
 
 

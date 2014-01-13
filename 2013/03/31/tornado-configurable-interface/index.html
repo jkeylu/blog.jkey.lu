@@ -59,6 +59,18 @@
   <div id="content" class="inner">
     <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
   
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
   <div class="post-content">
     <header>
       
@@ -130,8 +142,8 @@
 49
 50
 </pre></td><td class="code"><pre><span class="class"><span class="keyword">class</span> <span class="title">Configurable</span><span class="params">(object)</span>:</span>
-    __impl_class = <span class="built_in">None</span>
-    __impl_kwargs = <span class="built_in">None</span>
+    __impl_class = <span class="keyword">None</span>
+    __impl_kwargs = <span class="keyword">None</span>
 
     <span class="function"><span class="keyword">def</span> <span class="title">__new__</span><span class="params">(cls, **kwargs)</span>:</span>
         base = cls.configurable_base()
@@ -176,7 +188,7 @@
     <span class="function"><span class="keyword">def</span> <span class="title">configured_class</span><span class="params">(cls)</span>:</span>
         <span class="string">"""返回当前配置完成的类。"""</span>
         base = cls.configurable_base()
-        <span class="keyword">if</span> cls.__impl_class <span class="keyword">is</span> <span class="built_in">None</span>:
+        <span class="keyword">if</span> cls.__impl_class <span class="keyword">is</span> <span class="keyword">None</span>:
             base.__impl_class = cls.configurable_default()
         <span class="keyword">return</span> base.__impl_class
 </pre></td></tr></table></figure>
@@ -208,7 +220,7 @@
             <span class="title">from</span> <span class="title">tornado</span>.<span class="title">platform</span>.<span class="title">kqueue</span> <span class="title">import</span> <span class="title">KQueueIOLoop</span>
             <span class="title">return</span> <span class="title">KQueueIOLoop</span>
         <span class="title">from</span> <span class="title">tornado</span>.<span class="title">platform</span>.<span class="title">select</span> <span class="title">import</span> <span class="title">SelectIOLoop</span>
-        <span class="title">return</span> <span class="title">SelectIOLoop</span>
+        <span class="title">return</span> <span class="title">SelectIOLoop</span></span>
 </pre></td></tr></table></figure>
 
 
@@ -224,8 +236,6 @@
   </div>
 
         
-
-
       
       <div class="clearfix"></div>
     </footer>
@@ -235,9 +245,8 @@
 
 <section id="comment">
   <h1 class="title">留言</h1>
-  <div class="ds-thread">
-    <noscript>Please enable JavaScript to view the comments powered by DuoShuo.</noscript>
-  </div>
+
+  
 </section>
 </div></div>
     <aside id="sidebar" class="alignright">
@@ -257,6 +266,10 @@
   
     <li><a href="/tags/backbone/">backbone</a><small>1</small></li>
   
+    <li><a href="/tags/gentoo/">gentoo</a><small>1</small></li>
+  
+    <li><a href="/tags/linux/">linux</a><small>1</small></li>
+  
     <li><a href="/tags/nodejs/">nodejs</a><small>1</small></li>
   
     <li><a href="/tags/openwrt/">openwrt</a><small>1</small></li>
@@ -275,7 +288,7 @@
   </div>
   <footer id="footer" class="inner"><div class="alignleft">
   
-  &copy; 2013 jKey Lu
+  &copy; 2014 jKey Lu
   
 </div>
 <div class="clearfix"></div></footer>
@@ -283,19 +296,6 @@
 <script src="/js/jquery.imagesloaded.min.js"></script>
 <script src="/js/gallery.js"></script>
 
-
-<script type="text/javascript">
-var duoshuoQuery = {short_name:"blogjkeylu"};
-
-(function() {
-  var ds = document.createElement('script');
-  ds.type = 'text/javascript';ds.async = true;
-  ds.src = 'http://static.duoshuo.com/embed.js';
-  ds.charset = 'UTF-8';
-  (document.getElementsByTagName('head')[0] 
-  || document.getElementsByTagName('body')[0]).appendChild(ds);
-})();
-</script>
 
 
 

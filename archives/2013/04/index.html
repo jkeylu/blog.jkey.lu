@@ -60,6 +60,18 @@
   
     <article class="post">
   
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
   <div class="post-content">
     <header>
       
@@ -89,7 +101,7 @@
 <li>创建 /opt 软连接</li>
 </ul>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre><span class="title">ln</span> -s /mnt/sdb1/packages /opt
+</pre></td><td class="code"><pre>ln <span class="operator">-s</span> /mnt/sdb1/packages /opt
 </pre></td></tr></table></figure>
 
 
@@ -113,6 +125,18 @@
   
     <article class="post">
   
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
   <div class="post-content">
     <header>
       
@@ -127,12 +151,12 @@
     </header>
     <div class="entry">
       
-        <h1>简介</h1>
+        <h1 id="-7b80-4ecb-">简介</h1>
 <p>这篇是讲关于 python 代码风格的一些约定，主要用于 python 中标准库的代码风格的约定。关于 <a href="http://www.python.org/dev/peps/pep-0008/" target="_blank">pep 8</a> 这份文档网上也有很多翻译，但是为了自己便于记忆，大致的翻译记录一下。所以，对照原文可能是不完整的。</p>
-<h1>A Foolish Consistency is the Hobgoblin of Little Minds</h1>
+<h1 id="A_Foolish_Consistency_is_the_Hobgoblin_of_Little_Minds">A Foolish Consistency is the Hobgoblin of Little Minds</h1>
 <p>总之一句话，就是保持代码的一致性。</p>
-<h1>代码排版</h1>
-<h2>缩进</h2>
+<h1 id="-4ee3-7801-6392-7248-">代码排版</h1>
+<h2 id="-7f29-8fdb-">缩进</h2>
 <ul>
 <li><p>每级缩进使用 4 个空格。</p>
 </li>
@@ -160,6 +184,18 @@
   
     <article class="post">
   
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
   <div class="post-content">
     <header>
       
@@ -174,11 +210,11 @@
     </header>
     <div class="entry">
       
-        <h2>安装系统</h2>
+        <h2 id="-5b89-88c5-7cfb-7edf-">安装系统</h2>
 <p>下载 Arch Linux ARM 系统镜像：<a href="http://www.raspberrypi.org/downloads" target="_blank"><a href="http://www.raspberrypi.org/downloads">http://www.raspberrypi.org/downloads</a></a></p>
 <p>解压出 .img 文件，然后使用以下命令把镜像写入 SD 卡中</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre><span class="title">dd</span> <span class="keyword">if</span>=archlinux-hf-<span class="number">2013</span>-<span class="number">02</span>-<span class="number">11.</span>img <span class="keyword">of</span>=/dev/sdb bs=<span class="number">1</span>M
+</pre></td><td class="code"><pre><span class="comment">dd</span> <span class="comment">if=archlinux</span><span class="literal">-</span><span class="comment">hf</span><span class="literal">-</span><span class="comment">2013</span><span class="literal">-</span><span class="comment">02</span><span class="literal">-</span><span class="comment">11</span><span class="string">.</span><span class="comment">img</span> <span class="comment">of=/dev/sdb</span> <span class="comment">bs=1M</span>
 </pre></td></tr></table></figure>
 
 <p>如果是 window 系统，可以下载 <a href="http://sourceforge.net/projects/win32diskimager/" target="_blank">Win32DiskImager</a> 来把镜像写入 SD 卡。</p>
@@ -202,6 +238,18 @@
 
   
     <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
   
   <div class="post-content">
     <header>
@@ -227,10 +275,10 @@
 6
 </pre></td><td class="code"><pre>helloworld/
     helloworld/
-        __init__<span class="variable">.py</span>
-        foo<span class="variable">.py</span>
-    setup<span class="variable">.py</span>
-    README<span class="variable">.md</span>
+        __init__<span class="preprocessor">.py</span>
+        foo<span class="preprocessor">.py</span>
+    setup<span class="preprocessor">.py</span>
+    README<span class="preprocessor">.md</span>
 </pre></td></tr></table></figure>
 
 
@@ -276,6 +324,10 @@
   
     <li><a href="/tags/backbone/">backbone</a><small>1</small></li>
   
+    <li><a href="/tags/gentoo/">gentoo</a><small>1</small></li>
+  
+    <li><a href="/tags/linux/">linux</a><small>1</small></li>
+  
     <li><a href="/tags/nodejs/">nodejs</a><small>1</small></li>
   
     <li><a href="/tags/openwrt/">openwrt</a><small>1</small></li>
@@ -294,7 +346,7 @@
   </div>
   <footer id="footer" class="inner"><div class="alignleft">
   
-  &copy; 2013 jKey Lu
+  &copy; 2014 jKey Lu
   
 </div>
 <div class="clearfix"></div></footer>
@@ -302,19 +354,6 @@
 <script src="/js/jquery.imagesloaded.min.js"></script>
 <script src="/js/gallery.js"></script>
 
-
-<script type="text/javascript">
-var duoshuoQuery = {short_name:"blogjkeylu"};
-
-(function() {
-  var ds = document.createElement('script');
-  ds.type = 'text/javascript';ds.async = true;
-  ds.src = 'http://static.duoshuo.com/embed.js';
-  ds.charset = 'UTF-8';
-  (document.getElementsByTagName('head')[0] 
-  || document.getElementsByTagName('body')[0]).appendChild(ds);
-})();
-</script>
 
 
 

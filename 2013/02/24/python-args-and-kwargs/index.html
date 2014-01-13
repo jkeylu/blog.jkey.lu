@@ -67,6 +67,18 @@ foo(1, 2, 3) # (1, 2, 3)">
   <div id="content" class="inner">
     <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
   
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
   <div class="post-content">
     <header>
       
@@ -82,7 +94,7 @@ foo(1, 2, 3) # (1, 2, 3)">
     <div class="entry">
       
         <p>python 中的 <em>args 和 *</em>kwargs 真是个神奇的东西，看了书研究了一下 python 的参数匹配模型，顺便记录下来，感觉自己记性总是不怎么好。</p>
-<h2>1. 位置：从做至右进行匹配</h2>
+<h2 id="1-_-4f4d-7f6e-ff1a-4ece-505a-81f3-53f3-8fdb-884c-5339-914d-">1. 位置：从做至右进行匹配</h2>
 <p>这种应该是最常见的一种了，看下面代码，一看便知了。</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
@@ -96,7 +108,7 @@ foo(<span class="number">1</span>, <span class="number">2</span>, <span class="n
 
 <a id="more"></a>
 
-<h2>2. 关键字参数：通过参数名进行匹配</h2>
+<h2 id="2-_-5173-952e-5b57-53c2-6570-ff1a-901a-8fc7-53c2-6570-540d-8fdb-884c-5339-914d-">2. 关键字参数：通过参数名进行匹配</h2>
 <p>调用的函数可以定义哪一个函数参数接受这个值，好吧，还是看代码把。</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
@@ -112,7 +124,7 @@ foo(b=<span class="number">1</span>, a=<span class="number">2</span>, c=<span cl
 foo(<span class="number">1</span>, c=<span class="number">2</span>, b=<span class="number">3</span>) <span class="comment"># (1, 3, 2)</span>
 </pre></td></tr></table></figure>
 
-<h2>3. 默认参数：为没有传入值的参数定义参数值</h2>
+<h2 id="3-_-9ed8-8ba4-53c2-6570-ff1a-4e3a-6ca1-6709-4f20-5165-503c-7684-53c2-6570-5b9a-4e49-53c2-6570-503c-">3. 默认参数：为没有传入值的参数定义参数值</h2>
 <p>顾名思义，就是在定义函数时同时定义某个参数的默认值</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
@@ -126,7 +138,7 @@ foo(<span class="number">1</span>) <span class="comment"># (1, 1, 4)</span>
 foo(<span class="number">1</span>, c=<span class="number">2</span>) <span class="comment"># (1, 1, 2)</span>
 </pre></td></tr></table></figure>
 
-<h2>4. 可变参数：收集任意多关于位置或关键字的参数</h2>
+<h2 id="4-_-53ef-53d8-53c2-6570-ff1a-6536-96c6-4efb-610f-591a-5173-4e8e-4f4d-7f6e-6216-5173-952e-5b57-7684-53c2-6570-">4. 可变参数：收集任意多关于位置或关键字的参数</h2>
 <p>好吧，终于到了重点，写到这里感觉这篇文章根本不应该叫这个名字，哎，算了。</p>
 <p>在函数头用 * 定义的参数是用来收集调用者传进来的参数的，还是看代码吧。</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
@@ -139,7 +151,7 @@ foo(<span class="number">1</span>, c=<span class="number">2</span>) <span class=
 foo(<span class="number">1</span>, <span class="number">2</span>, a=<span class="number">3</span>, b=<span class="number">4</span>) <span class="comment"># ((1, 2), {'a': 3, 'b': 4})</span>
 </pre></td></tr></table></figure>
 
-<h2>5. 可变参数解包：传递任意多的基于位置或关键字的参数</h2>
+<h2 id="5-_-53ef-53d8-53c2-6570-89e3-5305-ff1a-4f20-9012-4efb-610f-591a-7684-57fa-4e8e-4f4d-7f6e-6216-5173-952e-5b57-7684-53c2-6570-">5. 可变参数解包：传递任意多的基于位置或关键字的参数</h2>
 <p>当在调用函数时用 * 时，这就意味着解包，就是把参数集合打散，然后传给函数。</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
@@ -205,8 +217,6 @@ bar(<span class="number">1</span>, <span class="number">2</span>, <span class="n
   </div>
 
         
-
-
       
       <div class="clearfix"></div>
     </footer>
@@ -216,9 +226,8 @@ bar(<span class="number">1</span>, <span class="number">2</span>, <span class="n
 
 <section id="comment">
   <h1 class="title">留言</h1>
-  <div class="ds-thread">
-    <noscript>Please enable JavaScript to view the comments powered by DuoShuo.</noscript>
-  </div>
+
+  
 </section>
 </div></div>
     <aside id="sidebar" class="alignright">
@@ -238,6 +247,10 @@ bar(<span class="number">1</span>, <span class="number">2</span>, <span class="n
   
     <li><a href="/tags/backbone/">backbone</a><small>1</small></li>
   
+    <li><a href="/tags/gentoo/">gentoo</a><small>1</small></li>
+  
+    <li><a href="/tags/linux/">linux</a><small>1</small></li>
+  
     <li><a href="/tags/nodejs/">nodejs</a><small>1</small></li>
   
     <li><a href="/tags/openwrt/">openwrt</a><small>1</small></li>
@@ -256,7 +269,7 @@ bar(<span class="number">1</span>, <span class="number">2</span>, <span class="n
   </div>
   <footer id="footer" class="inner"><div class="alignleft">
   
-  &copy; 2013 jKey Lu
+  &copy; 2014 jKey Lu
   
 </div>
 <div class="clearfix"></div></footer>
@@ -264,19 +277,6 @@ bar(<span class="number">1</span>, <span class="number">2</span>, <span class="n
 <script src="/js/jquery.imagesloaded.min.js"></script>
 <script src="/js/gallery.js"></script>
 
-
-<script type="text/javascript">
-var duoshuoQuery = {short_name:"blogjkeylu"};
-
-(function() {
-  var ds = document.createElement('script');
-  ds.type = 'text/javascript';ds.async = true;
-  ds.src = 'http://static.duoshuo.com/embed.js';
-  ds.charset = 'UTF-8';
-  (document.getElementsByTagName('head')[0] 
-  || document.getElementsByTagName('body')[0]).appendChild(ds);
-})();
-</script>
 
 
 

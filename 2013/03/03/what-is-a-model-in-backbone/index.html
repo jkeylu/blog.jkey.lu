@@ -18,7 +18,7 @@ Models are the heart of any JavaScript application, containing the interactive d
 5
 var Person = Backbone.Model.extend({
     initialize: function () {
-        alert('Welcome to this world');
+        alert(&#39;Welcome to this world&#39;);
     }
 });
 
@@ -74,6 +74,18 @@ var Person = Backbone.Model.extend({
   <div id="content" class="inner">
     <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
   
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
   <div class="post-content">
     <header>
       
@@ -108,7 +120,7 @@ var Person = Backbone.Model.extend({
 <p>所以 <em>initialize()</em> 会在初始化 model 为一个新的实例时被触发（models, collections 和 views 都是一样的）。当然你可以在写你的 model 时不写初始化函数，但是你会发现你会很平凡的使用它。</p>
 <a id="more"></a>
 
-<h2>设置属性</h2>
+<h2 id="-8bbe-7f6e-5c5e-6027-">设置属性</h2>
 <p>然后我们想在实例化一个 model 时传递一些参数给它。</p>
 <figure class="highlight lang-javascript"><table><tr><td class="gutter"><pre>1
 2
@@ -133,7 +145,7 @@ person.set({name: <span class="string">'Thomas'</span>, age: <span class="number
 </pre></td></tr></table></figure>
 
 <p>所以调用 <em>model.set()</em> 和给构造函数传递一个 JavaScript 对象的效果是相同的。当我们设置了 models 的属性后，我们接下来看看如何去获取它们。</p>
-<h2>获取属性</h2>
+<h2 id="-83b7-53d6-5c5e-6027-">获取属性</h2>
 <p>使用 <em>model.get()</em> 方法来获取 model 实例的属性。</p>
 <figure class="highlight lang-javascript"><table><tr><td class="gutter"><pre>1
 2
@@ -159,7 +171,7 @@ person.set({name: <span class="string">'Thomas'</span>, age: <span class="number
 <span class="keyword">var</span> child = person.get(<span class="string">'child'</span>); <span class="comment">// 'Ryan'</span>
 </pre></td></tr></table></figure>
 
-<h2>设置 model 的默认值</h2>
+<h2 id="-8bbe-7f6e-_model_-7684-9ed8-8ba4-503c-">设置 model 的默认值</h2>
 <p>有时候你想实例化 model 后就有默认值。其实，这也很简单，只要在你定义 model 时设置名字为 ‘defaults’ 的属性。</p>
 <figure class="highlight lang-javascript"><table><tr><td class="gutter"><pre>1
 2
@@ -195,7 +207,7 @@ person.set({name: <span class="string">'Thomas'</span>, age: <span class="number
 <span class="keyword">var</span> child = person.get(<span class="string">'child'</span>); <span class="comment">// 'Ryan'</span>
 </pre></td></tr></table></figure>
 
-<h2>操作 model 属性</h2>
+<h2 id="-64cd-4f5c-_model_-5c5e-6027-">操作 model 属性</h2>
 <p>在 models 中可以自定义方法来操作相关属性。默认所有方法都是公共可访问的。</p>
 <figure class="highlight lang-javascript"><table><tr><td class="gutter"><pre>1
 2
@@ -234,7 +246,7 @@ person.adopt(<span class="string">'John Resig'</span>);
 </pre></td></tr></table></figure>
 
 <p>显而易见，我们能用自定义方法来实现 get/set 操作，也可以执行一些其他会使用到 model 中属性的计算。</p>
-<h2>监听 model 中值改变的事件</h2>
+<h2 id="-76d1-542c-_model_-4e2d-503c-6539-53d8-7684-4e8b-4ef6-">监听 model 中值改变的事件</h2>
 <figure class="highlight lang-javascript"><table><tr><td class="gutter"><pre>1
 2
 3
@@ -270,7 +282,7 @@ person.set({name: <span class="string">'Stewie Griffin'</span>}); <span class="c
 </pre></td></tr></table></figure>
 
 <p>可以看到我们可以为个别属性单独绑定事件监听者，或者直接 <code>this.on(&#39;change&#39;, function (model) {});</code> 来监听所有属性改变的事件。</p>
-<h2>与服务器交互</h2>
+<h2 id="-4e0e-670d-52a1-5668-4ea4-4e92-">与服务器交互</h2>
 <p>Models 是用来描述服务器端返回的数据和你对 RESTful URL 发送数据时的操作。</p>
 <p>models 中属性 <code>id</code> 应该与数据库中映射的<a href="http://zh.wikipedia.org/wiki/%E5%85%B3%E7%B3%BB%E9%94%AE#.E4.BB.A3.E7.90.86.E9.8D.B5" target="_blank">代理键</a>相对应，一般我们都直接用主键，可以快速索引到我们要的数据。</p>
 <p>假设我们的 mysql 数据库上有一张 <code>Users</code> 表，这张表中有三个字段，分别为 <code>id</code>, <code>name</code>, <code>email</code>。</p>
@@ -293,7 +305,7 @@ person.set({name: <span class="string">'Stewie Griffin'</span>}); <span class="c
 });
 </pre></td></tr></table></figure>
 
-<h3>创建一个新的 model</h3>
+<h3 id="-521b-5efa-4e00-4e2a-65b0-7684-_model">创建一个新的 model</h3>
 <figure class="highlight lang-javascript"><table><tr><td class="gutter"><pre>1
 2
 3
@@ -340,7 +352,7 @@ user.save(userDetails, {
 
 <p>我们数据库表中就有了一行数据:</p>
 <p>1, ‘Thomas’, ‘thomasalwyndavis@gmail.com’</p>
-<h3>获取一个 model 实例</h3>
+<h3 id="-83b7-53d6-4e00-4e2a-_model_-5b9e-4f8b-">获取一个 model 实例</h3>
 <p>现在我们数据表中就有了一条 user 的数据，我们就能够从服务器上获取了。从上面的例子中我们知道我们数据库中有一条 <code>id</code> 为 1 的数据行。</p>
 <p>如果用 <code>id</code> 来实例化一个 model, Backbone.js 会自动请求 <code>urlRoot + &#39;/id&#39;</code>（遵循 RESTful 约定）。</p>
 <figure class="highlight lang-javascript"><table><tr><td class="gutter"><pre>1
@@ -365,7 +377,7 @@ user.fetch({
 });
 </pre></td></tr></table></figure>
 
-<h3>更新一个 model</h3>
+<h3 id="-66f4-65b0-4e00-4e2a-_model">更新一个 model</h3>
 <p>现在我们有了一个 model，并且这个 model 中的数据也存在于数据库中，这时我们就可以用 PUT 请求来执行更新操作。我们依旧调用 <code>save</code> 函数保存更新数据，这时 Backbone.js 会很智能的用 PUT 请求来代替 POST 请求如果在 <code>id</code> 设置了的情况下（遵循 RESTful 约定）。</p>
 <figure class="highlight lang-javascript"><table><tr><td class="gutter"><pre>1
 2
@@ -399,7 +411,7 @@ user.save({name: <span class="string">'Davis'</span>}, {
 });
 </pre></td></tr></table></figure>
 
-<h3>删除一个 model</h3>
+<h3 id="-5220-9664-4e00-4e2a-_model">删除一个 model</h3>
 <p>当我们有一个设置了 <code>id</code> 的 model，并且知道服务器上有一条与这个 <code>id</code> 对应的数据，那么如果我们想把它从数据库中删除时就可以调用 <code>destroy</code> 函数。</p>
 <p><code>destroy</code> 会发送 DELETE /user/id 的请求（遵循 RESTful 约定）。</p>
 <figure class="highlight lang-javascript"><table><tr><td class="gutter"><pre>1
@@ -432,7 +444,7 @@ user.destroy({
 });
 </pre></td></tr></table></figure>
 
-<h3>提示和小窍门</h3>
+<h3 id="-63d0-793a-548c-5c0f-7a8d-95e8-">提示和小窍门</h3>
 <p><em>获取所有当前属性</em></p>
 <figure class="highlight lang-javascript"><table><tr><td class="gutter"><pre>1
 2
@@ -503,7 +515,7 @@ person.set({name: <span class="string">'Mary Poppins'</span>, age: -<span class=
 person.set({name: <span class="string">'Dr Manhatten'</span>, age: -<span class="number">1</span>});
 </pre></td></tr></table></figure>
 
-<h2>我碰到的问题</h2>
+<h2 id="-6211-78b0-5230-7684-95ee-9898-">我碰到的问题</h2>
 <p>我用 <code>fetch</code> 来获取数据时，服务器端返回的数据不是完全一致的，这时候我就要重写 <code>parse</code> 函数。</p>
 <figure class="highlight lang-javascript"><table><tr><td class="gutter"><pre>1
 2
@@ -528,7 +540,7 @@ person.set({name: <span class="string">'Dr Manhatten'</span>, age: -<span class=
 {success: true, user: {id: 1, name: 'jKey', email: 'hello.world@gmail.com'}}
 */</span>
 <span class="keyword">var</span> UserModel = Backbone.Model.extend({
-    parse: <span class="keyword">function</span>(resp, options) {
+    parse: <span class="function"><span class="keyword">function</span><span class="params">(resp, options)</span> {</span>
         <span class="keyword">return</span> resp.user;
     }
 });
@@ -560,9 +572,9 @@ bill.on(<span class="string">'change:name'</span>, <span class="function"><span 
 bill.set({name: <span class="string">'Bill Jones'</span>});
 </pre></td></tr></table></figure>
 
-<h2>关于本文</h2>
+<h2 id="-5173-4e8e-672c-6587-">关于本文</h2>
 <p>为了学习 Backbone.js，网上找到了 <a href="http://backbonetutorials.com/" target="_blank"><a href="http://backbonetutorials.com/">http://backbonetutorials.com/</a></a> 这个网站。所以，边翻译边学，记录下来也是为了加深记忆。</p>
-<h2>相关链接</h2>
+<h2 id="-76f8-5173-94fe-63a5-">相关链接</h2>
 <p><a href="http://backbonetutorials.com/what-is-a-model/" target="_blank">What is a model?</a></p>
 <p><a href="http://backbonejs.org/#Model" target="_blank">Backbone.Model</a></p>
 <p>基于版本：<a href="https://github.com/thomasdavis/backbonetutorials/tree/9e4aba0af8b56538e6cdda034770c4971a43c181" target="_blank">9e4aba0af8</a></p>
@@ -579,8 +591,6 @@ bill.set({name: <span class="string">'Bill Jones'</span>});
   </div>
 
         
-
-
       
       <div class="clearfix"></div>
     </footer>
@@ -590,9 +600,8 @@ bill.set({name: <span class="string">'Bill Jones'</span>});
 
 <section id="comment">
   <h1 class="title">留言</h1>
-  <div class="ds-thread">
-    <noscript>Please enable JavaScript to view the comments powered by DuoShuo.</noscript>
-  </div>
+
+  
 </section>
 </div></div>
     <aside id="sidebar" class="alignright">
@@ -612,6 +621,10 @@ bill.set({name: <span class="string">'Bill Jones'</span>});
   
     <li><a href="/tags/backbone/">backbone</a><small>1</small></li>
   
+    <li><a href="/tags/gentoo/">gentoo</a><small>1</small></li>
+  
+    <li><a href="/tags/linux/">linux</a><small>1</small></li>
+  
     <li><a href="/tags/nodejs/">nodejs</a><small>1</small></li>
   
     <li><a href="/tags/openwrt/">openwrt</a><small>1</small></li>
@@ -630,7 +643,7 @@ bill.set({name: <span class="string">'Bill Jones'</span>});
   </div>
   <footer id="footer" class="inner"><div class="alignleft">
   
-  &copy; 2013 jKey Lu
+  &copy; 2014 jKey Lu
   
 </div>
 <div class="clearfix"></div></footer>
@@ -638,19 +651,6 @@ bill.set({name: <span class="string">'Bill Jones'</span>});
 <script src="/js/jquery.imagesloaded.min.js"></script>
 <script src="/js/gallery.js"></script>
 
-
-<script type="text/javascript">
-var duoshuoQuery = {short_name:"blogjkeylu"};
-
-(function() {
-  var ds = document.createElement('script');
-  ds.type = 'text/javascript';ds.async = true;
-  ds.src = 'http://static.duoshuo.com/embed.js';
-  ds.charset = 'UTF-8';
-  (document.getElementsByTagName('head')[0] 
-  || document.getElementsByTagName('body')[0]).appendChild(ds);
-})();
-</script>
 
 
 

@@ -78,6 +78,18 @@ protocol 指定实际使用的传输协议。最常见的就是 IPPROTO_TCP, IPP
   <div id="content" class="inner">
     <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
   
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
   <div class="post-content">
     <header>
       
@@ -93,11 +105,11 @@ protocol 指定实际使用的传输协议。最常见的就是 IPPROTO_TCP, IPP
     <div class="entry">
       
         <p>这几天看了一下 Linux 上的 socket 编程，把主要几个 socket 编程用到的函数研究了一下，并记录下来备忘。</p>
-<h2>socket()</h2>
+<h2 id="socket-28-29-">socket()</h2>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
-</pre></td><td class="code"><pre><span class="preprocessor">#include &lt;sys/socket.h&gt;</span>
-<span class="keyword">int</span> socket(<span class="keyword">int</span> domain, <span class="keyword">int</span> type, <span class="keyword">int</span> protocol);
+</pre></td><td class="code"><pre>#<span class="keyword">include</span> &lt;sys/socket.h&gt;
+<span class="built_in">int</span> socket(<span class="built_in">int</span> domain, <span class="built_in">int</span> <span class="class"><span class="keyword">type</span>, <span class="title">int</span> <span class="title">protocol</span>);</span>
 </pre></td></tr></table></figure>
 
 <ul>
@@ -116,7 +128,7 @@ protocol 指定实际使用的传输协议。最常见的就是 IPPROTO_TCP, IPP
 <p>调用 socket() 函数后，成功会返回文件描述符，失败则返回 -1。</p>
 <a id="more"></a>
 
-<h2>bind()</h2>
+<h2 id="bind-28-29-">bind()</h2>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 3
@@ -134,7 +146,7 @@ protocol 指定实际使用的传输协议。最常见的就是 IPPROTO_TCP, IPP
 <li><p><strong>address_len</strong> sockaddr 结构的长度</p>
 </li>
 </ul>
-<h2>listen()</h2>
+<h2 id="listen-28-29-">listen()</h2>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 </pre></td><td class="code"><pre><span class="comment">#include &lt;sys/socket.h&gt;</span>
@@ -149,7 +161,7 @@ protocol 指定实际使用的传输协议。最常见的就是 IPPROTO_TCP, IPP
 </li>
 </ul>
 <p>如果成功监听返回 0，否则返回 -1 。</p>
-<h2>accept()</h2>
+<h2 id="accept-28-29-">accept()</h2>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 3
@@ -169,7 +181,7 @@ protocol 指定实际使用的传输协议。最常见的就是 IPPROTO_TCP, IPP
 </ul>
 <p>返回新的套接字描述符，出错返回-1。进一步的通信必须通过这个套接字。</p>
 <p>Datagram 套接字不要求用accept()处理，因为接收方可能用监听套接字立即处理这个请求。</p>
-<h2>connect()</h2>
+<h2 id="connect-28-29-">connect()</h2>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 3
@@ -180,13 +192,14 @@ protocol 指定实际使用的传输协议。最常见的就是 IPPROTO_TCP, IPP
 
 <p>connect() 系统调用为一个套接字设置连接，参数有文件描述符和主机地址。</p>
 <p>某些类型的套接字是无连接的，大多数是 UDP 协议。对于这些套接字，连接时这样的：默认发送和接收数据的主机由给定的地址确定，可以使用 send() 和 recv()。返回 -1 表示出错，0 表示成功。</p>
-<h2>socket 实例</h2>
+<h2 id="socket_-5b9e-4f8b-">socket 实例</h2>
 <p><em>client.c 文件</em></p>
 <script src="https://gist.github.com/jkeylu/5275687.js?file=client.c"></script>
 
 
 <p><em>server.c 文件</em></p>
 <script src="https://gist.github.com/jkeylu/5275687.js?file=server.c"></script>
+
 
       
     </div>
@@ -200,8 +213,6 @@ protocol 指定实际使用的传输协议。最常见的就是 IPPROTO_TCP, IPP
   </div>
 
         
-
-
       
       <div class="clearfix"></div>
     </footer>
@@ -211,9 +222,8 @@ protocol 指定实际使用的传输协议。最常见的就是 IPPROTO_TCP, IPP
 
 <section id="comment">
   <h1 class="title">留言</h1>
-  <div class="ds-thread">
-    <noscript>Please enable JavaScript to view the comments powered by DuoShuo.</noscript>
-  </div>
+
+  
 </section>
 </div></div>
     <aside id="sidebar" class="alignright">
@@ -233,6 +243,10 @@ protocol 指定实际使用的传输协议。最常见的就是 IPPROTO_TCP, IPP
   
     <li><a href="/tags/backbone/">backbone</a><small>1</small></li>
   
+    <li><a href="/tags/gentoo/">gentoo</a><small>1</small></li>
+  
+    <li><a href="/tags/linux/">linux</a><small>1</small></li>
+  
     <li><a href="/tags/nodejs/">nodejs</a><small>1</small></li>
   
     <li><a href="/tags/openwrt/">openwrt</a><small>1</small></li>
@@ -251,7 +265,7 @@ protocol 指定实际使用的传输协议。最常见的就是 IPPROTO_TCP, IPP
   </div>
   <footer id="footer" class="inner"><div class="alignleft">
   
-  &copy; 2013 jKey Lu
+  &copy; 2014 jKey Lu
   
 </div>
 <div class="clearfix"></div></footer>
@@ -259,19 +273,6 @@ protocol 指定实际使用的传输协议。最常见的就是 IPPROTO_TCP, IPP
 <script src="/js/jquery.imagesloaded.min.js"></script>
 <script src="/js/gallery.js"></script>
 
-
-<script type="text/javascript">
-var duoshuoQuery = {short_name:"blogjkeylu"};
-
-(function() {
-  var ds = document.createElement('script');
-  ds.type = 'text/javascript';ds.async = true;
-  ds.src = 'http://static.duoshuo.com/embed.js';
-  ds.charset = 'UTF-8';
-  (document.getElementsByTagName('head')[0] 
-  || document.getElementsByTagName('body')[0]).appendChild(ds);
-})();
-</script>
 
 
 

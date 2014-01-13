@@ -70,6 +70,18 @@ helloworld/
   <div id="content" class="inner">
     <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
   
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
   <div class="post-content">
     <header>
       
@@ -94,10 +106,10 @@ helloworld/
 6
 </pre></td><td class="code"><pre>helloworld/
     helloworld/
-        __init__<span class="variable">.py</span>
-        foo<span class="variable">.py</span>
-    setup<span class="variable">.py</span>
-    README<span class="variable">.md</span>
+        __init__<span class="preprocessor">.py</span>
+        foo<span class="preprocessor">.py</span>
+    setup<span class="preprocessor">.py</span>
+    README<span class="preprocessor">.md</span>
 </pre></td></tr></table></figure>
 
 <a id="more"></a>
@@ -162,18 +174,18 @@ distutils.core.setup(
 9
 </pre></td><td class="code"><pre>helloworld/
     helloworld/
-        __inti__<span class="variable">.py</span>
-        foo<span class="variable">.py</span>
+        __inti__<span class="preprocessor">.py</span>
+        foo<span class="preprocessor">.py</span>
     dist/
-        helloworld-<span class="number">0.1</span><span class="variable">.zip</span>
+        helloworld-<span class="number">0.1</span><span class="preprocessor">.zip</span>
     MANIFEST
-    setup<span class="variable">.py</span>
-    README<span class="variable">.md</span>
+    setup<span class="preprocessor">.py</span>
+    README<span class="preprocessor">.md</span>
 </pre></td></tr></table></figure>
 
 <p>接下来我们用 pip 安装刚刚打包完成的包</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre><span class="title">pip</span> install dist/helloworld-<span class="number">0</span>.<span class="number">1</span>.zip
+</pre></td><td class="code"><pre><span class="comment">pip</span> <span class="comment">install</span> <span class="comment">dist/helloworld</span><span class="literal">-</span><span class="comment">0</span><span class="string">.</span><span class="comment">1</span><span class="string">.</span><span class="comment">zip</span>
 </pre></td></tr></table></figure>
 
 <p>在 IDEL 中验证一下刚安装的包是否成功，很显然是成功了</p>
@@ -187,13 +199,13 @@ distutils.core.setup(
 <p>在项目文件夹中添加 MANIFEST.in 文件，是不是和打包命令自动生成的 MANIFEST 文件有点像，多了个文件扩展名，其实 MANIFEST.in 是 MANIFEST 的模板。关于这个文件的详细信息可以看着里 <a href="http://docs.python.org/2/distutils/sourcedist.html#the-manifest-in-template" target="_blank">The MANIFEST.in template</a></p>
 <p>下面是 MANIFEST.in 中的内容</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre><span class="preprocessor"><span class="keyword">include</span> README.md
+</pre></td><td class="code"><pre><span class="keyword">include</span> <span class="constant">README</span>.md
 </pre></td></tr></table></figure>
 
 <p>重新打包一下，helloworld-0.1.zip 中就包含 README.md 文件了。</p>
 <p>可能你会注意到我打包后生成的文件是 zip 压缩包，这是因为我在 windows 上大的包，如果在 linux 上打包，默认生成的是 tar.gz 的压缩包。问题：如果想在 windows 上也生成 tar.gz 的包该如何？</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre><span class="comment">python</span> <span class="comment">setup</span>.<span class="comment">py</span> <span class="comment">sdist</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">formats=gztar
+</pre></td><td class="code"><pre><span class="comment">python</span> <span class="comment">setup</span><span class="string">.</span><span class="comment">py</span> <span class="comment">sdist</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">formats=gztar</span>
 </pre></td></tr></table></figure>
 
 <p>更多关于生成的格式看这里 <a href="http://docs.python.org/2/distutils/sourcedist.html#creating-a-source-distribution" target="_blank">Create a Source Distribution</a></p>
@@ -210,8 +222,6 @@ distutils.core.setup(
   </div>
 
         
-
-
       
       <div class="clearfix"></div>
     </footer>
@@ -221,9 +231,8 @@ distutils.core.setup(
 
 <section id="comment">
   <h1 class="title">留言</h1>
-  <div class="ds-thread">
-    <noscript>Please enable JavaScript to view the comments powered by DuoShuo.</noscript>
-  </div>
+
+  
 </section>
 </div></div>
     <aside id="sidebar" class="alignright">
@@ -243,6 +252,10 @@ distutils.core.setup(
   
     <li><a href="/tags/backbone/">backbone</a><small>1</small></li>
   
+    <li><a href="/tags/gentoo/">gentoo</a><small>1</small></li>
+  
+    <li><a href="/tags/linux/">linux</a><small>1</small></li>
+  
     <li><a href="/tags/nodejs/">nodejs</a><small>1</small></li>
   
     <li><a href="/tags/openwrt/">openwrt</a><small>1</small></li>
@@ -261,7 +274,7 @@ distutils.core.setup(
   </div>
   <footer id="footer" class="inner"><div class="alignleft">
   
-  &copy; 2013 jKey Lu
+  &copy; 2014 jKey Lu
   
 </div>
 <div class="clearfix"></div></footer>
@@ -269,19 +282,6 @@ distutils.core.setup(
 <script src="/js/jquery.imagesloaded.min.js"></script>
 <script src="/js/gallery.js"></script>
 
-
-<script type="text/javascript">
-var duoshuoQuery = {short_name:"blogjkeylu"};
-
-(function() {
-  var ds = document.createElement('script');
-  ds.type = 'text/javascript';ds.async = true;
-  ds.src = 'http://static.duoshuo.com/embed.js';
-  ds.charset = 'UTF-8';
-  (document.getElementsByTagName('head')[0] 
-  || document.getElementsByTagName('body')[0]).appendChild(ds);
-})();
-</script>
 
 
 

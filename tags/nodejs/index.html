@@ -60,6 +60,18 @@
   
     <article class="post">
   
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
   <div class="post-content">
     <header>
       
@@ -77,7 +89,7 @@
         <p>有时候仅仅用 javascript 并不能够实现我们想要的功能，比如说我最近买了一块 nokia 5110 的显示屏，想连在我的树莓派上显示一些有用的信息。而这块显示屏是 spi 接口的，树莓派上也是有 SPI 接口。但是我要对 SPI 接口写入信息传到显示屏上，就必须要用 c++ 来写，不是很方便。所以我就想写一个 nodejs 的 addon，最后可以实现 javascript 来与 SPI 总线进行通信。</p>
 <p>所以，就要学习如何写一个 nodejs 的 addon，这篇文章完全参考 <a href="http://nodejs.org/api/addons.html" target="_blank"><a href="http://nodejs.org/api/addons.html">http://nodejs.org/api/addons.html</a></a></p>
 <p>下面所有例子的代码可以从 <a href="https://github.com/rvagg/node-addon-examples" target="_blank"><a href="https://github.com/rvagg/node-addon-examples">https://github.com/rvagg/node-addon-examples</a></a> 下载到。</p>
-<h2>Hello world</h2>
+<h2 id="Hello_world">Hello world</h2>
 <p>我们要写一个简单的模块，这个模块的 javascript 代码实现如下，目标是把他转换为 c++ 实现的 Addon。</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
 </pre></td><td class="code"><pre><span class="transposed_variable">exports.</span>hello = <span class="function"><span class="keyword">function</span> <span class="params">()</span> { <span class="title">return</span> '<span class="title">world</span>'; };</span>
@@ -104,23 +116,23 @@
 18
 19
 20
-</pre></td><td class="code"><pre><span class="preprocessor">#include &lt;node.h&gt;</span>
-<span class="preprocessor">#include &lt;v8.h&gt;</span>
+</pre></td><td class="code"><pre><span class="comment">#include &lt;node.h&gt;</span>
+<span class="comment">#include &lt;v8.h&gt;</span>
 
-<span class="keyword">using</span> <span class="class"><span class="keyword">namespace</span> <span class="title">v8</span>;
+using namespace v8;
 
 /**
- * "<span class="title">Method</span>" 的名字可以任取，可以换成 "<span class="title">Hello</span>"
- * 来对应 <span class="title">exports</span> 的名称
+ * <span class="string">"Method"</span> 的名字可以任取，可以换成 <span class="string">"Hello"</span>
+ * 来对应 <span class="built_in">exports</span> 的名称
  */
-<span class="title">Handle</span>&lt;<span class="title">Value</span>&gt; <span class="title">Method</span>(<span class="title">const</span> <span class="title">Arguments</span>& <span class="title">args</span>) {</span>
+Handle&lt;Value&gt; Method(<span class="reserved">const</span> Arguments& args) {
   HandleScope scope;
-  <span class="keyword">return</span> scope.Close(String::New(<span class="string">"world"</span>));
+  <span class="keyword">return</span> scope.Close(<span class="attribute">String</span>::New(<span class="string">"world"</span>));
 }
 
-<span class="keyword">void</span> Init(Handle&lt;<span class="built_in">Object</span>&gt; exports) {
-  exports-&gt;Set(String::NewSymbol(<span class="string">"hello"</span>),
-    FunctionTemplate::New(Method)-&gt;GetFunction());
+<span class="reserved">void</span> Init(Handle&lt;Object&gt; <span class="built_in">exports</span>) {
+  <span class="built_in">exports</span><span class="function">-&gt;</span>Set(<span class="attribute">String</span>::NewSymbol(<span class="string">"hello"</span>),
+    <span class="attribute">FunctionTemplate</span>::New<span class="function"><span class="params">(Method)</span>-&gt;</span>GetFunction());
 }
 
 NODE_MODULE(hello, Init)
@@ -129,7 +141,7 @@ NODE_MODULE(hello, Init)
 <p>所有的 Node addons 必须输出一个初始化函数：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
-</pre></td><td class="code"><pre>void Initialize(Handle<span class="tag">&lt;<span class="title">Object</span>&gt;</span> exports);
+</pre></td><td class="code"><pre><span class="keyword">void</span> Initialize(Handle&lt;<span class="built_in">Object</span>&gt; exports);
 NODE_MODULE(module_name, Initialize)
 </pre></td></tr></table></figure>
 
@@ -176,6 +188,10 @@ NODE_MODULE(module_name, Initialize)
   
     <li><a href="/tags/backbone/">backbone</a><small>1</small></li>
   
+    <li><a href="/tags/gentoo/">gentoo</a><small>1</small></li>
+  
+    <li><a href="/tags/linux/">linux</a><small>1</small></li>
+  
     <li><a href="/tags/nodejs/">nodejs</a><small>1</small></li>
   
     <li><a href="/tags/openwrt/">openwrt</a><small>1</small></li>
@@ -194,7 +210,7 @@ NODE_MODULE(module_name, Initialize)
   </div>
   <footer id="footer" class="inner"><div class="alignleft">
   
-  &copy; 2013 jKey Lu
+  &copy; 2014 jKey Lu
   
 </div>
 <div class="clearfix"></div></footer>
@@ -202,19 +218,6 @@ NODE_MODULE(module_name, Initialize)
 <script src="/js/jquery.imagesloaded.min.js"></script>
 <script src="/js/gallery.js"></script>
 
-
-<script type="text/javascript">
-var duoshuoQuery = {short_name:"blogjkeylu"};
-
-(function() {
-  var ds = document.createElement('script');
-  ds.type = 'text/javascript';ds.async = true;
-  ds.src = 'http://static.duoshuo.com/embed.js';
-  ds.charset = 'UTF-8';
-  (document.getElementsByTagName('head')[0] 
-  || document.getElementsByTagName('body')[0]).appendChild(ds);
-})();
-</script>
 
 
 

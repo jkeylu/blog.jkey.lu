@@ -64,6 +64,18 @@ dd if=archlinux-hf-2013-02-11.img of=/dev/sdb bs=1M
   <div id="content" class="inner">
     <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
   
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
   <div class="post-content">
     <header>
       
@@ -78,17 +90,17 @@ dd if=archlinux-hf-2013-02-11.img of=/dev/sdb bs=1M
     </header>
     <div class="entry">
       
-        <h2>安装系统</h2>
+        <h2 id="-5b89-88c5-7cfb-7edf-">安装系统</h2>
 <p>下载 Arch Linux ARM 系统镜像：<a href="http://www.raspberrypi.org/downloads" target="_blank"><a href="http://www.raspberrypi.org/downloads">http://www.raspberrypi.org/downloads</a></a></p>
 <p>解压出 .img 文件，然后使用以下命令把镜像写入 SD 卡中</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre><span class="title">dd</span> <span class="keyword">if</span>=archlinux-hf-<span class="number">2013</span>-<span class="number">02</span>-<span class="number">11.</span>img <span class="keyword">of</span>=/dev/sdb bs=<span class="number">1</span>M
+</pre></td><td class="code"><pre><span class="comment">dd</span> <span class="comment">if=archlinux</span><span class="literal">-</span><span class="comment">hf</span><span class="literal">-</span><span class="comment">2013</span><span class="literal">-</span><span class="comment">02</span><span class="literal">-</span><span class="comment">11</span><span class="string">.</span><span class="comment">img</span> <span class="comment">of=/dev/sdb</span> <span class="comment">bs=1M</span>
 </pre></td></tr></table></figure>
 
 <p>如果是 window 系统，可以下载 <a href="http://sourceforge.net/projects/win32diskimager/" target="_blank">Win32DiskImager</a> 来把镜像写入 SD 卡。</p>
 <a id="more"></a>
 
-<h2>设置内存</h2>
+<h2 id="-8bbe-7f6e-5185-5b58-">设置内存</h2>
 <p>由于主要把我的树莓派当作服务器用，所以没必要分配太多的 VIDEO RAM，可以设置/boot/config.txt：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
@@ -105,7 +117,7 @@ dd if=archlinux-hf-2013-02-11.img of=/dev/sdb bs=1M
 </pre></td></tr></table></figure>
 
 <p>更多关于 config.txt 文件的配置信息查看 <a href="http://elinux.org/RPiconfig" target="_blank"><a href="http://elinux.org/RPiconfig">http://elinux.org/RPiconfig</a></a></p>
-<h2>调整分区大小</h2>
+<h2 id="-8c03-6574-5206-533a-5927-5c0f-">调整分区大小</h2>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 </pre></td><td class="code"><pre>echo -e "d<span class="command">\n</span>2<span class="command">\nn</span><span class="command">\np</span><span class="command">\n</span><span class="command">\n</span><span class="command">\n</span><span class="command">\nw</span><span class="command">\n</span>" | fdisk /dev/mmcblk0
@@ -118,12 +130,12 @@ reboot
 </pre></td></tr></table></figure>
 
 <p>更多关于<a href="http://elinux.org/RPi_Resize_Flash_Partitions#Manually_resizing_the_SD_card_on_Raspberry_Pi" target="_blank">调整分区大小</a></p>
-<h2>系统设置</h2>
+<h2 id="-7cfb-7edf-8bbe-7f6e-">系统设置</h2>
 <ul>
 <li>设置时区</li>
 </ul>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre>timedatectl <span class="operator"><span class="keyword">set</span>-timezone Asia/Shanghai
+</pre></td><td class="code"><pre>timedatectl <span class="built_in">set</span><span class="attribute">-timezone</span> Asia<span class="subst">/</span>Shanghai
 </pre></td></tr></table></figure>
 
 <p>更多关于<a href="https://wiki.archlinux.org/index.php/Time#Time_Zone" target="_blank">时区设置</a></p>
@@ -131,7 +143,7 @@ reboot
 <li>设置 Hostname</li>
 </ul>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre>hostnamectl <span class="operator"><span class="keyword">set</span>-hostname rpi
+</pre></td><td class="code"><pre>hostnamectl <span class="built_in">set</span><span class="attribute">-hostname</span> rpi
 </pre></td></tr></table></figure>
 
 <p>更多关于 <a href="https://wiki.archlinux.org/index.php/Network_Configuration#Set_the_hostname" target="_blank">Hostname</a></p>
@@ -139,19 +151,19 @@ reboot
 <li>更新系统</li>
 </ul>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre><span class="title">pacman</span> -Syu
+</pre></td><td class="code"><pre><span class="comment">pacman</span> <span class="literal">-</span><span class="comment">Syu</span>
 </pre></td></tr></table></figure>
 
 <ul>
 <li>安装 Sudo</li>
 </ul>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre>pacman -S su<span class="operator"><span class="keyword">do</span>
+</pre></td><td class="code"><pre>pacman -S <span class="built_in">sudo</span>
 </pre></td></tr></table></figure>
 
 <p>配置 sudo，执行 <code>visudo</code>，去掉下面这句注释</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre>%wheel <span class="keyword">ALL</span>=(<span class="keyword">ALL</span>) <span class="keyword">ALL</span>
+</pre></td><td class="code"><pre><span class="tag">%<span class="title">wheel</span></span> ALL=(ALL) ALL
 </pre></td></tr></table></figure>
 
 <p>更多关于 <a href="https://wiki.archlinux.org/index.php/Sudo" target="_blank">Sudo</a></p>
@@ -161,7 +173,7 @@ reboot
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
 2
 </pre></td><td class="code"><pre><span class="comment">useradd</span> <span class="literal">-</span><span class="comment">m</span> <span class="literal">-</span><span class="comment">U</span> <span class="literal">-</span><span class="comment">G</span> <span class="comment">wheel</span> <span class="literal">-</span><span class="comment">s</span> <span class="comment">/bin/bash</span> <span class="comment">jkey</span>
-<span class="comment">passwd</span> <span class="comment">jkey
+<span class="comment">passwd</span> <span class="comment">jkey</span>
 </pre></td></tr></table></figure>
 
 <p>更多关于<a href="https://wiki.archlinux.org/index.php/Users_and_Groups#User_groups" target="_blank">用户和组</a></p>
@@ -179,7 +191,7 @@ PasswordAuthentication <span class="built_in">no</span>
 
 <p>锁住 root 用户</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre><span class="title">passwd</span> -l root
+</pre></td><td class="code"><pre>passwd <span class="operator">-l</span> root
 </pre></td></tr></table></figure>
 
 
@@ -190,8 +202,6 @@ PasswordAuthentication <span class="built_in">no</span>
         
         
         
-
-
       
       <div class="clearfix"></div>
     </footer>
@@ -201,9 +211,8 @@ PasswordAuthentication <span class="built_in">no</span>
 
 <section id="comment">
   <h1 class="title">留言</h1>
-  <div class="ds-thread">
-    <noscript>Please enable JavaScript to view the comments powered by DuoShuo.</noscript>
-  </div>
+
+  
 </section>
 </div></div>
     <aside id="sidebar" class="alignright">
@@ -223,6 +232,10 @@ PasswordAuthentication <span class="built_in">no</span>
   
     <li><a href="/tags/backbone/">backbone</a><small>1</small></li>
   
+    <li><a href="/tags/gentoo/">gentoo</a><small>1</small></li>
+  
+    <li><a href="/tags/linux/">linux</a><small>1</small></li>
+  
     <li><a href="/tags/nodejs/">nodejs</a><small>1</small></li>
   
     <li><a href="/tags/openwrt/">openwrt</a><small>1</small></li>
@@ -241,7 +254,7 @@ PasswordAuthentication <span class="built_in">no</span>
   </div>
   <footer id="footer" class="inner"><div class="alignleft">
   
-  &copy; 2013 jKey Lu
+  &copy; 2014 jKey Lu
   
 </div>
 <div class="clearfix"></div></footer>
@@ -249,19 +262,6 @@ PasswordAuthentication <span class="built_in">no</span>
 <script src="/js/jquery.imagesloaded.min.js"></script>
 <script src="/js/gallery.js"></script>
 
-
-<script type="text/javascript">
-var duoshuoQuery = {short_name:"blogjkeylu"};
-
-(function() {
-  var ds = document.createElement('script');
-  ds.type = 'text/javascript';ds.async = true;
-  ds.src = 'http://static.duoshuo.com/embed.js';
-  ds.charset = 'UTF-8';
-  (document.getElementsByTagName('head')[0] 
-  || document.getElementsByTagName('body')[0]).appendChild(ds);
-})();
-</script>
 
 
 

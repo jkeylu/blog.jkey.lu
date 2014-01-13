@@ -72,6 +72,18 @@ ln -s /mnt/sdb1/packages /opt">
   <div id="content" class="inner">
     <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
   
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
   <div class="post-content">
     <header>
       
@@ -101,7 +113,7 @@ ln -s /mnt/sdb1/packages /opt">
 <li>创建 /opt 软连接</li>
 </ul>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre><span class="title">ln</span> -s /mnt/sdb1/packages /opt
+</pre></td><td class="code"><pre>ln <span class="operator">-s</span> /mnt/sdb1/packages /opt
 </pre></td></tr></table></figure>
 
 <a id="more"></a>
@@ -135,7 +147,7 @@ export <span class="constant">LD_LIBRARY_PATH</span>=<span class="variable">$LD_
 <li>如果安装的包中有启动服务的脚本，可以在 /etc/init.d 中添加软连接</li>
 </ul>
 <figure class="highlight"><table><tr><td class="gutter"><pre>1
-</pre></td><td class="code"><pre>ln -s /opt/etc/init<span class="variable">.d</span>/nginx /etc/init<span class="variable">.d</span>/nginx
+</pre></td><td class="code"><pre>ln -s /opt/etc/init<span class="preprocessor">.d</span>/nginx /etc/init<span class="preprocessor">.d</span>/nginx
 </pre></td></tr></table></figure>
 
 <p>更多详细：<a href="http://wiki.openwrt.org/doc/techref/opkg#mount.point" target="_blank"><a href="http://wiki.openwrt.org/doc/techref/opkg#mount.point">http://wiki.openwrt.org/doc/techref/opkg#mount.point</a></a></p>
@@ -152,8 +164,6 @@ export <span class="constant">LD_LIBRARY_PATH</span>=<span class="variable">$LD_
   </div>
 
         
-
-
       
       <div class="clearfix"></div>
     </footer>
@@ -163,9 +173,8 @@ export <span class="constant">LD_LIBRARY_PATH</span>=<span class="variable">$LD_
 
 <section id="comment">
   <h1 class="title">留言</h1>
-  <div class="ds-thread">
-    <noscript>Please enable JavaScript to view the comments powered by DuoShuo.</noscript>
-  </div>
+
+  
 </section>
 </div></div>
     <aside id="sidebar" class="alignright">
@@ -185,6 +194,10 @@ export <span class="constant">LD_LIBRARY_PATH</span>=<span class="variable">$LD_
   
     <li><a href="/tags/backbone/">backbone</a><small>1</small></li>
   
+    <li><a href="/tags/gentoo/">gentoo</a><small>1</small></li>
+  
+    <li><a href="/tags/linux/">linux</a><small>1</small></li>
+  
     <li><a href="/tags/nodejs/">nodejs</a><small>1</small></li>
   
     <li><a href="/tags/openwrt/">openwrt</a><small>1</small></li>
@@ -203,7 +216,7 @@ export <span class="constant">LD_LIBRARY_PATH</span>=<span class="variable">$LD_
   </div>
   <footer id="footer" class="inner"><div class="alignleft">
   
-  &copy; 2013 jKey Lu
+  &copy; 2014 jKey Lu
   
 </div>
 <div class="clearfix"></div></footer>
@@ -211,19 +224,6 @@ export <span class="constant">LD_LIBRARY_PATH</span>=<span class="variable">$LD_
 <script src="/js/jquery.imagesloaded.min.js"></script>
 <script src="/js/gallery.js"></script>
 
-
-<script type="text/javascript">
-var duoshuoQuery = {short_name:"blogjkeylu"};
-
-(function() {
-  var ds = document.createElement('script');
-  ds.type = 'text/javascript';ds.async = true;
-  ds.src = 'http://static.duoshuo.com/embed.js';
-  ds.charset = 'UTF-8';
-  (document.getElementsByTagName('head')[0] 
-  || document.getElementsByTagName('body')[0]).appendChild(ds);
-})();
-</script>
 
 
 
